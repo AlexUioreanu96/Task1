@@ -8,5 +8,4 @@ data class crypto(
     val is_new: Boolean,
     val is_active: Boolean,
     val type: String
-) {
-}
+)

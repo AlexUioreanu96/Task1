@@ -3,7 +3,7 @@ package com.example.task1.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CoinDetailsModel(
+data class CoinDetailsDTO(
     @Expose
     var description: String? = "",
 
@@ -71,5 +71,8 @@ data class CoinDetailsModel(
     var type: String? = "",
 
     @Expose
-    var whitepaper: WhitepaperModel? = null
+    var whitepaper: WhitepaperModel? = null,
+
+    val contract: String? = "",
+    val platform: String? = ""
 )

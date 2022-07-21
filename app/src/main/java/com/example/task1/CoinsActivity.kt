@@ -49,5 +49,4 @@ class CoinsActivity : AppCompatActivity() {
             }
         }
     }
-
 }

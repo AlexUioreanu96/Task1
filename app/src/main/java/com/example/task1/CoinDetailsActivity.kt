@@ -25,12 +25,23 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         coin?.let {
             binding.apply {
-                txtRank.text = coin.rank.toString() + '.'
+                txtRank.text = "${coin.rank}."
                 txtName.text = coin.name
-                txtSymbol
+                txtSymbol.text = "(${coin.symbol})"
+                if (coin.isActive) txtIsActive.apply {
+                    text = "active"
+                    setTextColor(R.color.green)
+                } else txtIsActive.apply {
+                    text = "unactive"
+                    setTextColor(R.color.red)
+                }
+                txtDescription.text = coin.description
+                txtTmName1.text = coin.team[0].name
+                txtTmPosition1.text = coin.team[0].position
+                txtTmName2.text = coin.team[1].name
+                txtTmPosition2.text = coin.team[1].position
+
             }
         }
-
-
     }
 }

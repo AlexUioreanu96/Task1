@@ -2,7 +2,7 @@ package com.example.task1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.task1.FileUtilsModel.Companion.getList
+import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.databinding.ActivityCoinsBinding
 
 const val TAG = "MainActivity"

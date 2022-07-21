@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.task1.models
 
 data class CoinModel(
     val id: String,

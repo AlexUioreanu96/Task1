@@ -1,11 +1,13 @@
 package com.example.task1
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.databinding.ActivityCoinsBinding
 
 const val TAG = "MainActivity"
+const val ID = "ID"
 
 
 class CoinsActivity : AppCompatActivity() {
@@ -25,5 +27,22 @@ class CoinsActivity : AppCompatActivity() {
             binding.txt2.text = list[1].toString()
             binding.txt3.text = list[2].toString()
         }
+
+        binding.txt1.setOnClickListener {
+            val i = Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[0].id)
+            }
+        }
+        binding.txt2.setOnClickListener {
+            val i = Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[1].id)
+            }
+        }
+        binding.txt3.setOnClickListener {
+            val i = Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[2].id)
+            }
+        }
     }
+
 }

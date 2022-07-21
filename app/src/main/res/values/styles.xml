@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="myStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">32sp</item>
-        <item name="textFillColor">@color/orange</item>
+        <item name="android:color">@color/orange</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:padding">3dp</item>
     </style>
 </resources>

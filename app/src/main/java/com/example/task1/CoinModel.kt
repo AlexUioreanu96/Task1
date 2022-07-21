@@ -1,6 +1,6 @@
 package com.example.task1
 
-data class crypto(
+data class CoinModel(
     val id: String,
     val name: String,
     val symbol: String,
@@ -10,7 +10,7 @@ data class crypto(
     val type: String
 ) {
     override fun toString(): String {
-        return "crypto(id='$id', name='$name', symbol='$symbol', rank=$rank, is_new=$is_new, is_active=$is_active, type='$type')"
+        return "id='$id', name='$name', symbol='$symbol', rank=$rank, is_new=$is_new, is_active=$is_active, type='$type'"
     }
 }
 

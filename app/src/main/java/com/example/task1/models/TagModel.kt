@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 
 data class TagModel(
     @SerializedName("coin_counter")
-    var coinCounter: Long? = 0,
+    var coinCounter: Long = 0,
 
     @SerializedName("ico_counter")
-    var icoCounter: Long? = 0,
+    var icoCounter: Long = 0,
 
     @Expose
-    var id: String? = "",
+    var id: String = "",
 
     @Expose
-    var name: String? = "",
+    var name: String = "",
 )

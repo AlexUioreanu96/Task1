@@ -18,7 +18,6 @@ class CoinsActivity : AppCompatActivity() {
         binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val list = getList(this, R.raw.list2)
 

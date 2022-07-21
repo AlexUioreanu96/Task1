@@ -31,52 +31,45 @@
         android:layout_marginStart="16dp"
         android:text="1"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="60sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtName"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtName"
-        android:layout_width="150dp"
-        android:layout_height="65dp"
+        android:layout_width="266dp"
+        android:layout_height="71dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:textSize="60sp"
         app:layout_constraintStart_toEndOf="@+id/txtRank"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <TextView
         android:id="@+id/txtSymbol"
-        android:layout_width="115dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/medium"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRank" />
-
-    <TextView
-        android:id="@+id/txtIsActive"
-        android:layout_width="64dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="74dp"
         android:layout_margin="@dimen/medium"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="92dp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:textSize="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSymbol" />
 
@@ -86,7 +79,7 @@
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="@string/tags"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
@@ -108,7 +101,7 @@
         android:layout_width="379dp"
         android:layout_height="52dp"
         android:layout_margin="@dimen/medium"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="@string/team_members"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,12 +110,12 @@
     <TextView
         android:id="@+id/txtTmName1"
         android:layout_width="345dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTeamMembers" />
 
@@ -140,21 +133,23 @@
 
     <TextView
         android:id="@+id/txtTmPosition1"
-        android:layout_width="58dp"
-        android:layout_height="21dp"
+        android:layout_width="125dp"
+        android:layout_height="19dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
+        android:textStyle="italic"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTmName1" />
 
     <TextView
         android:id="@+id/txtTmName2"
         android:layout_width="345dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="26dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:textSize="30sp"
         android:text="TextView"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +167,7 @@
         android:id="@+id/gridView"
         android:layout_width="331dp"
         android:layout_height="67dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,15 +175,27 @@
 
     <TextView
         android:id="@+id/txtTmPosition2"
-        android:layout_width="58dp"
-        android:layout_height="21dp"
+        android:layout_width="134dp"
+        android:layout_height="18dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTmName2" />
+
+    <TextView
+        android:id="@+id/txtIsActive"
+        android:layout_width="88dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

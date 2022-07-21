@@ -1,5 +1,6 @@
 package com.example.task1
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.task1.databinding.ActivityCoinDetailsBinding
@@ -15,7 +16,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.hide()
 
         var extras: String? = intent.getStringExtra(ID)
 
@@ -30,17 +31,16 @@ class CoinDetailsActivity : AppCompatActivity() {
                 txtSymbol.text = "(${coin.symbol})"
                 if (coin.isActive) txtIsActive.apply {
                     text = "active"
-                    setTextColor(R.color.green)
+                    setTextColor(Color.GREEN)
                 } else txtIsActive.apply {
                     text = "unactive"
-                    setTextColor(R.color.red)
+                    setTextColor(Color.RED)
                 }
                 txtDescription.text = coin.description
                 txtTmName1.text = coin.team[0].name
                 txtTmPosition1.text = coin.team[0].position
                 txtTmName2.text = coin.team[1].name
                 txtTmPosition2.text = coin.team[1].position
-
             }
         }
     }

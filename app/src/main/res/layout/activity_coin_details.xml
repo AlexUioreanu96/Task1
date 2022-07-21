@@ -167,7 +167,7 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="331dp"
-        android:layout_height="67dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"

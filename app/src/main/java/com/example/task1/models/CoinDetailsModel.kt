@@ -32,10 +32,10 @@ data class CoinDetailsModel(
     var lastDataAt: String? = "",
 
     @Expose
-    var links: Links? = null,
+    var links: LinksModel? = null,
 
     @SerializedName("links_extended")
-    var linksExtended: List<LinksExtended>? = null,
+    var linksExtended: List<LinksExtended>? = emptyList(),
 
     @Expose
     var message: String? = "",
@@ -62,14 +62,14 @@ data class CoinDetailsModel(
     var symbol: String? = "",
 
     @Expose
-    var tags: List<Tag>? = null,
+    var tags: List<TagModel>? = emptyList(),
 
     @Expose
-    var team: List<Team>? = null,
+    var team: List<TeamModel>? = emptyList(),
 
     @Expose
     var type: String? = "",
 
     @Expose
-    var whitepaper: Whitepaper? = null
+    var whitepaper: WhitepaperModel? = null
 )

@@ -2,10 +2,10 @@ package com.example.task1.models
 
 import com.google.gson.annotations.Expose
 
-class Whitepaper {
+data class WhitepaperModel(
     @Expose
-    var link: String? = null
+    var link: String? = "",
 
     @Expose
-    var thumbnail: String? = null
-}
+    var thumbnail: String? = ""
+)

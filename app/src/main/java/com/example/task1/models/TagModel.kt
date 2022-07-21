@@ -3,16 +3,16 @@ package com.example.task1.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Tag {
+data class TagModel(
     @SerializedName("coin_counter")
-    var coinCounter: Long? = null
+    var coinCounter: Long? = 0,
 
     @SerializedName("ico_counter")
-    var icoCounter: Long? = null
+    var icoCounter: Long? = 0,
 
     @Expose
-    var id: String? = null
+    var id: String? = "",
 
     @Expose
-    var name: String? = null
-}
+    var name: String? = "",
+)

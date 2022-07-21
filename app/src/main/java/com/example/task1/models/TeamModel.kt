@@ -3,13 +3,13 @@ package com.example.task1.models
 import com.google.gson.annotations.Expose
 
 
-class Team {
+data class TeamModel(
     @Expose
-    var id: String? = null
+    var id: String? = "",
 
     @Expose
-    var name: String? = null
+    var name: String? = "",
 
     @Expose
-    var position: String? = null
-}
+    var position: String? = ""
+)

@@ -31,6 +31,7 @@
         android:layout_margin="@dimen/medium"
         android:layout_weight="0.33"
         android:elevation="@dimen/medium"
+        android:clickable="true"
         app:cardCornerRadius="@dimen/medium">
 
         <TextView
@@ -50,6 +51,7 @@
         android:layout_margin="@dimen/medium"
         android:layout_weight="0.33"
         android:elevation="@dimen/medium"
+        android:clickable="true"
         app:cardCornerRadius="@dimen/medium">
 
         <TextView

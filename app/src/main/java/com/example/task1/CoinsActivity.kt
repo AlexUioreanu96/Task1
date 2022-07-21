@@ -19,6 +19,8 @@ class CoinsActivity : AppCompatActivity() {
         binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val list = getList(this, R.raw.list2)
 
 
@@ -29,19 +31,19 @@ class CoinsActivity : AppCompatActivity() {
         }
 
         binding.txt1.setOnClickListener {
-            val i = Intent(this, CoinDetailsActivity::class.java).also {
+            Intent(this, CoinDetailsActivity::class.java).also {
                 it.putExtra(ID, list[0].id)
                 startActivity(it)
             }
         }
         binding.txt2.setOnClickListener {
-            val i = Intent(this, CoinDetailsActivity::class.java).also {
+            Intent(this, CoinDetailsActivity::class.java).also {
                 it.putExtra(ID, list[1].id)
                 startActivity(it)
             }
         }
         binding.txt3.setOnClickListener {
-            val i = Intent(this, CoinDetailsActivity::class.java).also {
+            Intent(this, CoinDetailsActivity::class.java).also {
                 it.putExtra(ID, list[2].id)
                 startActivity(it)
             }

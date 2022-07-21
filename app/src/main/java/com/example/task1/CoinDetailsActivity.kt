@@ -21,8 +21,15 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         extras = extras?.replace('-', '_')
 
-        var coin = extras?.let { FileUtils.getObj(this, it) }
-        println("dasdas")
+        val coin = extras?.let { FileUtils.getObj(this, it) }
+
+        coin?.let {
+            binding.apply {
+                txtRank.text = coin.rank.toString() + '.'
+                txtName.text = coin.name
+                txtSymbol
+            }
+        }
 
 
     }

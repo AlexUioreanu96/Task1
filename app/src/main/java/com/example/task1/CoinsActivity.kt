@@ -9,7 +9,6 @@ import com.example.task1.databinding.ActivityCoinsBinding
 const val TAG = "MainActivity"
 const val ID = "ID"
 
-
 class CoinsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCoinsBinding

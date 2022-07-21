@@ -26,10 +26,10 @@ class FileUtils {
             return Gson().fromJson(jsonString, listCountryType)
         }
 
-        fun getObj(context: Context, id: Int): CoinDetailsDTO {
+        fun getObj(context: Context, id: String): CoinDetailsDTO {
             lateinit var jsonString: String
             try {
-                jsonString = context.resources.openRawResource(id)
+                jsonString = context.assets.open("$id.json")
                     .bufferedReader()
                     .use { it.readText() }
             } catch (ioException: IOException) {
@@ -37,8 +37,7 @@ class FileUtils {
                 return CoinDetailsDTO()
             }
 
-            val listCountryType = object : TypeToken<CoinDetailsDTO>() {}.type
-            return Gson().fromJson(jsonString, listCountryType)
+            return Gson().fromJson(jsonString, CoinDetailsDTO::class.java)
         }
     }
 

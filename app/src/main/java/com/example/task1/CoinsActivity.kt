@@ -2,6 +2,7 @@ package com.example.task1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.task1.FileUtilsModel.Companion.getList
 import com.example.task1.databinding.ActivityCoinsBinding
 
 const val TAG = "MainActivity"
@@ -16,9 +17,8 @@ class CoinsActivity : AppCompatActivity() {
         binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val list = getList(this, R.raw.list2)
 
-        val util = FileUtils();
-        val list = util.getList(this, R.raw.list2)
 
         if (list.isNotEmpty()) {
             binding.txt1.text = list[0].toString()

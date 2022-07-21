@@ -5,31 +5,31 @@ import com.google.gson.annotations.SerializedName
 
 data class CoinDetailsModel(
     @Expose
-    var description: String? = null,
+    var description: String? = "",
 
     @SerializedName("development_status")
-    var developmentStatus: String? = null,
+    var developmentStatus: String? = "",
 
     @SerializedName("first_data_at")
-    var firstDataAt: String? = null,
+    var firstDataAt: String? = "",
 
     @SerializedName("hardware_wallet")
-    var hardwareWallet: Boolean? = null,
+    var hardwareWallet: Boolean? = false,
 
     @SerializedName("hash_algorithm")
-    var hashAlgorithm: String? = null,
+    var hashAlgorithm: String? = "",
 
     @Expose
-    var id: String? = null,
+    var id: String? = "",
 
     @SerializedName("is_active")
-    var isActive: Boolean? = null,
+    var isActive: Boolean? = false,
 
     @SerializedName("is_new")
-    var isNew: Boolean? = null,
+    var isNew: Boolean? = false,
 
     @SerializedName("last_data_at")
-    var lastDataAt: String? = null,
+    var lastDataAt: String? = "",
 
     @Expose
     var links: Links? = null,
@@ -38,28 +38,28 @@ data class CoinDetailsModel(
     var linksExtended: List<LinksExtended>? = null,
 
     @Expose
-    var message: String? = null,
+    var message: String? = "",
 
     @Expose
-    var name: String? = null,
+    var name: String? = "",
 
     @SerializedName("open_source")
-    var openSource: Boolean? = null,
+    var openSource: Boolean? = false,
 
     @SerializedName("org_structure")
-    var orgStructure: String? = null,
+    var orgStructure: String? = "",
 
     @SerializedName("proof_type")
-    var proofType: String? = null,
+    var proofType: String? = "",
 
     @Expose
-    var rank: Long? = null,
+    var rank: Long? = 0,
 
     @SerializedName("started_at")
-    var startedAt: String? = null,
+    var startedAt: String? = "",
 
     @Expose
-    var symbol: String? = null,
+    var symbol: String? = "",
 
     @Expose
     var tags: List<Tag>? = null,
@@ -68,7 +68,7 @@ data class CoinDetailsModel(
     var team: List<Team>? = null,
 
     @Expose
-    var type: String? = null,
+    var type: String? = "",
 
     @Expose
     var whitepaper: Whitepaper? = null

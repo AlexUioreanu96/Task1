@@ -41,6 +41,10 @@ class CoinDetailsActivity : AppCompatActivity() {
                 txtTmPosition1.text = coin.team[0].position
                 txtTmName2.text = coin.team[1].name
                 txtTmPosition2.text = coin.team[1].position
+
+                val listNameTag = coin.tags.map { it.name }
+
+                gridView.adapter = GridAdapter(applicationContext, listNameTag)
             }
         }
     }

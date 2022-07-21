@@ -12,9 +12,9 @@ import java.io.IOException
 const val TAG = "MainActivity"
 
 
-class MainActivity : AppCompatActivity() {
+class CoinActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +30,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (list.isNotEmpty()) {
-            binding.txt1.setText(list[0].toString())
-            binding.txt2.setText(list[1].toString())
-            binding.txt3.setText(list[2].toString())
+            binding.txt1.text = list[0].toString()
+            binding.txt2.text = list[1].toString()
+            binding.txt3.text = list[2].toString()
         }
     }
 
 
-    fun getList(context: Context): List<crypto> {
+    private fun getList(context: Context): List<crypto> {
         lateinit var jsonString: String
         try {
             jsonString = context.resources.openRawResource(R.raw.list2)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="medium">8sp</dimen>
-    <dimen name="mediumDP">8sp</dimen>
-    <dimen name="medium2">16sp</dimen>
+    <dimen name="small">8sp</dimen>
+    <dimen name="mediumDP">8dp</dimen>
+    <dimen name="medium">16sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

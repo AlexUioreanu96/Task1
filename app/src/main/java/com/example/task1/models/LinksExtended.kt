@@ -9,6 +9,6 @@ data class LinksExtended(
     @Expose
     var url: String? = "",
 
-    var stats: StatsModel
+    var stats: StatsModel? = null
 
 )

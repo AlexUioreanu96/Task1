@@ -2,6 +2,7 @@ package com.example.task1.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+
 data class CoinDetailsDTO(
     @Expose
     var description: String = "",
@@ -50,5 +51,10 @@ data class CoinDetailsDTO(
     @Expose
     var whitepaper: WhitepaperModel = WhitepaperModel(),
     val contract: String = "",
-    val platform: String = ""
+    val platform: String = "",
+
+    val parent: ParentModel = ParentModel(),
+
+    val contracts: List<ContractModel> = emptyList()
+
 )

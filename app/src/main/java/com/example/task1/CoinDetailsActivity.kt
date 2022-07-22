@@ -48,7 +48,5 @@ class CoinDetailsActivity : AppCompatActivity() {
 
             }
         }
-//        val listNameTag = coin?.tags?.map { it.name }
-//        binding.gridView.adapter = listNameTag?.let { GridAdapter(this, it) }
     }
 }

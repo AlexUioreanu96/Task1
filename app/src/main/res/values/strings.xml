@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Task1</string>
+    <string name="app_name">Task!</string>
     <string name="title_activity_coin_details">CoinDetailsActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -15,7 +15,7 @@
     <string name="textview">Bitcoin</string>
     <string name="Symbol">(BTC)</string>
     <string name="isActive">active</string>
-    <string name="description">bla bla bla</string>
+    <string name="description"> bla blha vsasjaj..</string>
     <string name="isActives">active</string>
     <string name="bitcoin">Bitcoin</string>
     <string name="eth">ETH</string>
@@ -24,4 +24,7 @@
     <string name="ethsymbol">ETH</string>
     <string name="usdsymbol">usdSymbol</string>
     <string name="btcactive">active</string>
+    <string name="btc_image">btc Image</string>
+    <string name="eth_image">eth image</string>
+    <string name="usdt_image">usdt image</string>
 </resources>

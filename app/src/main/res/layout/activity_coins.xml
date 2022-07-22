@@ -9,6 +9,7 @@
     tools:context=".CoinsActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/small"
@@ -95,6 +96,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/small"
@@ -165,6 +167,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/small"
@@ -192,10 +195,10 @@
                     android:id="@+id/img3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@mipmap/usdtttt"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="42dp"
-                    android:background="@mipmap/usdtttt"
                     tools:srcCompat="@mipmap/usdtttt" />
             </androidx.cardview.widget.CardView>
 

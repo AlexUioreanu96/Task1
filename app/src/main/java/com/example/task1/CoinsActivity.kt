@@ -1,5 +1,6 @@
 package com.example.task1
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -60,24 +61,24 @@ class CoinsActivity : AppCompatActivity() {
                 }
             }
         }
-//
-//        binding.txt1.setOnClickListener {
-//            Intent(this, CoinDetailsActivity::class.java).also {
-//                it.putExtra(ID, list[0].id)
-//                startActivity(it)
-//            }
-//        }
-//        binding.txt2.setOnClickListener {
-//            Intent(this, CoinDetailsActivity::class.java).also {
-//                it.putExtra(ID, list[1].id)
-//                startActivity(it)
-//            }
-//        }
-//        binding.txt3.setOnClickListener {
-//            Intent(this, CoinDetailsActivity::class.java).also {
-//                it.putExtra(ID, list[2].id)
-//                startActivity(it)
-//            }
-//        }
+
+        binding.card1.setOnClickListener {
+            Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[0].id)
+                startActivity(it)
+            }
+        }
+        binding.card2.setOnClickListener {
+            Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[1].id)
+                startActivity(it)
+            }
+        }
+        binding.card3.setOnClickListener {
+            Intent(this, CoinDetailsActivity::class.java).also {
+                it.putExtra(ID, list[2].id)
+                startActivity(it)
+            }
+        }
     }
 }

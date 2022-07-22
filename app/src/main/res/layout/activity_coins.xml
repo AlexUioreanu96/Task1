@@ -197,12 +197,13 @@
                     android:id="@+id/img3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/usdtttt"
+                    android:background="@mipmap/newusddd"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/usdt_image"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="42dp"
-                    tools:srcCompat="@mipmap/usdtttt" />
+                    tools:srcCompat="@mipmap/newusddd" />
             </androidx.cardview.widget.CardView>
 
             <TextView

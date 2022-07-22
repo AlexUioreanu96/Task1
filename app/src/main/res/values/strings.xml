@@ -11,4 +11,17 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="tags">Tags</string>
     <string name="team_members">Team Members</string>
+    <string name="_1">1</string>
+    <string name="textview">Bitcoin</string>
+    <string name="Symbol">(BTC)</string>
+    <string name="isActive">active</string>
+    <string name="description">bla bla bla</string>
+    <string name="isActives">active</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="eth">ETH</string>
+    <string name="Theter">TextView</string>
+    <string name="btc">BTC</string>
+    <string name="ethsymbol">ETH</string>
+    <string name="usdsymbol">usdSymbol</string>
+    <string name="btcactive">active</string>
 </resources>

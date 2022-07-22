@@ -16,4 +16,23 @@
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="titleStyles">
+        <item name="android:textSize">@dimen/big</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="symbolStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:drawableStart">@drawable/ic_baseline_local_fire_department_24</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="symbolStyles">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/medium</item>
+
+    </style>
 </resources>

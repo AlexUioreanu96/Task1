@@ -39,8 +39,8 @@
         android:id="@+id/txtName"
         android:layout_width="266dp"
         android:layout_height="71dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="60sp"
@@ -65,7 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="74dp"
         android:layout_margin="@dimen/medium"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="@dimen/medium"
@@ -79,7 +79,7 @@
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="@string/tags"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
@@ -166,11 +166,14 @@
 
     <GridView
         android:id="@+id/gridView"
-        android:layout_width="331dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="360dp"
+        android:layout_height="145dp"
+        android:layout_marginTop="8dp"
+        android:numColumns="3"
+        android:padding="@dimen/small"
+        android:verticalSpacing="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 

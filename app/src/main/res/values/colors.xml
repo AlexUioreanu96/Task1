@@ -11,5 +11,6 @@
     <color name="orange">#FF8E59</color>
     <color name="green">#00DF09</color>
     <color name="red">#FF0000</color>
+    <color name="tag">#D89DE6</color>
 
 </resources>

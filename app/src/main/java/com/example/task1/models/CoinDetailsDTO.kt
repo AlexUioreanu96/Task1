@@ -5,51 +5,51 @@ import com.google.gson.annotations.SerializedName
 
 data class CoinDetailsDTO(
     @Expose
-    var description: String = "",
+    val description: String = "",
     @SerializedName("development_status")
-    var developmentStatus: String = "",
+    val developmentStatus: String = "",
     @SerializedName("first_data_at")
-    var firstDataAt: String = "",
+    val firstDataAt: String = "",
     @SerializedName("hardware_wallet")
-    var hardwareWallet: Boolean = false,
+    val hardwareWallet: Boolean = false,
     @SerializedName("hash_algorithm")
-    var hashAlgorithm: String = "",
+    val hashAlgorithm: String = "",
     @Expose
-    var id: String = "",
+    val id: String = "",
     @SerializedName("is_active")
-    var isActive: Boolean = false,
+    val isActive: Boolean = false,
     @SerializedName("is_new")
-    var isNew: Boolean = false,
+    val isNew: Boolean = false,
     @SerializedName("last_data_at")
-    var lastDataAt: String = "",
+    val lastDataAt: String = "",
     @Expose
-    var links: LinksModel = LinksModel(),
+    val links: LinksModel = LinksModel(),
     @SerializedName("links_extended")
-    var linksExtended: List<LinksExtended> = emptyList(),
+    val linksExtended: List<LinksExtended> = emptyList(),
     @Expose
-    var message: String = "",
+    val message: String = "",
     @Expose
-    var name: String = "",
+    val name: String = "",
     @SerializedName("open_source")
-    var openSource: Boolean = false,
+    val openSource: Boolean = false,
     @SerializedName("org_structure")
-    var orgStructure: String = "",
+    val orgStructure: String = "",
     @SerializedName("proof_type")
-    var proofType: String = "",
+    val proofType: String = "",
     @Expose
-    var rank: Long = 0,
+    val rank: Long = 0,
     @SerializedName("started_at")
-    var startedAt: String = "",
+    val startedAt: String = "",
     @Expose
-    var symbol: String = "",
+    val symbol: String = "",
     @Expose
-    var tags: List<TagModel> = emptyList(),
+    val tags: List<TagModel> = emptyList(),
     @Expose
-    var team: List<TeamModel> = emptyList(),
+    val team: List<TeamModel> = emptyList(),
     @Expose
-    var type: String = "",
+    val type: String = "",
     @Expose
-    var whitepaper: WhitepaperModel = WhitepaperModel(),
+    val whitepaper: WhitepaperModel = WhitepaperModel(),
     val contract: String = "",
     val platform: String = "",
 

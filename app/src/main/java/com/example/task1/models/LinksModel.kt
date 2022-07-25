@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName
 
 data class LinksModel(
     @Expose
-    var explorer: List<String> = emptyList(),
+    val explorer: List<String> = emptyList(),
 
     @Expose
-    var facebook: List<String> = emptyList(),
+    val facebook: List<String> = emptyList(),
 
     @Expose
-    var reddit: List<String> = emptyList(),
+    val reddit: List<String> = emptyList(),
 
     @SerializedName("source_code")
-    var sourceCode: List<String> = emptyList(),
+    val sourceCode: List<String> = emptyList(),
 
     @Expose
-    var website: List<String> = emptyList(),
+    val website: List<String> = emptyList(),
 
     @Expose
-    var youtube: List<String> = emptyList()
+    val youtube: List<String> = emptyList()
 )

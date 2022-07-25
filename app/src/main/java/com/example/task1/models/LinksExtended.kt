@@ -5,10 +5,10 @@ import com.google.gson.annotations.Expose
 
 data class LinksExtended(
     @Expose
-    var type: String = "",
+    val type: String = "",
     @Expose
-    var url: String = "",
+    val url: String = "",
 
-    var stats: StatsModel = StatsModel()
+    val stats: StatsModel = StatsModel()
 
 )

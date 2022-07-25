@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose
 
 data class WhitepaperModel(
     @Expose
-    var link: String = "",
+    val link: String = "",
 
     @Expose
-    var thumbnail: String = ""
+    val thumbnail: String = ""
 )

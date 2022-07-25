@@ -5,11 +5,11 @@ import com.google.gson.annotations.Expose
 
 data class TeamModel(
     @Expose
-    var id: String = "",
+    val id: String = "",
 
     @Expose
-    var name: String = "",
+    val name: String = "",
 
     @Expose
-    var position: String = ""
+    val position: String = ""
 )

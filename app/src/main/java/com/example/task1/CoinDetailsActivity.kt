@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.task1.databinding.ActivityCoinDetailsBinding
+import com.example.task1.models.CoinDetailsDTO
 
 class CoinDetailsActivity : AppCompatActivity() {
 
@@ -24,6 +25,11 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         val coin = extras?.let { FileUtils.getObj(this, it) }
 
+        populateView(coin)
+
+    }
+
+    fun populateView(coin: CoinDetailsDTO?) {
         coin?.let {
             binding.apply {
                 txtRank.text = "${coin.rank}."

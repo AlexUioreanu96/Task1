@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.databinding.ActivityCoinsBinding
 import com.example.task1.models.CoinModel
@@ -20,44 +21,27 @@ class CoinsActivity : AppCompatActivity() {
         binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val list = getList(this, R.raw.list2)
-
 
         if (list.isNotEmpty()) {
             populateView(list)
         }
 
-        binding.card1.setOnClickListener {
+        activityLauncherIdExtras(list[0], binding.card1)
+        activityLauncherIdExtras(list[1], binding.card2)
+        activityLauncherIdExtras(list[2], binding.card3)
+    }
+
+    private fun activityLauncherIdExtras(position: CoinModel, card: CardView) {
+        card.setOnClickListener {
             Intent(this, CoinDetailsActivity::class.java).also {
-                it.putExtra(ID, list[0].id)
-                startActivity(it)
-            }
-        }
-        binding.card2.setOnClickListener {
-            Intent(this, CoinDetailsActivity::class.java).also {
-                it.putExtra(ID, list[1].id)
-                startActivity(it)
-            }
-        }
-        binding.card3.setOnClickListener {
-            Intent(this, CoinDetailsActivity::class.java).also {
-                it.putExtra(ID, list[2].id)
+                it.putExtra(ID, position.id)
                 startActivity(it)
             }
         }
     }
 
-//    fun activityLauncher(position:CoinModel,extras:String,card:CardView) {
-//        binding.cardView.setOnClickListener {
-//            Intent(this, CoinDetailsActivity::class.java).also {
-//                it.putExtra(extras, position.id)
-//                startActivity(it)
-//            }
-//        }
-//    }
-
-    fun populateView(list: List<CoinModel>) {
+    private fun populateView(list: List<CoinModel>) {
         binding.apply {
             name1.text = list[0].name
             symbol1.text = list[0].symbol

@@ -22,7 +22,7 @@
     <string name="Theter">TextView</string>
     <string name="btc">BTC</string>
     <string name="ethsymbol">ETH</string>
-    <string name="usdsymbol">usdSymbol</string>
+    <string name="usdt">usdT</string>
     <string name="btcactive">active</string>
     <string name="btc_image">btc Image</string>
     <string name="eth_image">eth image</string>

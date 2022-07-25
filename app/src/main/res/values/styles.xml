@@ -35,4 +35,29 @@
         <item name="android:textSize">@dimen/medium</item>
 
     </style>
+
+    <style name="titleStyles2" parent="titleStyles">
+        <item name="android:layout_width">112dp</item>
+        <item name="android:layout_height">51dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginTop">@dimen/big</item>
+    </style>
+
+    <style name="symbolStyle2" parent="symbolStyle">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/big</item>
+        <item name="android:layout_marginEnd">100dp</item>
+
+    </style>
+
+    <style name="activeStyle2" parent="symbolStyles">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginStart">@dimen/big</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">120dp</item>
+    </style>
 </resources>

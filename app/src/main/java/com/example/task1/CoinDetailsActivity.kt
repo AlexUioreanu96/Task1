@@ -29,7 +29,7 @@ class CoinDetailsActivity : AppCompatActivity() {
 
     }
 
-    fun populateView(coin: CoinDetailsDTO?) {
+    private fun populateView(coin: CoinDetailsDTO?) {
         coin?.let {
             binding.apply {
                 txtRank.text = "${coin.rank}."
@@ -51,7 +51,6 @@ class CoinDetailsActivity : AppCompatActivity() {
                 val listNameTag = coin.tags.map { it.name }
 
                 gridView.adapter = GridAdapter(applicationContext, listNameTag)
-
             }
         }
     }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.task1.databinding.ItemGridBinding
 
-class GridAdapter(private val contexts: Context, private val list: List<String>) :
+class GridAdapter(contexts: Context, private val list: List<String>) :
     ArrayAdapter<String>(contexts, 0, list) {
 
 

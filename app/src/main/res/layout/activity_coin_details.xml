@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".CoinDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,12 +15,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Task1.PopupOverlay" />
+        <!--        <androidx.appcompat.widget.Toolbar-->
+        <!--            android:id="@+id/toolbar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="?attr/actionBarSize"-->
+        <!--            android:background="?attr/colorPrimary"-->
+        <!--            app:popupTheme="@style/Theme.Task1.PopupOverlay" />-->
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
@@ -29,6 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/dr_sugiyama"
         android:text="@string/_1"
         android:textColor="@color/white"
         android:textSize="60sp"
@@ -63,7 +63,7 @@
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
-        android:layout_height="74dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium"
         android:layout_marginTop="8dp"
         android:text="@string/description"

@@ -11,14 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Task1v2"
+        android:theme="@style/Theme.Task1Main"
         tools:targetApi="31">
         <activity
             android:name=".CoinDetailsActivity"
             android:exported="true"
             android:label="@string/title_activity_coin_details"
             android:parentActivityName=".CoinsActivity"
-            android:theme="@style/Theme.Task1v2" />
+            android:theme="@style/Theme.Task1Details" />
         <activity
             android:name=".CoinsActivity"
             android:exported="true">

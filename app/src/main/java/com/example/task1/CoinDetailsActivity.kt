@@ -17,7 +17,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        setSupportActionBar(binding.toolbar)
-        supportActionBar?.hide()
+//        supportActionBar?.hide()
 
         var extras: String? = intent.getStringExtra(ID)
 

@@ -24,7 +24,7 @@
     <style name="Theme.Task1.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="Theme.Task1v2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Task1Main" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
         <item name="colorOnPrimary">@color/primaryDarkColor</item>
@@ -34,6 +34,31 @@
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
         <item name="fontFamily">@font/lobster_two</item>
+        <item name="shapeAppearanceSmallComponent">
+            @style/ShapeAppearance.MaterialComponents.SmallComponent
+        </item>
+
+    </style>
+
+    <style name="Theme.Task1Details" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor2</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor2</item>
+        <item name="colorOnPrimary">@color/primaryDarkColor2</item>
+        <item name="colorSecondary">@color/secondaryColor2</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor2</item>
+        <item name="colorOnSecondary">@color/secondaryDarkColor2</item>
+
+        <!--        <item name="background">@color/primaryLightColor2</item>-->
+        <!--        <item name="backgroundColor">@color/primaryLightColor2</item>-->
+        <!--&lt;!&ndash;        <item name="android:background">@color/primaryLightColor2</item>&ndash;&gt;-->
+        <!--        <item name="backgroundTint">@color/primaryColor2</item>-->
+
+        <item name="android:statusBarColor">@color/blueTheme_dark</item>
+
+        <item name="android:colorBackground">@color/primaryColor2</item>
+        <item name="android:textAppearance">@color/secondaryDarkColor</item>
+
+        <item name="fontFamily">@font/dr_sugiyama</item>
         <item name="shapeAppearanceSmallComponent">
             @style/ShapeAppearance.MaterialComponents.SmallComponent
         </item>

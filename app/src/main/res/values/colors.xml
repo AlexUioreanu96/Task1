@@ -13,4 +13,13 @@
     <color name="red">#FF0000</color>
     <color name="tag">#D89DE6</color>
 
+    <color name="redTheme">#d84315</color>
+    <color name="redTheme_light">#ff7543</color>
+    <color name="redTheme_dark">#9f0000</color>
+
+    <color name="blueTheme">#4dd0e1</color>
+    <color name="blueTheme_light">#88ffff</color>
+    <color name="blueTheme_dark">#009faf</color>
+
+
 </resources>

@@ -30,7 +30,7 @@
         <item name="colorOnPrimary">@color/primaryDarkColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
-
+        <item name="colorOnSecondary">@color/secondaryDarkColor</item>
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
         <item name="fontFamily">@font/lobster_two</item>

@@ -25,11 +25,11 @@
 
 
     <style name="Theme.Task1v2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/redTheme</item>
-        <item name="colorPrimaryVariant">@color/redTheme_light</item>
-
-        <item name="colorSecondary">@color/blueTheme_light</item>
-        <item name="colorSecondaryVariant">@color/blueTheme</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
 
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 

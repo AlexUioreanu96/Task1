@@ -33,6 +33,9 @@
         <item name="colorOnSecondary">@color/secondaryDarkColor</item>
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
+        <item name="textAppearanceHeadline1">@style/textTitle</item>
+        <item name="textAppearanceBody1">@style/textDescription</item>
+
         <item name="shapeAppearanceMediumComponent">
             @style/cardViewShape
         </item>
@@ -55,7 +58,9 @@
         <item name="android:colorBackground">@color/primaryColor2</item>
         <item name="android:textAppearance">@color/secondaryDarkColor</item>
 
-        <item name="textAppearanceBody1">@style/textTitle</item>
+        <item name="textAppearanceHeadline1">@style/textTitle</item>
+        <item name="textAppearanceBody1">@style/textDescription</item>
+
         <item name="shapeAppearanceSmallComponent">
             @style/ShapeAppearance.MaterialComponents.SmallComponent
         </item>

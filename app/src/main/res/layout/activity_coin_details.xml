@@ -24,7 +24,7 @@
         <!--            app:popupTheme="@style/Theme.Task1.PopupOverlay" />-->
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtRank"
         android:layout_width="0dp"
         android:layout_height="66dp"
@@ -36,7 +36,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/txtName"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtName"
         android:layout_width="266dp"
         android:layout_height="71dp"
@@ -48,7 +48,7 @@
         app:layout_constraintStart_toEndOf="@+id/txtRank"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtSymbol"
         android:layout_width="0dp"
         android:layout_height="65dp"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRank" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSymbol" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView6"
         style="@style/titleStyle"
         android:layout_width="120dp"
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtTmName2"
         app:layout_constraintTop_toBottomOf="@+id/txtTmPosition1" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTeamMembers"
         style="@style/titleStyle"
         android:layout_width="379dp"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTmName1"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTmPosition2" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTmPosition1"
         android:layout_width="125dp"
         android:layout_height="19dp"
@@ -144,7 +144,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTmName1" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTmName2"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTmPosition2"
         android:layout_width="134dp"
         android:layout_height="18dp"
@@ -187,7 +187,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTmName2" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtIsActive"
         android:layout_width="88dp"
         android:layout_height="32dp"

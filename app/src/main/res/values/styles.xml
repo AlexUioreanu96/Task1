@@ -140,28 +140,32 @@
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/purple_200</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/purple_200</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/purple_200</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Overline" parent="TextAppearance.MaterialComponents.Overline">
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="shapeImageStyle">
+        <item name="android:layout_width">133dp</item>
+        <item name="android:layout_height">133dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">16dp</item>
     </style>
 
 </resources>

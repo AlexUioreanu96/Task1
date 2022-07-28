@@ -60,7 +60,6 @@
             @style/cardViewShape
         </item>
 
-        <item name="backgroundColor">@color/purple_200</item>
     </style>
 
 

@@ -17,11 +17,9 @@
             android:name=".CoinDetailsActivity"
             android:exported="true"
             android:label="@string/title_activity_coin_details"
-            android:parentActivityName=".CoinsActivity"
-            android:theme="@style/Theme.Task1Details" />
+            android:parentActivityName=".CoinsActivity" />
         <activity
             android:name=".CoinsActivity"
-            android:theme="@style/Theme.Task1Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

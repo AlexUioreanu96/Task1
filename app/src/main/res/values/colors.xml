@@ -22,4 +22,22 @@
     <color name="blueTheme_dark">#009faf</color>
 
 
+    <color name="primaryColor">#f57c00</color>
+    <color name="primaryLightColor">#ffad42</color>
+    <color name="primaryDarkColor">#bb4d00</color>
+    <color name="secondaryColor">#ec407a</color>
+    <color name="secondaryLightColor">#ff77a9</color>
+    <color name="secondaryDarkColor">#b4004e</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="primaryColor2">#00897b</color>
+    <color name="primaryLightColor2">#4ebaaa</color>
+    <color name="primaryDarkColor2">#005b4f</color>
+    <color name="secondaryColor2">#00e676</color>
+    <color name="secondaryLightColor2">#66ffa6</color>
+    <color name="secondaryDarkColor2">#00b248</color>
+    <color name="primaryTextColor2">#000000</color>
+    <color name="secondaryTextColor2">#000000</color>
+
 </resources>

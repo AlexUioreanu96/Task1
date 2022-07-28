@@ -33,12 +33,14 @@
         <item name="colorOnSecondary">@color/secondaryDarkColor</item>
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
-        <item name="fontFamily">@font/lobster_two</item>
-        <item name="shapeAppearanceSmallComponent">
-            @style/ShapeAppearance.MaterialComponents.SmallComponent
+        <item name="shapeAppearanceMediumComponent">
+            @style/cardViewShape
         </item>
 
+        <item name="textAppearanceBody1">@style/textTitle</item>
+
     </style>
+
 
     <style name="Theme.Task1Details" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryColor2</item>
@@ -48,18 +50,12 @@
         <item name="colorSecondaryVariant">@color/secondaryLightColor2</item>
         <item name="colorOnSecondary">@color/secondaryDarkColor2</item>
 
-        <!--        <item name="background">@color/primaryLightColor2</item>-->
-        <!--        <item name="backgroundColor">@color/primaryLightColor2</item>-->
-        <!--&lt;!&ndash;        <item name="android:background">@color/primaryLightColor2</item>&ndash;&gt;-->
-        <!--        <item name="backgroundTint">@color/primaryColor2</item>-->
-
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
         <item name="android:colorBackground">@color/primaryColor2</item>
         <item name="android:textAppearance">@color/secondaryDarkColor</item>
-        <item name="android:textSize">18sp</item>
+        <item name="textAppearanceBody1">@style/textTitle</item>
 
-        <item name="fontFamily">@font/dr_sugiyama</item>
         <item name="shapeAppearanceSmallComponent">
             @style/ShapeAppearance.MaterialComponents.SmallComponent
         </item>

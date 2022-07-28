@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
+    android:theme="@style/Theme.Task1Main"
     tools:context=".CoinsActivity">
 
     <androidx.cardview.widget.CardView
@@ -20,7 +21,6 @@
         android:clickable="true"
         android:elevation="@dimen/small"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/small"
         app:layout_constraintBottom_toTopOf="@+id/card3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

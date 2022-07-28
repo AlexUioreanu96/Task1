@@ -37,7 +37,7 @@
             @style/cardViewShape
         </item>
 
-        <item name="textAppearanceBody1">@style/textTitle</item>
+        <item name="textAppearanceHeadline4">@style/textTitle</item>
 
     </style>
 
@@ -54,8 +54,8 @@
 
         <item name="android:colorBackground">@color/primaryColor2</item>
         <item name="android:textAppearance">@color/secondaryDarkColor</item>
-        <item name="textAppearanceBody1">@style/textTitle</item>
 
+        <item name="textAppearanceBody1">@style/textTitle</item>
         <item name="shapeAppearanceSmallComponent">
             @style/ShapeAppearance.MaterialComponents.SmallComponent
         </item>

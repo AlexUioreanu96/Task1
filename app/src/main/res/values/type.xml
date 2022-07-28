@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="textTitle" parent="TextAppearance.AppCompat.Body1">
+    <style name="textTitle" parent="TextAppearance.AppCompat.Headline">
         <item name="fontFamily">@font/dr_sugiyama</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/primaryDarkColor</item>
     </style>
-
 
 </resources>

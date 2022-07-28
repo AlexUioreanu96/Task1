@@ -9,7 +9,7 @@
     android:theme="@style/Theme.Task1Main"
     tools:context=".CoinsActivity">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card1"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -84,9 +84,9 @@
             android:layout_height="wrap_content"
             app:barrierDirection="left"
             app:constraint_referenced_ids="symbol1" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -98,7 +98,7 @@
         android:clickable="true"
         android:elevation="@dimen/small"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/small"
+
         app:layout_constraintBottom_toTopOf="@+id/card1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,9 +144,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/symbol2" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card3"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -158,7 +158,6 @@
         android:clickable="true"
         android:elevation="@dimen/small"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -215,6 +214,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/symbol3" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

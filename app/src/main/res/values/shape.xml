@@ -3,6 +3,8 @@
 
     <style name="cardViewShape" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">48dp</item>
+        <item name="cornerSize">20dp</item>
+        <item name="strokeWidth">34dp</item>
+        <item name="strokeColor">@color/green</item>
     </style>
 </resources>

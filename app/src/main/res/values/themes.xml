@@ -47,14 +47,20 @@
         </item>
         <item name="textAppearanceBody1">@style/TextAppearance.MdcTypographyStyles.Body1</item>
         <item name="textAppearanceBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
-
+        <item name="textAppearanceButton">@style/TextAppearance.AppCompat.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MdcTypographyStyles.Overline
+        </item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MdcTypographyStyles.Subtitle1
+        </item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MdcTypographyStyles.Subtitle2
+        </item>
 
         <item name="shapeAppearanceMediumComponent">
             @style/cardViewShape
         </item>
+
         <item name="backgroundColor">@color/purple_200</item>
-
-
     </style>
 
 

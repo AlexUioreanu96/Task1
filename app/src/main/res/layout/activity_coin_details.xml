@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
     tools:context=".CoinDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,13 +14,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            android:background="?attr/colorPrimary"-->
-        <!--            app:popupTheme="@style/Theme.Task1.PopupOverlay" />-->
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -31,7 +23,6 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/dr_sugiyama"
         android:text="@string/_1"
-        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtName"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,7 +34,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/textview"
-        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintStart_toEndOf="@+id/txtRank"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
@@ -55,7 +45,6 @@
         android:layout_marginStart="@dimen/medium"
         android:layout_marginTop="16dp"
         android:text="@string/Symbol"
-        android:textColor="@color/white"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +57,6 @@
         android:layout_margin="@dimen/medium"
         android:layout_marginTop="8dp"
         android:text="@string/description"
-        android:textColor="@color/white"
         android:textSize="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +102,6 @@
         android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +125,6 @@
         android:layout_height="19dp"
         android:layout_marginTop="4dp"
         android:textStyle="italic"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +136,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:textSize="30sp"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTmPosition1" />
@@ -180,7 +165,6 @@
         android:layout_width="134dp"
         android:layout_height="18dp"
         android:layout_marginTop="4dp"
-        android:textColor="@color/white"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.119"
@@ -195,7 +179,6 @@
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/lato"
         android:text="@string/isActives"
-        android:textColor="@color/white"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />

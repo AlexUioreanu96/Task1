@@ -57,6 +57,7 @@
 
         <item name="android:colorBackground">@color/primaryColor2</item>
         <item name="android:textAppearance">@color/secondaryDarkColor</item>
+        <item name="android:textSize">18sp</item>
 
         <item name="fontFamily">@font/dr_sugiyama</item>
         <item name="shapeAppearanceSmallComponent">

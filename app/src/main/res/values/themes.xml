@@ -33,14 +33,27 @@
         <item name="colorOnSecondary">@color/secondaryDarkColor</item>
         <item name="android:statusBarColor">@color/blueTheme_dark</item>
 
-        <item name="textAppearanceHeadline1">@style/textTitle</item>
-        <item name="textAppearanceBody1">@style/textDescription</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1
+        </item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MdcTypographyStyles.Headline2
+        </item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MdcTypographyStyles.Headline3
+        </item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MdcTypographyStyles.Headline4
+        </item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MdcTypographyStyles.Headline5
+        </item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MdcTypographyStyles.Headline6
+        </item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MdcTypographyStyles.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
+
 
         <item name="shapeAppearanceMediumComponent">
             @style/cardViewShape
         </item>
+        <item name="backgroundColor">@color/purple_200</item>
 
-        <item name="textAppearanceHeadline4">@style/textTitle</item>
 
     </style>
 

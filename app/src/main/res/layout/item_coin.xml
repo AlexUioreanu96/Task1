@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cIsNew" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/cType"
                 style="?attr/textAppearanceHeadline5"
                 android:layout_width="102dp"
                 android:layout_height="33dp"

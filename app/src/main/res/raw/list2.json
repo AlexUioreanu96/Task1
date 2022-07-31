@@ -4,7 +4,7 @@
     "name": "Bitcoin",
     "symbol": "BTC",
     "rank": 1,
-    "is_new": false,
+    "is_new": true,
     "is_active": true,
     "type": "coin"
   },
@@ -22,7 +22,7 @@
     "name": "Tether",
     "symbol": "USDT",
     "rank": 3,
-    "is_new": false,
+    "is_new": true,
     "is_active": true,
     "type": "token"
   },

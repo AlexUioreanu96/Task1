@@ -3,6 +3,7 @@ package com.example.task1
 import android.content.Context
 import android.util.Log
 import com.example.task1.models.CoinDetailsDTO
+import com.example.task1.models.CoinModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -10,7 +11,7 @@ import java.io.IOException
 class FileUtils {
 
     companion object {
-        fun getList(context: Context, id: Int): List<CoinDetailsDTO> {
+        fun getList(context: Context, id: Int): List<CoinModel> {
             lateinit var jsonString: String
             try {
                 jsonString = context.resources.openRawResource(id)
@@ -21,7 +22,7 @@ class FileUtils {
                 return emptyList()
             }
 
-            val listCountryType = object : TypeToken<List<CoinDetailsDTO>>() {}.type
+            val listCountryType = object : TypeToken<List<CoinModel>>() {}.type
             return Gson().fromJson(jsonString, listCountryType)
         }
 

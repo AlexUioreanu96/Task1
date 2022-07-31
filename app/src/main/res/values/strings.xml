@@ -31,4 +31,6 @@
     <string name="isactive">isActive</string>
     <string name="isnew">isNew</string>
     <string name="type">Type</string>
+    <string name="founder">Founder</string>
+    <string name="position">position</string>
 </resources>

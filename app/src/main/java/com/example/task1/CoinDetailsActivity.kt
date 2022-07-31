@@ -47,7 +47,6 @@ class CoinDetailsActivity : AppCompatActivity() {
                 }
                 txtDescription.text = coin.description
 
-
                 if (coin.team.isNotEmpty()) {
                     txtTmName1.text = coin.team[0].name
                     txtTmPosition1.text = coin.team[0].position

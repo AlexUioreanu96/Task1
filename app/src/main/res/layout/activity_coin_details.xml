@@ -7,15 +7,6 @@
     android:theme="@style/Theme.Task1Main"
     tools:context=".CoinDetailsActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.Task1.AppBarOverlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/txtRank"
@@ -34,8 +25,8 @@
         style="?attr/textAppearanceHeadline1"
         android:layout_width="266dp"
         android:layout_height="71dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:text="@string/textview"
         android:textSize="60sp"
         app:layout_constraintStart_toEndOf="@+id/txtRank"

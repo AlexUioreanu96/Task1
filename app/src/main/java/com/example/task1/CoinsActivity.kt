@@ -1,15 +1,11 @@
 package com.example.task1
 
-import android.content.Intent
-import android.os.Build.ID
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.adapter.CoinAdapter
 import com.example.task1.databinding.ActivityCoinsBinding
-import com.example.task1.models.CoinModel
 
 const val TAG = "MainActivity"
 
@@ -39,15 +35,15 @@ class CoinsActivity : AppCompatActivity() {
 //        activityLauncherIdExtras(list[1], binding.card2)
 //        activityLauncherIdExtras(list[2], binding.card3)
     }
-
-    private fun activityLauncherIdExtras(position: CoinModel, card: CardView) {
-        card.setOnClickListener {
-            Intent(this, CoinDetailsActivity::class.java).also {
-                it.putExtra(ID, position.id)
-                startActivity(it)
-            }
-        }
-    }
+//
+//    private fun activityLauncherIdExtras(position: CoinModel, card: CardView) {
+//        card.setOnClickListener {
+//            Intent(this, CoinDetailsActivity::class.java).also {
+//                it.putExtra(ID, position.id)
+//                startActivity(it)
+//            }
+//        }
+//    }
 //
 //    private fun populateView(list: List<CoinModel>?) {
 //        list?.let {

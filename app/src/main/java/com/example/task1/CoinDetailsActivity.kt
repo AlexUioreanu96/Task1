@@ -19,8 +19,8 @@ class CoinDetailsActivity : AppCompatActivity() {
         binding = ActivityCoinDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        setSupportActionBar(binding.toolbar)
-//        supportActionBar?.hide()
+
+        supportActionBar?.hide()
 
         var extras: String? = intent.getStringExtra(ID)
 
@@ -46,10 +46,14 @@ class CoinDetailsActivity : AppCompatActivity() {
                     setTextColor(Color.RED)
                 }
                 txtDescription.text = coin.description
-                txtTmName1.text = coin.team[0].name
-                txtTmPosition1.text = coin.team[0].position
-                txtTmName2.text = coin.team[1].name
-                txtTmPosition2.text = coin.team[1].position
+
+
+                if (coin.team.isNotEmpty()) {
+                    txtTmName1.text = coin.team[0].name
+                    txtTmPosition1.text = coin.team[0].position
+                    txtTmName2.text = coin.team[1].name
+                    txtTmPosition2.text = coin.team[1].position
+                }
 
                 val listNameTag = coin.tags.map { it.name }
 

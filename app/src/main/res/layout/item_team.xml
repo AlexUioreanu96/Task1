@@ -21,7 +21,7 @@
         android:id="@+id/txtTmPosition1"
         style="?attr/textAppearanceBody1"
         android:layout_width="125dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="11dp"
         android:text="@string/position"

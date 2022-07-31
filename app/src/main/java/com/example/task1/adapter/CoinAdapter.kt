@@ -65,7 +65,5 @@ class CoinAdapter(var coinList: List<CoinModel>) :
             "rune-thorchain" -> bind.imageView.setImageResource(R.mipmap.thoree)
             "tusd-trueusd" -> bind.imageView.setImageResource(R.mipmap.trueusd)
         }
-
     }
-
 }

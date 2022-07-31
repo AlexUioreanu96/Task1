@@ -47,12 +47,6 @@ class CoinDetailsActivity : AppCompatActivity() {
                 }
                 txtDescription.text = coin.description
 
-                if (coin.team.isNotEmpty()) {
-                    txtTmName1.text = coin.team[0].name
-                    txtTmPosition1.text = coin.team[0].position
-                    txtTmName2.text = coin.team[1].name
-                    txtTmPosition2.text = coin.team[1].position
-                }
 
                 val listNameTag = coin.tags.map { it.name }
 

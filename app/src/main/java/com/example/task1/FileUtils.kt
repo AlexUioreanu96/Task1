@@ -40,6 +40,4 @@ class FileUtils {
             return Gson().fromJson(jsonString, CoinDetailsDTO::class.java)
         }
     }
-
-
 }

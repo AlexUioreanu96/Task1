@@ -11,7 +11,7 @@ import java.io.IOException
 class FileUtils {
 
     companion object {
-        fun getList(context: Context, id: Int): List<CoinModel> {
+        fun getList(context: Context, id: Int): List<CoinDetailsDTO> {
             lateinit var jsonString: String
             try {
                 jsonString = context.resources.openRawResource(id)

@@ -29,7 +29,7 @@ class CoinTeamAdapter(var coinList: List<CoinModel>) :
         TODO("Not yet implemented")
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = coinList.size
+
+
 }

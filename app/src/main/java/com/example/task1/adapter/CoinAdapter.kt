@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task1.CoinDetailsActivity
 import com.example.task1.databinding.ItemCoinBinding
+
 import com.example.task1.models.CoinDetailsDTO
 
 const val ID = "ID"

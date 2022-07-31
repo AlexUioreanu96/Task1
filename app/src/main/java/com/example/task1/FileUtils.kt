@@ -3,7 +3,6 @@ package com.example.task1
 import android.content.Context
 import android.util.Log
 import com.example.task1.models.CoinDetailsDTO
-import com.example.task1.models.CoinModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -22,7 +21,7 @@ class FileUtils {
                 return emptyList()
             }
 
-            val listCountryType = object : TypeToken<List<CoinModel>>() {}.type
+            val listCountryType = object : TypeToken<List<CoinDetailsDTO>>() {}.type
             return Gson().fromJson(jsonString, listCountryType)
         }
 

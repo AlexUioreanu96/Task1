@@ -5,6 +5,7 @@ import android.os.Build.ID
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.adapter.CoinAdapter
 import com.example.task1.databinding.ActivityCoinsBinding
@@ -24,9 +25,14 @@ class CoinsActivity : AppCompatActivity() {
 
         val list = getList(this, R.raw.list2)
 
-        val adapter = CoinAdapter(list)
+        val adapterObj = CoinAdapter(list)
 
-        println("dasdsa")
+        binding.coinRecycler.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            adapter = adapterObj
+        }
+
+
 //        populateView(list)
 //
 //        activityLauncherIdExtras(list[0], binding.card1)

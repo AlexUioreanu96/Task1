@@ -1,11 +1,13 @@
 package com.example.task1
 
 import android.graphics.Color
+import android.os.Build.ID
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.task1.adapter.GridAdapter
 import com.example.task1.databinding.ActivityCoinDetailsBinding
 import com.example.task1.models.CoinDetailsDTO
+
 
 class CoinDetailsActivity : AppCompatActivity() {
 

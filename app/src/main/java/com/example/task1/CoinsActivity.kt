@@ -1,16 +1,15 @@
 package com.example.task1
 
 import android.content.Intent
-import android.graphics.Color
+import android.os.Build.ID
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.databinding.ActivityCoinsBinding
 import com.example.task1.models.CoinModel
 
 const val TAG = "MainActivity"
-const val ID = "ID"
+
 
 class CoinsActivity : AppCompatActivity() {
 
@@ -21,13 +20,11 @@ class CoinsActivity : AppCompatActivity() {
         binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val list = getList(this, R.raw.list2)
-
-        populateView(list)
-
-        activityLauncherIdExtras(list[0], binding.card1)
-        activityLauncherIdExtras(list[1], binding.card2)
-        activityLauncherIdExtras(list[2], binding.card3)
+//        populateView(list)
+//
+//        activityLauncherIdExtras(list[0], binding.card1)
+//        activityLauncherIdExtras(list[1], binding.card2)
+//        activityLauncherIdExtras(list[2], binding.card3)
     }
 
     private fun activityLauncherIdExtras(position: CoinModel, card: CardView) {
@@ -38,45 +35,47 @@ class CoinsActivity : AppCompatActivity() {
             }
         }
     }
+//
+//    private fun populateView(list: List<CoinModel>?) {
+//        list?.let {
+//            binding.apply {
+//                name1.text = list[0].name
+//                symbol1.text = list[0].symbol
+//                if (list[0].is_active) active1.apply {
+//                    text = "active"
+//                    setTextColor(Color.GREEN)
+//                } else {
+//                    active1.apply {
+//                        text = "unactive"
+//                        setTextColor(Color.RED)
+//                    }
+//                }
+//                name2.text = list[1].name
+//                symbol2.text = list[1].symbol
+//                if (list[1].is_active) active2.apply {
+//                    text = "active"
+//                    setTextColor(Color.GREEN)
+//                } else {
+//                    active2.apply {
+//                        text = "unactive"
+//                        setTextColor(Color.RED)
+//                    }
+//                }
+//
+//                name3.text = list[2].name
+//                symbol3.text = list[2].symbol
+//                if (list[2].is_active) active3.apply {
+//                    text = "active"
+//                    setTextColor(Color.GREEN)
+//                } else {
+//                    active3.apply {
+//                        text = "unactive"
+//                        setTextColor(Color.RED)
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-    private fun populateView(list: List<CoinModel>?) {
-        list?.let {
-            binding.apply {
-                name1.text = list[0].name
-                symbol1.text = list[0].symbol
-                if (list[0].is_active) active1.apply {
-                    text = "active"
-                    setTextColor(Color.GREEN)
-                } else {
-                    active1.apply {
-                        text = "unactive"
-                        setTextColor(Color.RED)
-                    }
-                }
-                name2.text = list[1].name
-                symbol2.text = list[1].symbol
-                if (list[1].is_active) active2.apply {
-                    text = "active"
-                    setTextColor(Color.GREEN)
-                } else {
-                    active2.apply {
-                        text = "unactive"
-                        setTextColor(Color.RED)
-                    }
-                }
 
-                name3.text = list[2].name
-                symbol3.text = list[2].symbol
-                if (list[2].is_active) active3.apply {
-                    text = "active"
-                    setTextColor(Color.GREEN)
-                } else {
-                    active3.apply {
-                        text = "unactive"
-                        setTextColor(Color.RED)
-                    }
-                }
-            }
-        }
-    }
 }

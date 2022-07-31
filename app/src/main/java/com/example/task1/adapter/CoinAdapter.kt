@@ -46,9 +46,6 @@ class CoinAdapter(var coinList: List<CoinDetailsDTO>) :
         }
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
-
+    override fun getItemCount(): Int = coinList.size
 
 }

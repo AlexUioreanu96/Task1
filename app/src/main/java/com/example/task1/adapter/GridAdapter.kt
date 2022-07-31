@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.task1.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import com.example.task1.databinding.ItemGridBinding
 
 class GridAdapter(contexts: Context, private val list: List<String>) :
     ArrayAdapter<String>(contexts, 0, list) {
-
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = ItemGridBinding.inflate(LayoutInflater.from(context), parent, false)

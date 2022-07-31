@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task1.databinding.ItemTeamBinding
-import com.example.task1.models.CoinModel
+import com.example.task1.models.TeamModel
 
-class CoinTeamAdapter(var coinList: List<CoinModel>) :
+class CoinTeamAdapter(var coinTeamList: List<TeamModel>) :
     RecyclerView.Adapter<CoinTeamAdapter.CoinTeamViewHolder>() {
     data class CoinTeamViewHolder(val binding: ItemTeamBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -26,10 +26,13 @@ class CoinTeamAdapter(var coinList: List<CoinModel>) :
     }
 
     override fun onBindViewHolder(holder: CoinTeamViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val coinTeam: TeamModel = coinTeamList[position]
+        holder.binding.apply {
+            teamMember.text = coinTeam.name
+            positionItem.text = coinTeam.position
+        }
     }
 
-    override fun getItemCount(): Int = coinList.size
-
+    override fun getItemCount(): Int = coinTeamList.size
 
 }

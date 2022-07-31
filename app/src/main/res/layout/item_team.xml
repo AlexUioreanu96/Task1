@@ -5,11 +5,11 @@
     android:layout_height="100dp">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtTmName1"
+        android:id="@+id/teamMember"
         style="?attr/textAppearanceHeadline5"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/founder"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtTmPosition1"
+        android:id="@+id/positionItem"
         style="?attr/textAppearanceBody1"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTmName1" />
+        app:layout_constraintTop_toBottomOf="@+id/teamMember" />
 
     <View
         android:id="@+id/view2"
@@ -41,6 +41,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTmName1" />
+        app:layout_constraintTop_toBottomOf="@+id/teamMember" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

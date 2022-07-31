@@ -1,5 +1,6 @@
 package com.example.task1.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task1.databinding.ItemTeamBinding
@@ -15,7 +16,13 @@ class CoinTeamAdapter(var coinList: List<CoinModel>) :
         parent: ViewGroup,
         viewType: Int
     ): CoinTeamViewHolder {
-
+        return CoinTeamAdapter.CoinTeamViewHolder(
+            ItemTeamBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: CoinTeamViewHolder, position: Int) {

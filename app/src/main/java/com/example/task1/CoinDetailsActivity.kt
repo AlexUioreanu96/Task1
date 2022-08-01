@@ -24,7 +24,6 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-
         var extras: String? = intent.getStringExtra(ID)
 
         extras = extras?.replace('-', '_')
@@ -39,9 +38,7 @@ class CoinDetailsActivity : AppCompatActivity() {
                 adapter = teamAdapter
             }
         }
-
         populateView(coin)
-
     }
 
     private fun populateView(coin: CoinDetailsDTO?) {
@@ -58,7 +55,6 @@ class CoinDetailsActivity : AppCompatActivity() {
                     setTextColor(Color.RED)
                 }
                 txtDescription.text = coin.description
-
 
                 val listNameTag = coin.tags.map { it.name }
 

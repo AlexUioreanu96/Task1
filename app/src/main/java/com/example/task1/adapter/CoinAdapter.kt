@@ -14,8 +14,6 @@ const val ID = "ID"
 
 class CoinAdapter(var coinList: List<CoinModel>) :
     RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
-
-
     data class CoinViewHolder(val bind: ItemCoinBinding) : RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
@@ -37,10 +35,12 @@ class CoinAdapter(var coinList: List<CoinModel>) :
             cRank.text = coin.rank.toString()
             cName.text = coin.name
             cType.text = coin.type
+
             if (coin.is_new) cIsNew.setTextColor(Color.GREEN) else cIsNew.setTextColor(Color.RED)
             if (coin.is_active) cIsActive.setTextColor(Color.GREEN) else cIsActive.setTextColor(
                 Color.RED
             )
+
             itemCoin.setOnClickListener {
                 Intent(it.context, CoinDetailsActivity::class.java).apply {
                     putExtra(ID, coin.id)

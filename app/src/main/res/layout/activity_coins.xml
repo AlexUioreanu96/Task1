@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    android:theme="@style/Theme.Task1Main"
     tools:context=".CoinsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -18,6 +17,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_coin" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

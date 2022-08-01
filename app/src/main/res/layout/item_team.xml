@@ -37,6 +37,8 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="43dp"
+        android:layout_marginLeft="@dimen/medium"
+        android:layout_marginRight="@dimen/medium"
         android:layout_marginBottom="@dimen/small"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"

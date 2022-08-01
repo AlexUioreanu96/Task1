@@ -28,8 +28,8 @@
     <string name="eth_image">eth image</string>
     <string name="usdt_image">usdt image</string>
     <string name="rank">Rank</string>
-    <string name="isactive">isActive</string>
-    <string name="isnew">isNew</string>
+    <string name="isactive">active</string>
+    <string name="isnew">new</string>
     <string name="type">Type</string>
     <string name="founder">Founder</string>
     <string name="position">position</string>

@@ -81,10 +81,10 @@
 
 
     <style name="TextAppearance.MdcTypographyStyles.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/lobster_two</item>
+        <item name="android:fontFamily">@font/lobster_two</item>
         <item name="android:textSize">99sp</item>
-        <item name="android:textColor">@color/purple_200</item>
+        <item name="android:textColor">@color/purple_700</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
@@ -101,21 +101,24 @@
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/lobster_two</item>
+        <item name="android:fontFamily">@font/lobster_two</item>
         <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/purple_700</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/lobster_two</item>
+        <item name="android:fontFamily">@font/lobster_two</item>
         <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/purple_200</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/lobster_two</item>
+        <item name="android:fontFamily">@font/lobster_two</item>
         <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/purple_500</item>
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
@@ -131,8 +134,8 @@
     </style>
 
     <style name="TextAppearance.MdcTypographyStyles.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/dr_sugiyama</item>
+        <item name="android:fontFamily">@font/dr_sugiyama</item>
         <item name="android:textSize">17sp</item>
     </style>
 

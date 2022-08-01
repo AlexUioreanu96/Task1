@@ -3,8 +3,8 @@
   "name": "Bitcoin",
   "symbol": "BTC",
   "rank": 1,
-  "is_new": true,
-  "is_active": true,
+  "is_new": false,
+  "is_active": false,
   "type": "coin",
   "tags": [
     {

@@ -58,6 +58,9 @@
         <item name="shapeAppearanceMediumComponent">
             @style/cardViewShape
         </item>
+        <!--        <item name="shapeAppearanceSmallComponent">-->
+        <!--            @style/buttonShape-->
+        <!--        </item>-->
 
     </style>
 
@@ -83,6 +86,15 @@
         </item>
 
     </style>
+
+    <style name="Theme.Task1Main.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Task1Main.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Task1Main.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

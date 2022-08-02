@@ -14,20 +14,25 @@
         android:theme="@style/Theme.Task1Main"
         tools:targetApi="31">
         <activity
-            android:name=".CoinDetailsActivity"
+            android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.Task1Main"
-            android:label="@string/title_activity_coin_details"
-            android:parentActivityName=".CoinsActivity" />
-        <activity
-            android:name=".CoinsActivity"
-            android:exported="true">
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Task1Main.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CoinDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_coin_details"
+            android:parentActivityName=".CoinsActivity"
+            android:theme="@style/Theme.Task1Main" />
+        <activity
+            android:name=".CoinsActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

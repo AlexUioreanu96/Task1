@@ -9,10 +9,18 @@
         <entry key="app/src/main/res/drawable/ic_outline_monetization_on_24.xml" value="0.205" />
         <entry key="app/src/main/res/drawable/newUsd_background.xml" value="0.2365" />
         <entry key="app/src/main/res/drawable/newusd_background.xml" value="0.164" />
+        <entry key="app/src/main/res/drawable/round_button.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/vector_1.xml" value="0.195" />
+        <entry key="app/src/main/res/drawable/vector_2.xml" value="0.195" />
         <entry key="app/src/main/res/font/lato.xml" value="0.15462962962962962" />
         <entry key="app/src/main/res/layout/activity_coin_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_coins.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/content_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_coin.xml" value="0.2471042471042471" />
         <entry key="app/src/main/res/layout/item_coin2.xml" value="0.24456521739130435" />
         <entry key="app/src/main/res/layout/item_grid.xml" value="0.11956521739130435" />

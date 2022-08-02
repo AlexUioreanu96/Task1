@@ -34,4 +34,7 @@
     <string name="founder">Founder</string>
     <string name="position">position</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

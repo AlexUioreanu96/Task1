@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big"
-        app:hintTextColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
@@ -43,8 +43,9 @@
             android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Email"
+            android:hint="@string/email"
             android:textColor="@color/white"
+            android:textSize="@dimen/small_xtra"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,6 +53,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
         style="@style/LoginTextInputLayoutStyle2"
+        android:textColorHint="@color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium"
@@ -67,8 +69,9 @@
             android:id="@+id/login_pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColor="@color/white"
+            android:textSize="@dimen/small_xtra"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,9 +97,12 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/round_button"
         android:elevation="50dp"
-        android:text="Login"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="19sp"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:text="@string/login"
+        android:textSize="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

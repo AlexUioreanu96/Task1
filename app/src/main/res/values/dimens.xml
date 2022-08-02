@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="small">8sp</dimen>
+    <dimen name="small_xtra">12sp</dimen>
     <dimen name="mediumDP">8dp</dimen>
     <dimen name="medium">16sp</dimen>
     <dimen name="big">32sp</dimen>

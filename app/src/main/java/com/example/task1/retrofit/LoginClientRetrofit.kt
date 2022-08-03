@@ -1,5 +1,6 @@
 package com.example.task1.retrofit
 
+import com.example.task1.models.MoviesAndSeries
 import com.example.task1.models.StatusModel
 import com.example.task1.models.UserModel
 import retrofit2.Retrofit
@@ -34,6 +35,10 @@ class LoginClientRetrofit {
 
     suspend fun invalidateSession(sessionId: String): Boolean {
         return service.invalidateSession(APIKEY, sessionId)
+    }
+
+    suspend fun retriveTrendingMoviesSeries(): MoviesAndSeries {
+        return service.retriveTrendingMoviesSeries(APIKEY)
     }
 
 }

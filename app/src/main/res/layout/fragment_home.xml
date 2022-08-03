@@ -13,7 +13,11 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <!--        <com.google.android.material.tabs.TabLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"/>-->
+    </androidx.viewpager2.widget.ViewPager2>
 
     <com.zhpan.indicator.IndicatorView
         android:id="@+id/indicatorView"

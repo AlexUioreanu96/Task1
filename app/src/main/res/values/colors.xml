@@ -16,6 +16,9 @@
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="red_login">#E41F2D</color>
 
+    <color name="normalColor">#F3F0F3</color>
+    <color name="checkedColor">#F5A431</color>
+
     <color name="redTheme">#d84315</color>
     <color name="redTheme_light">#ff7543</color>
     <color name="redTheme_dark">#9f0000</color>

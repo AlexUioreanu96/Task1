@@ -1,5 +1,6 @@
 package com.example.task1.retrofit
 
+import com.example.task1.models.MoviesAndSeries
 import com.example.task1.models.StatusModel
 import com.example.task1.models.UserModel
 import retrofit2.http.*
@@ -31,5 +32,10 @@ interface LoginService {
     suspend fun invalidateSession(
         @Query("api_key") value: String, @Query("session_id") sessionId: String
     ): Boolean
+
+    @GET("trending/all/day")
+    suspend fun retriveTrendingMoviesSeries(
+        @Query("api_key") value: String
+    ): MoviesAndSeries
 
 }

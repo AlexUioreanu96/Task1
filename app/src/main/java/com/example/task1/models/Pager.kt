@@ -2,31 +2,31 @@ package com.example.task1.models
 
 import com.google.gson.annotations.SerializedName
 
-data class MoviesAndSeries(
+data class Pager(
 
-	@field:SerializedName("page")
-	val page: Int? = null,
+    @field:SerializedName("page")
+    val page: Int? = null,
 
-	@field:SerializedName("total_pages")
-	val totalPages: Int? = null,
+    @field:SerializedName("total_pages")
+    val totalPages: Int? = null,
 
-	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null,
+    @field:SerializedName("results")
+    val results: List<MoviesAndSeries?>? = null,
 
-	@field:SerializedName("total_results")
-	val totalResults: Int? = null
+    @field:SerializedName("total_results")
+    val totalResults: Int? = null
 )
 
-data class ResultsItem(
+data class MoviesAndSeries(
 
-	@field:SerializedName("overview")
-	val overview: String? = null,
+    @field:SerializedName("overview")
+    val overview: String? = null,
 
-	@field:SerializedName("original_language")
-	val originalLanguage: String? = null,
+    @field:SerializedName("original_language")
+    val originalLanguage: String? = null,
 
-	@field:SerializedName("original_title")
-	val originalTitle: String? = null,
+    @field:SerializedName("original_title")
+    val originalTitle: String? = null,
 
 	@field:SerializedName("video")
 	val video: Boolean? = null,

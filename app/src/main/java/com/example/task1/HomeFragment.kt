@@ -42,10 +42,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.viewpager.adapter = ViewPagerAdapter().apply {
-
+            submitList(list)
         }
-
-
     }
 
     override fun onDestroyView() {

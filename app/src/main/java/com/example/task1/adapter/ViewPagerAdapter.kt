@@ -27,7 +27,7 @@ class ViewPagerAdapter() :
     inner class ExampleViewHolder(private val binding: ItemGridViewPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun binding(model: MovieModel) {
-            binding.title.text = model.title
+//            binding.title.text = model.title
             Glide.with(binding.root.context)
                 .load(model.imageUrl)
                 .into(binding.image)

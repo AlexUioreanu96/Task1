@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
 import com.example.task1.models.MovieModel
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -37,6 +38,11 @@ class HomeFragment : Fragment() {
             setIndicatorStyle(IndicatorStyle.CIRCLE)
             setupWithViewPager(binding.viewpager)
             setPageSize(list.size)
+            notifyDataChanged()
+        }
+
+        binding.viewpager.adapter = ViewPagerAdapter().apply {
+
         }
 
 

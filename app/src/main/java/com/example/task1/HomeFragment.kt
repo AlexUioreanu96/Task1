@@ -24,10 +24,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+//    fun initList{
+//
+//        val listOfViewpagerItems = listOf(
+//            ExampleModel(
+//                "image 1",
+//                0,
+//                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
+//            ),
+//            ExampleModel(
+//                "image 2",
+//                1,
+//                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
+//            ),
+//            ExampleModel(
+//                "image 3",
+//                2,
+//                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
+//            ), ExampleModel(
+//                "image 4",
+//                3,
+//                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
+//            ),
+//            ExampleModel(
+//                "image 5",
+//                4,
+//                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
+//            )
+//        )
+//    }
 }

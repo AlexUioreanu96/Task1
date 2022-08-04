@@ -37,4 +37,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="stars">Stars</string>
 </resources>

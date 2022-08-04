@@ -53,7 +53,7 @@
             style="@style/labelStyle"
             android:layout_width="69dp"
             android:layout_height="19dp"
-            android:text="Stars"
+            android:text="@string/stars"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewpager" />
@@ -77,7 +77,7 @@
             style="@style/labelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top Rated Movies"
+            android:text="@string/top_rated_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/starsRecycler" />
@@ -95,7 +95,7 @@
             style="@style/labelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Popular Movies"
+            android:text="@string/popular_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topRatedRecycler" />
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Airing Today"
+            android:text="@string/airing_today"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/popularRecycler" />

@@ -9,10 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
-import com.example.task1.models.Images
-import com.example.task1.models.Page
-import com.example.task1.models.PopularPeople
-import com.example.task1.models.Star
+import com.example.task1.models.*
 import com.example.task1.retrofit.LoginClientRetrofit
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
@@ -47,6 +44,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayPopularMovies() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val page: TopRated = retrofit.retriveTopRatedMovies("en-US", 1)
+                val movies = page.results.map { TopRatedMovieResult(it.id, it.posterPath) }
+
+                launch(Dispatchers.Main) {
+                    val adapter = PopularPeopleAdapter()
+                    adapter.list = movies
+                    binding.starsRecycler.adapter = adapter
+                }
+            } catch (e: Exception) {
+            }
+        }
 
     }
 

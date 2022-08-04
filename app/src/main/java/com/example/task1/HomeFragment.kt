@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
-import com.example.task1.models.MovieModel
+import com.example.task1.models.Images
+import com.example.task1.models.Page
+import com.example.task1.retrofit.LoginClientRetrofit
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -28,8 +33,38 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val list: List<MovieModel> = initList()
+        val retrofit = LoginClientRetrofit()
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                var p: Page = retrofit.retriveTrendingMoviesSeries()
+                var images: List<Images> = p.results?.map {
+                    it?.releaseDate?.let { it1 ->
+                        Images(
+                            "https://image.tmdb.org/t/p/w500${it.backdropPath}",
+                            it1
+                        )
+                    }
+                }?.take(6) as List<Images>
+                launch(Dispatchers.Main) {
+                    setupViewPager(images)
+                    println(images)
+                }
+            } catch (e: Exception) {
+            }
+
+
+        }
+
+//        setupViewPager()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun setupViewPager(list: List<Images>) {
         binding.indicatorView.apply {
             setSliderColor(R.color.normalColor, R.color.checkedColor)
             setSliderWidth(resources.getDimension(R.dimen.dp_10))
@@ -42,42 +77,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.viewpager.adapter = ViewPagerAdapter().apply {
-            submitList(list)
+            submitList(list) {
+            }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun initList(): List<MovieModel> {
-        return listOf(
-            MovieModel(
-                "image 1",
-                0,
-                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
-            ),
-            MovieModel(
-                "image 2",
-                1,
-                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
-            ),
-            MovieModel(
-                "image 3",
-                2,
-                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
-            ), MovieModel(
-                "image 4",
-                3,
-                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
-            ),
-            MovieModel(
-                "image 5",
-                4,
-                "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/story_full_width/9de57cats0_Medium_WW267491.jpg"
-            )
-        )
-
     }
 }

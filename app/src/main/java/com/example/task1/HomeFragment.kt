@@ -42,6 +42,43 @@ class HomeFragment : Fragment() {
 
         displayTopRated()
 
+        displayPopularMovies()
+
+        displayAiring()
+
+
+    }
+
+    private fun displayAiring() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
+                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
+
+                launch(Dispatchers.Main) {
+                    val adapter = MoviesAdapter()
+                    adapter.list = movies
+                    binding.airingRecycler.adapter = adapter
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    private fun displayPopularMovies() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
+                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
+
+                launch(Dispatchers.Main) {
+                    val adapter = MoviesAdapter()
+                    adapter.list = movies
+                    binding.popularRecycler.adapter = adapter
+                }
+            } catch (e: Exception) {
+            }
+        }
     }
 
     private fun displayTopRated() {

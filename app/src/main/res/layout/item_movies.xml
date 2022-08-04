@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_movie"
     android:layout_width="100dp"
     android:layout_height="150dp"
     android:layout_margin="9dp"
+    android:clickable="true"
+    android:elevation="@dimen/medium"
     app:cardCornerRadius="20dp">
 
     <ImageView
@@ -12,4 +15,24 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-</androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/img_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/small"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/hearth" />
+
+    <TextView
+        android:id="@+id/txt_watched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/ic_watched"
+        android:gravity="center"
+        android:text="@string/must_watch"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_xtra" />
+
+</com.google.android.material.card.MaterialCardView>

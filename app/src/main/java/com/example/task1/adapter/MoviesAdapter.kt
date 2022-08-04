@@ -1,9 +1,11 @@
 package com.example.task1.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.task1.R
 import com.example.task1.databinding.ItemMoviesBinding
 import com.example.task1.models.MovieResult
 
@@ -23,6 +25,27 @@ class MoviesAdapter() :
             Glide.with(binding.root.context)
                 .load(photo)
                 .into(binding.imgTopRated)
+            binding.imgFav.visibility = View.GONE
+            binding.txtWatched.visibility = View.GONE
+
+            binding.cardMovie.setOnClickListener {
+                if (movie.isFavorite != true) {
+                    binding.apply {
+                        imgFav.visibility = View.VISIBLE
+                        cardMovie.apply {
+                            strokeColor = resources.getColor(R.color.cardStrokeColor)
+                            strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
+                        }
+                    }
+                } else {
+                    binding.apply {
+                        imgFav.visibility = View.GONE
+                        cardMovie.apply {
+                            strokeWidth = 0
+                        }
+                    }
+                }
+            }
         }
     }
 

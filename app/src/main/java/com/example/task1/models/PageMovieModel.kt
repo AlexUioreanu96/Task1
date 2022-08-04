@@ -17,7 +17,12 @@ data class PageMovieModel(
     val totalResults: Int? = null
 )
 
-data class MovieResult(val id: Int?, val image: String?)
+data class MovieResult(
+    val id: Int?,
+    val image: String?,
+    val isFavorite: Boolean? = false,
+    val isWatched: Boolean? = false
+)
 
 data class TopRatedMovies(
     @field:SerializedName("overview")

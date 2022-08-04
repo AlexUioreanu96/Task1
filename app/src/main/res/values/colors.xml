@@ -19,6 +19,8 @@
     <color name="normalColor">#F3F0F3</color>
     <color name="checkedColor">#F5A431</color>
 
+    <color name="cardStrokeColor">#F7C04A</color>
+
     <color name="redTheme">#d84315</color>
     <color name="redTheme_light">#ff7543</color>
     <color name="redTheme_dark">#9f0000</color>

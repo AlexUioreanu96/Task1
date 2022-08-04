@@ -11,7 +11,7 @@ data class Page(
     val totalPages: Int? = null,
 
     @field:SerializedName("results")
-    val results: List<MoviesAndSeries?>? = null,
+    val results: List<MoviesAndSeries>,
 
     @field:SerializedName("total_results")
     val totalResults: Int? = null

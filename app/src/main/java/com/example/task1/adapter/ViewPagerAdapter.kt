@@ -1,6 +1,5 @@
 package com.example.task1.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -32,7 +31,6 @@ class ViewPagerAdapter() :
             Glide.with(binding.root.context)
                 .load(model.imageUrl)
                 .into(binding.image)
-            binding.image.setBackgroundColor(Color.RED)
             if (model.releaseDate > LocalDateTime.now().toString()) binding.textView2.text =
                 "Coming soon" else binding.textView2.text = "Out in cinemas"
 

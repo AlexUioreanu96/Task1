@@ -1,8 +1,6 @@
 package com.example.task1.retrofit
 
-import com.example.task1.models.Page
-import com.example.task1.models.StatusModel
-import com.example.task1.models.UserModel
+import com.example.task1.models.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -41,4 +39,10 @@ class LoginClientRetrofit {
         return service.retriveTrendingMoviesSeries(APIKEY)
     }
 
+    suspend fun retrivePopularPeople(language: String, page: Int): PopularPeople {
+        return service.retrivePopularPeople(APIKEY, language, page)
+    }
+
+    suspend fun retriveTopRatedMovies(language: String, page: Int): TopRated =
+        service.retriveTopRatedMovies(APIKEY, language, page)
 }

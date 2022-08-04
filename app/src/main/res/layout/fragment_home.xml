@@ -54,31 +54,28 @@
             android:layout_width="69dp"
             android:layout_height="19dp"
             android:text="@string/stars"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewpager" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/starsRecycler"
-            android:layout_width="409dp"
+            android:layout_width="0dp"
             android:layout_height="91dp"
             android:layout_marginStart="9dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="1dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:listitem="@layout/item_popular_people" />
 
         <TextView
             android:id="@+id/textView34"
             style="@style/labelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/top_rated_movies"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/starsRecycler" />
 
@@ -86,17 +83,17 @@
             android:id="@+id/topRatedRecycler"
             style="@style/bigRecycler"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView34" />
+            app:layout_constraintTop_toBottomOf="@+id/textView34"
+            tools:listitem="@layout/item_top_rated" />
 
         <TextView
             android:id="@+id/textView3"
             style="@style/labelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/popular_movies"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topRatedRecycler" />
 
@@ -104,18 +101,16 @@
             android:id="@+id/popularRecycler"
             style="@style/bigRecycler"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:listitem="@layout/item_top_rated" />
 
         <TextView
             android:id="@+id/textView33"
             style="@style/labelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
             android:text="@string/airing_today"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/popularRecycler" />
 
@@ -123,8 +118,8 @@
             android:id="@+id/airingRecycler"
             style="@style/bigRecycler"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/textView33"
+            tools:listitem="@layout/item_top_rated" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

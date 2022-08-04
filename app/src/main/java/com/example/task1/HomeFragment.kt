@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
@@ -39,25 +40,24 @@ class HomeFragment : Fragment() {
 
         displayStars()
 
-        displayPopularMovies()
+        displayTopRated()
 
     }
 
-    private fun displayPopularMovies() {
+    private fun displayTopRated() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: TopRated = retrofit.retriveTopRatedMovies("en-US", 1)
                 val movies = page.results.map { TopRatedMovieResult(it.id, it.posterPath) }
 
                 launch(Dispatchers.Main) {
-                    val adapter = PopularPeopleAdapter()
+                    val adapter = MoviesAdapter()
                     adapter.list = movies
-                    binding.starsRecycler.adapter = adapter
+                    binding.topRatedRecycler.adapter = adapter
                 }
             } catch (e: Exception) {
             }
         }
-
     }
 
 

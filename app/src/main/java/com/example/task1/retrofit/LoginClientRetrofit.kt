@@ -43,6 +43,12 @@ class LoginClientRetrofit {
         return service.retrivePopularPeople(APIKEY, language, page)
     }
 
-    suspend fun retriveTopRatedMovies(language: String, page: Int): TopRated =
+    suspend fun retriveTopRatedMovies(language: String, page: Int): PageMovieModel =
         service.retriveTopRatedMovies(APIKEY, language, page)
+
+    suspend fun retrivePopularMovies(language: String, page: Int): PageMovieModel =
+        service.retrivePopularMovies(APIKEY, language, page)
+
+    suspend fun retriveAiringMovies(language: String, page: Int): PageMovieModel =
+        service.retriveAiringMovies(APIKEY, language, page)
 }

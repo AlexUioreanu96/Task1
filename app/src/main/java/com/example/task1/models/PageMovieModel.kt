@@ -2,7 +2,7 @@ package com.example.task1.models
 
 import com.google.gson.annotations.SerializedName
 
-data class TopRated(
+data class PageMovieModel(
 
     @field:SerializedName("page")
     val page: Int? = null,
@@ -17,9 +17,9 @@ data class TopRated(
     val totalResults: Int? = null
 )
 
-data class TopRatedMovieResult(val id: Int?, val image: String?)
-data class TopRatedMovies(
+data class MovieResult(val id: Int?, val image: String?)
 
+data class TopRatedMovies(
     @field:SerializedName("overview")
     val overview: String? = null,
 

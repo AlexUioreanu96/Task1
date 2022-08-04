@@ -47,8 +47,8 @@ class HomeFragment : Fragment() {
     private fun displayTopRated() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val page: TopRated = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movies = page.results.map { TopRatedMovieResult(it.id, it.posterPath) }
+                val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
+                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -65,14 +65,14 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val p: Page = retrofit.retriveTrendingMoviesSeries()
-                val images: List<Images> = p.results.map {
+                val images: List<ImagesModel> = p.results.map {
                     it.releaseDate?.let { it1 ->
-                        Images(
+                        ImagesModel(
                             "https://image.tmdb.org/t/p/w500${it.backdropPath}",
                             it1
                         )
                     }
-                }.take(6) as List<Images>
+                }.take(6) as List<ImagesModel>
                 launch(Dispatchers.Main) {
                     setupViewPager(images)
                     println(images)
@@ -102,7 +102,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun setupViewPager(list: List<Images>) {
+    fun setupViewPager(list: List<ImagesModel>) {
         binding.indicatorView.apply {
             setSliderColor(R.color.normalColor, R.color.checkedColor)
             setSliderWidth(resources.getDimension(R.dimen.dp_10))

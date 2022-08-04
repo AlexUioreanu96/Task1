@@ -48,6 +48,22 @@ interface LoginService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): TopRated
+    ): PageMovieModel
+
+
+    @GET("movie/popular")
+    suspend fun retrivePopularMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): PageMovieModel
+
+
+    @GET("tv/airing_today")
+    suspend fun retriveAiringMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): PageMovieModel
 
 }

@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.databinding.ItemMoviesBinding
-import com.example.task1.models.TopRatedMovieResult
+import com.example.task1.models.MovieResult
 
 class MoviesAdapter() :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
-    var list = listOf<TopRatedMovieResult>()
+    var list = listOf<MovieResult>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -18,7 +18,7 @@ class MoviesAdapter() :
 
     data class MoviesViewHolder(val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: TopRatedMovieResult) {
+        fun bind(movie: MovieResult) {
             val photo = "https://image.tmdb.org/t/p/w500${movie.image}"
             Glide.with(binding.root.context)
                 .load(photo)

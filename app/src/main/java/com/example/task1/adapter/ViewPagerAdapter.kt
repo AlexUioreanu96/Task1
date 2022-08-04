@@ -7,27 +7,27 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.databinding.ItemGridViewPagerBinding
-import com.example.task1.models.Images
+import com.example.task1.models.ImagesModel
 import java.time.LocalDateTime
 
 class ViewPagerAdapter() :
-    ListAdapter<Images, ViewPagerAdapter.PagerViewHolder>(object :
-        DiffUtil.ItemCallback<Images>() {
+    ListAdapter<ImagesModel, ViewPagerAdapter.PagerViewHolder>(object :
+        DiffUtil.ItemCallback<ImagesModel>() {
         override fun areItemsTheSame(
-            oldItem: Images,
-            newItem: Images
+            oldItem: ImagesModel,
+            newItem: ImagesModel
         ) = oldItem == newItem
 
         override fun areContentsTheSame(
-            oldItem: Images,
-            newItem: Images
+            oldItem: ImagesModel,
+            newItem: ImagesModel
         ) = oldItem == newItem
     }) {
 
 
     inner class PagerViewHolder(private val binding: ItemGridViewPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun binding(model: Images) {
+        fun binding(model: ImagesModel) {
             Glide.with(binding.root.context)
                 .load(model.imageUrl)
                 .into(binding.image)

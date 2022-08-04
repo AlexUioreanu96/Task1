@@ -15,15 +15,6 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/img_fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/small"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/hearth" />
-
     <TextView
         android:id="@+id/txt_watched"
         android:layout_width="wrap_content"
@@ -34,5 +25,15 @@
         android:text="@string/must_watch"
         android:textColor="@color/white"
         android:textSize="@dimen/small_xtra" />
+
+    <ImageView
+        android:id="@+id/img_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/small"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/hearth" />
+
 
 </com.google.android.material.card.MaterialCardView>

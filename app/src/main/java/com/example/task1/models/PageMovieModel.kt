@@ -20,7 +20,8 @@ data class PageMovieModel(
 data class MovieResult(
     val id: Int?,
     val image: String?,
-    val isFavorite: Boolean? = false,
+    val voteAvg: Double?,
+    var isFavorite: Boolean? = false,
     val isWatched: Boolean? = false
 )
 

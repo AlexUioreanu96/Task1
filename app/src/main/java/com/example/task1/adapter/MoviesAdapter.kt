@@ -28,8 +28,13 @@ class MoviesAdapter() :
             binding.imgFav.visibility = View.GONE
             binding.txtWatched.visibility = View.GONE
 
+            if (movie.voteAvg!! > 8.0) {
+                binding.txtWatched.visibility = View.VISIBLE
+            }
+
             binding.cardMovie.setOnClickListener {
                 if (movie.isFavorite != true) {
+                    movie.isFavorite = true
                     binding.apply {
                         imgFav.visibility = View.VISIBLE
                         cardMovie.apply {
@@ -38,6 +43,7 @@ class MoviesAdapter() :
                         }
                     }
                 } else {
+                    movie.isFavorite = false
                     binding.apply {
                         imgFav.visibility = View.GONE
                         cardMovie.apply {

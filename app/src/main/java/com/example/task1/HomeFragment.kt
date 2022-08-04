@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
+                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
+                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath) }
+                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()

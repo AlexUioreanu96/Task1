@@ -1,6 +1,9 @@
 package com.example.task1.retrofit
 
-import com.example.task1.models.*
+import com.example.task1.models.PageMovieModel
+import com.example.task1.models.PopularPeople
+import com.example.task1.models.StatusModel
+import com.example.task1.models.UserModel
 import retrofit2.http.*
 
 interface LoginService {
@@ -34,7 +37,7 @@ interface LoginService {
     @GET("trending/all/day")
     suspend fun retriveTrendingMoviesSeries(
         @Query("api_key") value: String
-    ): Page
+    ): PageMovieModel
 
     @GET("person/popular")
     suspend fun retrivePopularPeople(
@@ -62,6 +65,14 @@ interface LoginService {
     @GET("tv/airing_today")
     suspend fun retriveAiringMovies(
         @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): PageMovieModel
+
+    @GET("search/multi")
+    suspend fun searchMovies(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String?,
         @Query("language") language: String,
         @Query("page") page: Int
     ): PageMovieModel

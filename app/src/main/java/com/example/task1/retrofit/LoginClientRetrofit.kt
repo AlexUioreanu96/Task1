@@ -1,6 +1,9 @@
 package com.example.task1.retrofit
 
-import com.example.task1.models.*
+import com.example.task1.models.PageMovieModel
+import com.example.task1.models.PopularPeople
+import com.example.task1.models.StatusModel
+import com.example.task1.models.UserModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -35,7 +38,7 @@ class LoginClientRetrofit {
         return service.invalidateSession(APIKEY, sessionId)
     }
 
-    suspend fun retriveTrendingMoviesSeries(): Page {
+    suspend fun retriveTrendingMoviesSeries(): PageMovieModel {
         return service.retriveTrendingMoviesSeries(APIKEY)
     }
 
@@ -51,4 +54,7 @@ class LoginClientRetrofit {
 
     suspend fun retriveAiringMovies(language: String, page: Int): PageMovieModel =
         service.retriveAiringMovies(APIKEY, language, page)
+
+    suspend fun searchMovies(query: String?, language: String, page: Int): PageMovieModel =
+        service.searchMovies(APIKEY, query, language, page)
 }

@@ -11,13 +11,13 @@ data class PageMovieModel(
     val totalPages: Int? = null,
 
     @field:SerializedName("results")
-    val results: List<TopRatedMovies>,
+    val results: List<MovieResult> = emptyList(),
 
     @field:SerializedName("total_results")
     val totalResults: Int? = null
 )
 
-data class MovieResult(
+data class Movie(
     val id: Int?,
     val image: String?,
     val voteAvg: Double?,
@@ -25,7 +25,7 @@ data class MovieResult(
     val isWatched: Boolean? = false
 )
 
-data class TopRatedMovies(
+data class MovieResult(
     @field:SerializedName("overview")
     val overview: String? = null,
 

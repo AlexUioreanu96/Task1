@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
@@ -23,6 +24,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+
     private val retrofit = LoginClientRetrofit()
 
     override fun onCreateView(
@@ -35,6 +37,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         displayViewPager()
 
@@ -46,14 +49,21 @@ class HomeFragment : Fragment() {
 
         displayAiring()
 
+        binding.btSearch.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace<MovieSearchedFragment>(R.id.fragment_container_view_tag)
+                .addToBackStack("searched")
+                .commit()
+        }
 
     }
+
 
     private fun displayAiring() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
+                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -69,7 +79,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
+                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -85,7 +95,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movies = page.results.map { MovieResult(it.id, it.posterPath, it.voteAverage) }
+                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
                     val adapter = MoviesAdapter()
@@ -101,7 +111,7 @@ class HomeFragment : Fragment() {
     private fun displayViewPager() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val p: Page = retrofit.retriveTrendingMoviesSeries()
+                val p: PageMovieModel = retrofit.retriveTrendingMoviesSeries()
                 val images: List<ImagesModel> = p.results.map {
                     it.releaseDate?.let { it1 ->
                         ImagesModel(

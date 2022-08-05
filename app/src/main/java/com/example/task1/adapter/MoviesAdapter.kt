@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.R
 import com.example.task1.databinding.ItemMoviesBinding
-import com.example.task1.models.MovieResult
+import com.example.task1.models.Movie
 
 class MoviesAdapter() :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
-    var list = listOf<MovieResult>()
+    var list = listOf<Movie>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -20,37 +20,43 @@ class MoviesAdapter() :
 
     data class MoviesViewHolder(val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieResult) {
-            val photo = "https://image.tmdb.org/t/p/w500${movie.image}"
-            Glide.with(binding.root.context)
-                .load(photo)
-                .into(binding.imgTopRated)
-            binding.imgFav.visibility = View.GONE
-            binding.txtWatched.visibility = View.GONE
+        fun bind(movie: Movie) {
+            try {
 
-            if (movie.voteAvg!! > 8.0) {
-                binding.txtWatched.visibility = View.VISIBLE
-            }
 
-            binding.cardMovie.setOnClickListener {
-                if (movie.isFavorite != true) {
-                    movie.isFavorite = true
-                    binding.apply {
-                        imgFav.visibility = View.VISIBLE
-                        cardMovie.apply {
-                            strokeColor = resources.getColor(R.color.cardStrokeColor)
-                            strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
-                        }
-                    }
-                } else {
-                    movie.isFavorite = false
-                    binding.apply {
-                        imgFav.visibility = View.GONE
-                        cardMovie.apply {
-                            strokeWidth = 0
-                        }
-                    }
+                val photo = "https://image.tmdb.org/t/p/w500${movie.image}"
+                Glide.with(binding.root.context)
+                    .load(photo)
+                    .into(binding.imgTopRated)
+                binding.imgFav.visibility = View.GONE
+                binding.txtWatched.visibility = View.GONE
+
+                if (movie.voteAvg!! > 8.0) {
+                    binding.txtWatched.visibility = View.VISIBLE
                 }
+
+                binding.cardMovie.setOnLongClickListener {
+                    if (movie.isFavorite != true) {
+                        movie.isFavorite = true
+                        binding.apply {
+                            imgFav.visibility = View.VISIBLE
+                            cardMovie.apply {
+                                strokeColor = resources.getColor(R.color.cardStrokeColor)
+                                strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
+                            }
+                        }
+                    } else {
+                        movie.isFavorite = false
+                        binding.apply {
+                            imgFav.visibility = View.GONE
+                            cardMovie.apply {
+                                strokeWidth = 0
+                            }
+                        }
+                    }
+                    true
+                }
+            } catch (e: Exception) {
             }
         }
     }

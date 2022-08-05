@@ -31,6 +31,7 @@
             app:closeIcon="@null"
             app:iconifiedByDefault="true"
             app:queryBackground="@android:color/transparent"
+            app:queryHint="Search"
             app:searchHintIcon="@null" />
 
     </com.google.android.material.appbar.MaterialToolbar>

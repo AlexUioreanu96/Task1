@@ -44,6 +44,10 @@ class ViewPagerAdapter() :
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.binding(getItem(position))
+        try {
+            holder.binding(getItem(position))
+        } catch (e: Exception) {
+        }
+
     }
 }

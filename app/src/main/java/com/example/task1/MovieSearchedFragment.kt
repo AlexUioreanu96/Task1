@@ -76,6 +76,32 @@ class MovieSearchedFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                var page1: PageMovieModel = PageMovieModel()
+                var page2: PageMovieModel = PageMovieModel()
+
+
+                lifecycleScope.launch(Dispatchers.IO) {
+                    page1 = retrofit.searchMovies(newText, "en-US", 1)
+                    page2 = retrofit.searchMovies(newText, "en-US", 2)
+
+                    val movies1 = page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                    val movies2 = page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+
+                    val fullList: MutableList<Movie> = ArrayList<Movie>()
+                    fullList.addAll(movies1)
+                    fullList.addAll(movies2)
+
+                    launch(Dispatchers.Main) {
+                        val adapter1 = MoviesAdapter()
+                        adapter1.list = fullList
+
+                        binding.list.apply {
+                            layoutManager =
+                                GridLayoutManager(context, 3)
+                            adapter = adapter1
+                        }
+                    }
+                }
                 return true
             }
 

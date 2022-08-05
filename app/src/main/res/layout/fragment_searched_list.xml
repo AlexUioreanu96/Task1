@@ -23,15 +23,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/medium"
-            android:clickable="true"
+            app:closeIcon="@null"
             android:defaultFocusHighlightEnabled="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             android:focusedByDefault="true"
-            android:src="@drawable/ic_baseline_search_24"
-            app:closeIcon="@null"
-            app:iconifiedByDefault="true"
+            app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search"
+            app:searchIcon="@null"
             app:searchHintIcon="@null" />
 
     </com.google.android.material.appbar.MaterialToolbar>

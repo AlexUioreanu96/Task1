@@ -25,6 +25,7 @@ class PopularPeopleAdapter() :
                 .circleCrop()
                 .into(binding.imgPopular)
             binding.txtPopular.text = star.name
+            binding.txtPopular.isSelected = true
         }
     }
 

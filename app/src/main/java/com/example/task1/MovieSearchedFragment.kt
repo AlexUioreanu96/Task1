@@ -46,65 +46,78 @@ class MovieSearchedFragment : Fragment() {
 
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                var page1: PageMovieModel = PageMovieModel()
-                var page2: PageMovieModel = PageMovieModel()
+                try {
+                    var page1: PageMovieModel = PageMovieModel()
+                    var page2: PageMovieModel = PageMovieModel()
 
 
-                lifecycleScope.launch(Dispatchers.IO) {
-                    page1 = retrofit.searchMovies(query, "en-US", 1)
-                    page2 = retrofit.searchMovies(query, "en-US", 2)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        page1 = retrofit.searchMovies(query, "en-US", 1)
+                        page2 = retrofit.searchMovies(query, "en-US", 2)
 
-                    val movies1 = page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-                    val movies2 = page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                        val movies1 =
+                            page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                        val movies2 =
+                            page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
-                    val fullList: MutableList<Movie> = ArrayList<Movie>()
-                    fullList.addAll(movies1)
-                    fullList.addAll(movies2)
+                        val fullList: MutableList<Movie> = ArrayList<Movie>()
+                        fullList.addAll(movies1)
+                        fullList.addAll(movies2)
 
-                    launch(Dispatchers.Main) {
-                        val adapter1 = MoviesAdapter()
-                        adapter1.list = fullList
+                        launch(Dispatchers.Main) {
+                            val adapter1 = MoviesAdapter()
+                            adapter1.list = fullList
 
-                        binding.list.apply {
-                            layoutManager =
-                                GridLayoutManager(context, 3)
-                            adapter = adapter1
+                            binding.list.apply {
+                                layoutManager =
+                                    GridLayoutManager(context, 3)
+                                adapter = adapter1
+                            }
                         }
                     }
+                    return true
+                } catch (e: Exception) {
+                    return false
                 }
-                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                var page1: PageMovieModel = PageMovieModel()
-                var page2: PageMovieModel = PageMovieModel()
+                try {
 
 
-                lifecycleScope.launch(Dispatchers.IO) {
-                    page1 = retrofit.searchMovies(newText, "en-US", 1)
-                    page2 = retrofit.searchMovies(newText, "en-US", 2)
+                    var page1: PageMovieModel = PageMovieModel()
+                    var page2: PageMovieModel = PageMovieModel()
 
-                    val movies1 = page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-                    val movies2 = page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
-                    val fullList: MutableList<Movie> = ArrayList<Movie>()
-                    fullList.addAll(movies1)
-                    fullList.addAll(movies2)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        page1 = retrofit.searchMovies(newText, "en-US", 1)
+                        page2 = retrofit.searchMovies(newText, "en-US", 2)
 
-                    launch(Dispatchers.Main) {
-                        val adapter1 = MoviesAdapter()
-                        adapter1.list = fullList
+                        val movies1 =
+                            page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                        val movies2 =
+                            page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
 
-                        binding.list.apply {
-                            layoutManager =
-                                GridLayoutManager(context, 3)
-                            adapter = adapter1
+                        val fullList: MutableList<Movie> = ArrayList<Movie>()
+                        fullList.addAll(movies1)
+                        fullList.addAll(movies2)
+
+                        launch(Dispatchers.Main) {
+                            val adapter1 = MoviesAdapter()
+                            adapter1.list = fullList
+
+                            binding.list.apply {
+                                layoutManager =
+                                    GridLayoutManager(context, 3)
+                                adapter = adapter1
+                            }
                         }
                     }
+                    return true
+                } catch (e: Exception) {
+                    return false
                 }
-                return true
             }
-
         })
 
     }

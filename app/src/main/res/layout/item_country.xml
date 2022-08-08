@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_country"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
+    android:layout_margin="9dp"
+    android:clickable="true"
+    android:elevation="@dimen/medium"
+    app:cardCornerRadius="20dp">
+
+    <TextView
+        android:id="@+id/img_country"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/img_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/small"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/hearth" />
+
+    <TextView
+        android:id="@+id/txt_countryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/big"
+        android:text="@string/country"
+        android:textSize="@dimen/medium"
+        android:textStyle="bold" />
+
+
+</com.google.android.material.card.MaterialCardView>

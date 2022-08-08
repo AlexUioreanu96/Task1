@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1404494382022472" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.28958333333333336" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.2755208333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.335" />
@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_coin.xml" value="0.2471042471042471" />
         <entry key="app/src/main/res/layout/item_coin2.xml" value="0.24456521739130435" />
+        <entry key="app/src/main/res/layout/item_country.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/item_grid.xml" value="0.11956521739130435" />
         <entry key="app/src/main/res/layout/item_grid_view_pager.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_movies.xml" value="0.75" />

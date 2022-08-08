@@ -1,12 +1,14 @@
 package com.example.task1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
+import com.example.task1.adapter.CountriesAdapter
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
@@ -56,6 +58,18 @@ class HomeFragment : Fragment() {
                 .commit()
         }
 
+        lifecycleScope.launchWhenResumed {
+            val response = apolloClient.query(CountriesQuery()).execute()
+
+            val adapter = CountriesAdapter()
+            adapter.list = response.data!!.countries
+
+            binding.countriesRecycler.adapter = adapter
+
+
+            Log.d("LaunchList", "Success ${response.data}")
+
+        }
     }
 
 

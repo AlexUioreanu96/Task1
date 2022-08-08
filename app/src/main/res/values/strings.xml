@@ -42,4 +42,6 @@
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="stars">Stars</string>
     <string name="must_watch">Must watch</string>
+    <string name="countries">Countries</string>
+    <string name="country">Country</string>
 </resources>

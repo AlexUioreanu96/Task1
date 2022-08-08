@@ -22,8 +22,6 @@ class MoviesAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             try {
-
-
                 val photo = "https://image.tmdb.org/t/p/w500${movie.image}"
                 Glide.with(binding.root.context)
                     .load(photo)

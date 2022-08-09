@@ -2,6 +2,8 @@ package com.example.task1.models
 
 import com.google.gson.annotations.SerializedName
 
+const val TABLE_NAME = "movies_db"
+
 data class PageMovieModel(
 
     @field:SerializedName("page")
@@ -17,13 +19,6 @@ data class PageMovieModel(
     val totalResults: Int? = null
 )
 
-data class Movie(
-    val id: Int?,
-    val image: String?,
-    val voteAvg: Double?,
-    var isFavorite: Boolean? = false,
-    val isWatched: Boolean? = false
-)
 
 data class MovieResult(
     @field:SerializedName("overview")

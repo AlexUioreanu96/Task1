@@ -13,6 +13,9 @@ import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
+import com.example.task1.db.MovieDBSingelton
+import com.example.task1.db.MoviesDB
+import com.example.task1.db.MoviesDao
 import com.example.task1.models.*
 import com.example.task1.retrofit.LoginClientRetrofit
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -26,8 +29,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private var retrofit: LoginClientRetrofit = LoginClientRetrofit()
 
-    private val retrofit = LoginClientRetrofit()
+    lateinit var database: MoviesDB
+    lateinit var dao: MoviesDao
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +47,29 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        retrofit = LoginClientRetrofit()
+        database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
+        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
+
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val callback: (model: MovieEntity) -> Unit = { model: MovieEntity ->
+                launch {
+                    dao.insertOne(
+                        MovieEntity(
+                            id = model.id,
+                            image = model.image,
+                            voteAvg = model.voteAvg,
+                            isFavorite = model.isFavorite
+                        )
+                    )
+                }
+            }
+        }
+
+
+        displayAiring()
+
         displayViewPager()
 
         displayStars()
@@ -49,7 +78,6 @@ class HomeFragment : Fragment() {
 
         displayPopularMovies()
 
-        displayAiring()
 
         binding.btSearch.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -66,7 +94,6 @@ class HomeFragment : Fragment() {
 
             binding.countriesRecycler.adapter = adapter
 
-
             Log.d("LaunchList", "Success ${response.data}")
 
         }
@@ -77,14 +104,28 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
-                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                val movieEntities =
+                    page.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+
+                val adapter = MoviesAdapter {
+                    println("Petrea:$it")
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        println(it)
+                        dao.update(it)
+                    }
+                }
+
+
+                val list = dao.getAll()
+
 
                 launch(Dispatchers.Main) {
-                    val adapter = MoviesAdapter()
-                    adapter.list = movies
                     binding.airingRecycler.adapter = adapter
+                    adapter.list = list
                 }
+
             } catch (e: Exception) {
+                println("Alex ${e.message}")
             }
         }
     }
@@ -93,11 +134,14 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
-                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                val movieEntities =
+                    page.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
 
                 launch(Dispatchers.Main) {
-                    val adapter = MoviesAdapter()
-                    adapter.list = movies
+                    val adapter = MoviesAdapter {
+
+                    }
+                    adapter.list = movieEntities
                     binding.popularRecycler.adapter = adapter
                 }
             } catch (e: Exception) {
@@ -109,11 +153,23 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movies = page.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                val movieEntities =
+                    page.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+
+//                for (i in movies) {
+//                    dao?.insertOne(i)
+//                }
+
+//                val list = dao?.getAll()
+
 
                 launch(Dispatchers.Main) {
-                    val adapter = MoviesAdapter()
-                    adapter.list = movies
+                    val adapter = MoviesAdapter {
+
+                    }
+//                    if (list != null) {
+//                        adapter.list = list
+//                    }
                     binding.topRatedRecycler.adapter = adapter
                 }
             } catch (e: Exception) {

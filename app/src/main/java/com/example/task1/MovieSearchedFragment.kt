@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
-import com.example.task1.models.Movie
+import com.example.task1.models.MovieEntity
 import com.example.task1.models.PageMovieModel
 import com.example.task1.retrofit.LoginClientRetrofit
 import kotlinx.coroutines.Dispatchers
@@ -56,16 +56,18 @@ class MovieSearchedFragment : Fragment() {
                         page2 = retrofit.searchMovies(query, "en-US", 2)
 
                         val movies1 =
-                            page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
                         val movies2 =
-                            page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
 
-                        val fullList: MutableList<Movie> = ArrayList<Movie>()
+                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
                         fullList.addAll(movies1)
                         fullList.addAll(movies2)
 
                         launch(Dispatchers.Main) {
-                            val adapter1 = MoviesAdapter()
+                            val adapter1 = MoviesAdapter {
+
+                            }
                             adapter1.list = fullList
 
                             binding.list.apply {
@@ -94,16 +96,18 @@ class MovieSearchedFragment : Fragment() {
                         page2 = retrofit.searchMovies(newText, "en-US", 2)
 
                         val movies1 =
-                            page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
                         val movies2 =
-                            page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
+                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
 
-                        val fullList: MutableList<Movie> = ArrayList<Movie>()
+                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
                         fullList.addAll(movies1)
                         fullList.addAll(movies2)
 
                         launch(Dispatchers.Main) {
-                            val adapter1 = MoviesAdapter()
+                            val adapter1 = MoviesAdapter {
+
+                            }
                             adapter1.list = fullList
 
                             binding.list.apply {

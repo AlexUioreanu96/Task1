@@ -24,8 +24,14 @@ interface MoviesDao {
     @Update
     suspend fun update(lastMinuteProduct: MovieEntity)
 
+    @Query("UPDATE $TABLE_NAME SET name=:name, image = :image, voteAvg =:voteAvg WHERE id =:id ")
+    suspend fun updateFields(id: Int, name: String?, image: String?, voteAvg: Double?)
+
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
-    suspend fun queryAfterId(id: String): MovieEntity
+    suspend fun queryAfterId(id: Int): MovieEntity
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE trending = :trend")
+    suspend fun getAllTrend(trend: Int): List<MovieEntity>
 
 
     @Query("UPDATE $TABLE_NAME SET isFavorite = 0 WHERE id = :id")

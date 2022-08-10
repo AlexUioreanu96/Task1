@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
+import com.example.task1.db.MovieDBSingelton
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.PageMovieModel
 import com.example.task1.retrofit.LoginClientRetrofit
@@ -44,6 +45,9 @@ class MovieSearchedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
+        val dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
+
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 try {
@@ -64,17 +68,34 @@ class MovieSearchedFragment : Fragment() {
                         fullList.addAll(movies1)
                         fullList.addAll(movies2)
 
-                        launch(Dispatchers.Main) {
+                        var myList = dao.getAll()
+
+                        fullList.forEach { it ->
+                            val movie = it.id?.let { it1 -> dao.queryAfterId(it1) }
+                            if (movie != null) {
+                                dao.updateFields(it.id, it.image, it.voteAvg)
+                            } else {
+                                dao.insertOne(it)
+                            }
+                        }
+
+                        launch(Dispatchers.IO) {
                             val adapter1 = MoviesAdapter {
-
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    dao.update(it)
+                                }
                             }
-                            adapter1.list = fullList
 
-                            binding.list.apply {
-                                layoutManager =
-                                    GridLayoutManager(context, 3)
-                                adapter = adapter1
-                            }
+                            adapter1.list =
+
+
+                                lifecycleScope.launch(Dispatchers.Main) {
+                                    binding.list.apply {
+                                        layoutManager =
+                                            GridLayoutManager(context, 3)
+                                        adapter = adapter1
+                                    }
+                                }
                         }
                     }
                     return true
@@ -84,43 +105,45 @@ class MovieSearchedFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                try {
-
-
-                    var page1: PageMovieModel = PageMovieModel()
-                    var page2: PageMovieModel = PageMovieModel()
-
-
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        page1 = retrofit.searchMovies(newText, "en-US", 1)
-                        page2 = retrofit.searchMovies(newText, "en-US", 2)
-
-                        val movies1 =
-                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-                        val movies2 =
-                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-
-                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
-                        fullList.addAll(movies1)
-                        fullList.addAll(movies2)
-
-                        launch(Dispatchers.Main) {
-                            val adapter1 = MoviesAdapter {
-
-                            }
-                            adapter1.list = fullList
-
-                            binding.list.apply {
-                                layoutManager =
-                                    GridLayoutManager(context, 3)
-                                adapter = adapter1
-                            }
-                        }
-                    }
-                    return true
-                } catch (e: Exception) {
-                    return false
-                }
+//                try {
+//
+//
+//                    var page1: PageMovieModel = PageMovieModel()
+//                    var page2: PageMovieModel = PageMovieModel()
+//
+//
+//                    lifecycleScope.launch(Dispatchers.IO) {
+//                        page1 = retrofit.searchMovies(newText, "en-US", 1)
+//                        page2 = retrofit.searchMovies(newText, "en-US", 2)
+//
+//                        val movies1 =
+//                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+//                        val movies2 =
+//                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+//
+//                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
+//                        fullList.addAll(movies1)
+//                        fullList.addAll(movies2)
+//
+//                        launch(Dispatchers.Main) {
+//                            val adapter1 = MoviesAdapter {
+//
+//                            }
+//                            adapter1.list = fullList
+//
+//                            binding.list.apply {
+//                                layoutManager =
+//                                    GridLayoutManager(context, 3)
+//                                adapter = adapter1
+//                            }
+//                            delay(900)
+//                        }
+//                    }
+//                    return true
+//                } catch (e: Exception) {
+//                    return false
+//                }
+                return true
             }
         })
 

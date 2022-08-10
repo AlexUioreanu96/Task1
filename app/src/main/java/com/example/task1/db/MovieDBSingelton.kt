@@ -8,7 +8,9 @@ object MovieDBSingelton {
 
     fun getInstance(context: Context): MoviesDB? {
         if (database == null) {
-            database = Room.databaseBuilder(context, MoviesDB::class.java, "movie_db").build()
+            database = Room.databaseBuilder(context, MoviesDB::class.java, "movie_db")
+                .fallbackToDestructiveMigration()
+                .build()
         }
         return database
     }

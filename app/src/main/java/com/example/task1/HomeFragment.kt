@@ -124,9 +124,10 @@ class HomeFragment : Fragment() {
                 val movieEntities =
                     page.results.map {
                         MovieEntity(
-                            it.id,
-                            it.posterPath,
-                            it.voteAverage,
+                            id = it.id,
+                            name = it.title,
+                            image = it.posterPath,
+                            voteAvg = it.voteAverage,
                             trending = 2
                         )
                     }
@@ -158,9 +159,10 @@ class HomeFragment : Fragment() {
                 val movieEntities =
                     page.results.map {
                         MovieEntity(
-                            it.id,
-                            it.posterPath,
-                            it.voteAverage,
+                            id = it.id,
+                            name = it.title,
+                            image = it.posterPath,
+                            voteAvg = it.voteAverage,
                             trending = 1
                         )
                     }

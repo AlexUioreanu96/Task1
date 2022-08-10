@@ -51,8 +51,8 @@ class MovieSearchedFragment : Fragment() {
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 try {
-                    var page1: PageMovieModel = PageMovieModel()
-                    var page2: PageMovieModel = PageMovieModel()
+                    var page1: PageMovieModel
+                    var page2: PageMovieModel
 
 
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -60,22 +60,32 @@ class MovieSearchedFragment : Fragment() {
                         page2 = retrofit.searchMovies(query, "en-US", 2)
 
                         val movies1 =
-                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+                            page1.results.map {
+                                MovieEntity(
+                                    it.id,
+                                    it.title,
+                                    it.posterPath,
+                                    it.voteAverage
+                                )
+                            }
                         val movies2 =
-                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
+                            page2.results.map {
+                                MovieEntity(
+                                    it.id,
+                                    it.title,
+                                    it.posterPath,
+                                    it.voteAverage
+                                )
+                            }
 
                         val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
                         fullList.addAll(movies1)
                         fullList.addAll(movies2)
 
-                        var myList = dao.getAll()
 
-                        fullList.forEach { it ->
-                            val movie = it.id?.let { it1 -> dao.queryAfterId(it1) }
-                            if (movie != null) {
-                                dao.updateFields(it.id, it.image, it.voteAvg)
-                            } else {
-                                dao.insertOne(it)
+                        fullList.forEach { model ->
+                            model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
+                                model.isFavorite = movieEntity.isFavorite
                             }
                         }
 
@@ -86,16 +96,15 @@ class MovieSearchedFragment : Fragment() {
                                 }
                             }
 
-                            adapter1.list =
+                            adapter1.list = fullList
 
-
-                                lifecycleScope.launch(Dispatchers.Main) {
-                                    binding.list.apply {
-                                        layoutManager =
-                                            GridLayoutManager(context, 3)
-                                        adapter = adapter1
-                                    }
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                binding.list.apply {
+                                    layoutManager =
+                                        GridLayoutManager(context, 3)
+                                    adapter = adapter1
                                 }
+                            }
                         }
                     }
                     return true

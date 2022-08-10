@@ -33,6 +33,9 @@ interface MoviesDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE trending = :trend")
     suspend fun getAllTrend(trend: Int): List<MovieEntity>
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE name LIKE :query")
+    suspend fun getAllbyQuery(query: String?): List<MovieEntity>
+
 
     @Query("UPDATE $TABLE_NAME SET isFavorite = 0 WHERE id = :id")
     fun removeFavorite(id: Int?)

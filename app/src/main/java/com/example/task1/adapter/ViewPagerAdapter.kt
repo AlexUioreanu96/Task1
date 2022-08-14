@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.task1.R
 import com.example.task1.databinding.ItemGridViewPagerBinding
 import com.example.task1.models.ImagesModel
 import java.time.LocalDateTime
@@ -32,7 +33,8 @@ class ViewPagerAdapter() :
                 .load(model.imageUrl)
                 .into(binding.image)
             if (model.releaseDate > LocalDateTime.now().toString()) binding.textView2.text =
-                "Coming soon" else binding.textView2.text = "Out in cinemas"
+                R.string.Coming_soon.toString() else binding.textView2.text =
+                R.string.Out_in_cinemas.toString()
 
         }
     }

@@ -14,9 +14,11 @@ import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
 import com.example.task1.db.MovieDBSingelton
-import com.example.task1.db.MoviesDB
+import com.example.task1.db.MovieDBSingelton.database
 import com.example.task1.db.MoviesDao
-import com.example.task1.models.*
+import com.example.task1.models.ImagesModel
+import com.example.task1.models.MovieEntity
+import com.example.task1.models.Star
 import com.example.task1.retrofit.LoginClientRetrofit
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
@@ -24,16 +26,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+const val HFTAG = "HomeFragment "
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private var retrofit: LoginClientRetrofit = LoginClientRetrofit()
-
-    lateinit var database: MoviesDB
-    lateinit var dao: MoviesDao
-
+    private lateinit var dao: MoviesDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +46,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
-        retrofit = LoginClientRetrofit()
-        database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
-        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
+        setupDB()
 
         displayAiring()
 
@@ -61,23 +59,35 @@ class HomeFragment : Fragment() {
 
         displayPopularMovies()
 
+        fragmentTransaction()
 
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = apolloClient.query(CountriesQuery()).execute()
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                val adapter = CountriesAdapter()
+
+                adapter.list = response.data?.countries ?: emptyList()
+
+                binding.countriesRecycler.adapter = adapter
+            }
+
+            Log.d("LaunchList", "Success ${response.data}")
+        }
+    }
+
+    private fun setupDB() {
+        database = MovieDBSingelton.getInstance(requireContext())
+        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB() as MoviesDao
+    }
+
+    private fun fragmentTransaction() {
         binding.btSearch.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace<MovieSearchedFragment>(R.id.fragment_container_view_tag)
                 .addToBackStack("searched")
                 .commit()
-        }
-
-        lifecycleScope.launchWhenResumed {
-            val response = apolloClient.query(CountriesQuery()).execute()
-
-            val adapter = CountriesAdapter()
-            adapter.list = response.data!!.countries
-
-            binding.countriesRecycler.adapter = adapter
-
-            Log.d("LaunchList", "Success ${response.data}")
         }
     }
 
@@ -85,9 +95,8 @@ class HomeFragment : Fragment() {
     private fun displayAiring() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
+                val movieEntities: List<MovieEntity> =
+                    retrofit.retriveAiringMovies("en-US", 1).results.map {
                         MovieEntity(
                             id = it.id,
                             name = it.title,
@@ -97,7 +106,7 @@ class HomeFragment : Fragment() {
                         )
                     }
 
-                syncronize(movieEntities)
+                synchronizeList(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -112,7 +121,7 @@ class HomeFragment : Fragment() {
                 }
 
             } catch (e: Exception) {
-                println("Alex ${e.message}")
+                Log.w(HFTAG, "It broke's")
             }
         }
     }
@@ -120,9 +129,8 @@ class HomeFragment : Fragment() {
     private fun displayPopularMovies() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
+                val movieEntities: List<MovieEntity> =
+                    retrofit.retrivePopularMovies("en-US", 1).results.map {
                         MovieEntity(
                             id = it.id,
                             name = it.title,
@@ -131,8 +139,7 @@ class HomeFragment : Fragment() {
                             trending = 2
                         )
                     }
-
-                syncronize(movieEntities)
+                synchronizeList(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -148,6 +155,7 @@ class HomeFragment : Fragment() {
                 }
 
             } catch (e: Exception) {
+                Log.w(HFTAG, "It broke's")
             }
         }
     }
@@ -155,9 +163,8 @@ class HomeFragment : Fragment() {
     private fun displayTopRated() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
+                val movieEntities: List<MovieEntity> =
+                    retrofit.retriveTopRatedMovies("en-US", 1).results.map {
                         MovieEntity(
                             id = it.id,
                             name = it.title,
@@ -166,8 +173,7 @@ class HomeFragment : Fragment() {
                             trending = 1
                         )
                     }
-
-                syncronize(movieEntities)
+                synchronizeList(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -181,6 +187,7 @@ class HomeFragment : Fragment() {
                     adapter.list = list
                 }
             } catch (e: Exception) {
+                Log.w(HFTAG, "It broke's")
             }
         }
     }
@@ -189,20 +196,19 @@ class HomeFragment : Fragment() {
     private fun displayViewPager() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val p: PageMovieModel = retrofit.retriveTrendingMoviesSeries()
-                val images: List<ImagesModel> = p.results.map {
-                    it.releaseDate?.let { it1 ->
-                        ImagesModel(
-                            "https://image.tmdb.org/t/p/w500${it.backdropPath}",
-                            it1
-                        )
-                    }
-                }.take(6) as List<ImagesModel>
+                val images: List<ImagesModel> = retrofit.retriveTrendingMoviesSeries().results.map {
+                    ImagesModel(
+                        "https://image.tmdb.org/t/p/w500${it.backdropPath}",
+                        it.releaseDate
+                    )
+                }.take(6)
+
                 launch(Dispatchers.Main) {
                     setupViewPager(images)
                     println(images)
                 }
             } catch (e: Exception) {
+                Log.w(HFTAG, "It broke's")
             }
         }
     }
@@ -210,14 +216,20 @@ class HomeFragment : Fragment() {
     private fun displayStars() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val page: PopularPeople = retrofit.retrivePopularPeople("en-US", 1)
-                val stars = page.results.map { Star(it.name, it.profilePath) }
+                val stars: List<Star> = retrofit.retrivePopularPeople("en-US", 1).results.map {
+                    Star(
+                        it.name,
+                        it.profilePath
+                    )
+                }
+
                 launch(Dispatchers.Main) {
                     val adapter = PopularPeopleAdapter()
                     adapter.list = stars
                     binding.starsRecycler.adapter = adapter
                 }
             } catch (e: Exception) {
+                Log.w(HFTAG, "It broke's")
             }
         }
     }
@@ -227,7 +239,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun setupViewPager(list: List<ImagesModel>) {
+    private fun setupViewPager(list: List<ImagesModel>) {
         binding.indicatorView.apply {
             setSliderColor(R.color.normalColor, R.color.checkedColor)
             setSliderWidth(resources.getDimension(R.dimen.dp_10))
@@ -244,7 +256,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    suspend fun syncronize(list: List<MovieEntity>) {
+    private suspend fun synchronizeList(list: List<MovieEntity>) {
         list.forEach {
             val movie = it.id?.let { it1 -> dao.queryAfterId(it1) }
             if (movie != null) {

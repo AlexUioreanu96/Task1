@@ -1,22 +1,30 @@
 package com.example.task1
 
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
+import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
 import com.example.task1.db.MovieDBSingelton
+import com.example.task1.db.MoviesDao
 import com.example.task1.models.MovieEntity
-import com.example.task1.models.PageMovieModel
 import com.example.task1.retrofit.LoginClientRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+private const val HISTORYTAG = "History"
+private const val SEARCHTAG = "SEARCH TAG"
 
 class MovieSearchedFragment : Fragment() {
 
@@ -48,166 +56,110 @@ class MovieSearchedFragment : Fragment() {
         val database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
         val dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
 
-        binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                try {
-                    var page1: PageMovieModel
-                    var page2: PageMovieModel
-
-
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        page1 = retrofit.searchMovies(query, "en-US", 1)
-                        page2 = retrofit.searchMovies(query, "en-US", 2)
-
-                        val movies1 =
-                            page1.results.map {
-                                MovieEntity(
-                                    it.id,
-                                    it.title,
-                                    it.posterPath,
-                                    it.voteAverage
-                                )
-                            }
-                        val movies2 =
-                            page2.results.map {
-                                MovieEntity(
-                                    it.id,
-                                    it.title,
-                                    it.posterPath,
-                                    it.voteAverage
-                                )
-                            }
-
-                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
-                        fullList.addAll(movies1)
-                        fullList.addAll(movies2)
-
-
-                        fullList.forEach { model ->
-                            model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
-                                model.isFavorite = movieEntity.isFavorite
-                            }
-                        }
-
-                        launch(Dispatchers.IO) {
-                            val adapter1 = MoviesAdapter {
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    dao.update(it)
-                                }
-                            }
-
-                            adapter1.list = fullList
-
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                binding.list.apply {
-                                    layoutManager =
-                                        GridLayoutManager(context, 3)
-                                    adapter = adapter1
-                                }
-                            }
-                        }
-                    }
-                    return true
-                } catch (e: Exception) {
-                    return false
-                }
+        binding.btSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-//                try {
-//
-//
-//                    var page1: PageMovieModel = PageMovieModel()
-//                    var page2: PageMovieModel = PageMovieModel()
-//
-//
-//                    lifecycleScope.launch(Dispatchers.IO) {
-//                        page1 = retrofit.searchMovies(newText, "en-US", 1)
-//                        page2 = retrofit.searchMovies(newText, "en-US", 2)
-//
-//                        val movies1 =
-//                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-//                        val movies2 =
-//                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-//
-//                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
-//                        fullList.addAll(movies1)
-//                        fullList.addAll(movies2)
-//
-//                        launch(Dispatchers.Main) {
-//                            val adapter1 = MoviesAdapter {
-//
-//                            }
-//                            adapter1.list = fullList
-//
-//                            binding.list.apply {
-//                                layoutManager =
-//                                    GridLayoutManager(context, 3)
-//                                adapter = adapter1
-//                            }
-//                            delay(900)
-//                        }
-//                    }
-//                    return true
-//                } catch (e: Exception) {
-//                    return false
-//                }
-                return true
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
             }
         })
 
+        binding.btSearch.setOnEditorActionListener { viewS, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                keyEvent == null ||
+                keyEvent.keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
+
+                setupSearchListWithHistory(viewS.text.toString(), dao)
+            }
+            false
+        }
+
+    }
+
+    private fun setupSearchListWithHistory(s: String, dao: MoviesDao) {
+        try {
+            val sharedPref = activity?.getSharedPreferences(
+                HISTORYTAG, Context.MODE_PRIVATE
+            ) ?: return
+
+
+            val history: String? = sharedPref.getString(HISTORYTAG, "")
+
+            with(sharedPref.edit()) {
+                putString(HISTORYTAG, s)
+                commit()
+            }
+
+            val historyList = ArrayList<String>()
+            if (history != null) {
+                historyList.add(history)
+            }
+
+            binding.btSearch.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    historyList.reversed()
+                )
+            )
+//            historySearchAdapter(historyList)
+
+
+            var fullList: List<MovieEntity>
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                fullList = (retrofit.searchMovies(s, "en-US", 1).results + retrofit.searchMovies(
+                    s,
+                    "en-US",
+                    2
+                ).results).filter { it.posterPath.isNotEmpty() }.map {
+                    MovieEntity(
+                        it.id,
+                        it.title,
+                        it.posterPath,
+                        it.voteAverage
+                    )
+                }
+
+
+                fullList.forEach { model ->
+                    model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
+                        model.isFavorite = movieEntity.isFavorite
+                    }
+                }
+
+                launch(Dispatchers.IO) {
+                    val adapter1 = MoviesAdapter {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            dao.update(it)
+                        }
+                    }
+
+                    val fullMovies = dao.getAll()
+
+                    adapter1.list = fullList.map { movie ->
+                        if (fullMovies.firstOrNull { it.id == movie.id } != null) {
+                            return@map movie.copy(isFavorite = true)
+                        }
+                        return@map movie
+                    }
+
+
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        binding.list.apply {
+                            layoutManager =
+                                GridLayoutManager(context, 3)
+                            adapter = adapter1
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(SEARCHTAG, "It it broke")
+        }
     }
 }
-
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.menu, menu)
-
-//        val menuItem: MenuItem = menu.findItem(R.id.action_search)
-//        menuItem.isVisible = true
-//        val searchView: SearchView = menuItem.actionView as SearchView
-//        searchView.queryHint = "Search a movie"
-
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//
-//                var page1: PageMovieModel = PageMovieModel()
-//                var page2: PageMovieModel = PageMovieModel()
-//
-//
-//                lifecycleScope.launch(Dispatchers.IO) {
-//                    page1 = retrofit.searchMovies(query, "en-US", 1)
-//                    page2 = retrofit.searchMovies(query, "en-US", 2)
-//
-//                    val movies1 = page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-//                    val movies2 = page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-//
-//                    val fullList: MutableList<Movie> = ArrayList<Movie>()
-//                    fullList.addAll(movies1)
-//                    fullList.addAll(movies2)
-//
-//                    launch(Dispatchers.Main) {
-//                        val adapter = MoviesAdapter()
-//                        adapter.list = fullList
-//                        binding.list.adapter = adapter
-//                    }
-//
-//                    parentFragmentManager.beginTransaction()
-//                        .replace<MovieSearchedFragment>(R.id.fragment_container_view_tag)
-//                        .addToBackStack("searched")
-//                        .commit()
-//
-//
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return true
-//            }
-//
-//        })
-//
-//        return super.onCreateOptionsMenu(menu, inflater)
-//
-

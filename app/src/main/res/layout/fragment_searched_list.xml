@@ -17,22 +17,16 @@
         app:subtitleTextColor="@color/white"
         app:titleTextColor="@color/white">
 
-        <androidx.appcompat.widget.SearchView
+        <AutoCompleteTextView
             android:id="@+id/bt_search"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center"
             android:layout_marginEnd="@dimen/medium"
-            app:closeIcon="@null"
-            android:defaultFocusHighlightEnabled="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:focusedByDefault="true"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
-            app:queryHint="Search"
-            app:searchIcon="@null"
-            app:searchHintIcon="@null" />
+            android:hint="Search"
+            android:maxLines="1" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 

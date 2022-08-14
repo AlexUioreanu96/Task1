@@ -6,52 +6,52 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserModel(
-    @field:SerializedName("include_adult")
-    val includeAdult: Boolean? = false,
+    @SerializedName("include_adult")
+    val includeAdult: Boolean = false,
 
-    @field:SerializedName("iso_3166_1")
-    val iso31661: String? = "",
+    @SerializedName("iso_3166_1")
+    val iso31661: String = "",
 
-    @field:SerializedName("name")
-    val name: String? = "",
+    @SerializedName("name")
+    val name: String = "",
 
-    @field:SerializedName("avatar")
+    @SerializedName("avatar")
     val avatar: Avatar? = null,
 
-    @field:SerializedName("id")
-    val id: Int? = 0,
+    @SerializedName("id")
+    val id: Int = 0,
 
-    @field:SerializedName("iso_639_1")
-    val iso6391: String? = "",
+    @SerializedName("iso_639_1")
+    val iso6391: String = "",
 
     @SerializedName("password")
-    var password: String? = "",
+    var password: String = "",
 
     @SerializedName("request_token")
-    var requestToken: String? = "",
+    var requestToken: String = "",
 
     @SerializedName("username")
-    var username: String? = ""
+    var username: String = ""
 )
 
 @Serializable
 data class Tmdb(
-    @field:SerializedName("avatar_path")
+    @SerializedName("avatar_path")
     @Contextual
     val avatarPath: Any? = null
 )
 
 @Serializable
 data class Gravatar(
-    @field:SerializedName("hash")
-    val hash: String? = null
+    @SerializedName("hash")
+    val hash: String = ""
 )
 
 @Serializable
 data class Avatar(
-    @field:SerializedName("tmdb")
+    @SerializedName("tmdb")
     val tmdb: Tmdb? = null,
-    @field:SerializedName("gravatar")
+    @SerializedName("gravatar")
     val gravatar: Gravatar? = null
 )
 

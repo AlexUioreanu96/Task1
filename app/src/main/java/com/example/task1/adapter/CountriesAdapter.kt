@@ -29,8 +29,8 @@ class CountriesAdapter() :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CountriesAdapter.CountriesViewHolder {
-        return CountriesAdapter.CountriesViewHolder(
+    ): CountriesViewHolder {
+        return CountriesViewHolder(
             ItemCountryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

@@ -24,11 +24,7 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        var extras: String? = intent.getStringExtra(ID)
-
-        extras = extras?.replace('-', '_')
-
-        val coin = extras?.let { FileUtils.getObj(this, it) }
+        val coin = intent.getStringExtra(ID)?.replace('-', '_')?.let { FileUtils.getObj(this, it) }
 
         if (coin?.team?.isNotEmpty() == true) {
             teamAdapter = CoinTeamAdapter(coin.team)
@@ -44,14 +40,14 @@ class CoinDetailsActivity : AppCompatActivity() {
     private fun populateView(coin: CoinDetailsDTO?) {
         coin?.let {
             binding.apply {
-                txtRank.text = "${coin.rank}."
+                txtRank.text = coin.rank.toString()
                 txtName.text = coin.name
-                txtSymbol.text = "(${coin.symbol})"
+                txtSymbol.text = coin.symbol
                 if (coin.isActive) txtIsActive.apply {
-                    text = "active"
+                    text = context.getString(R.string.active)
                     setTextColor(Color.GREEN)
                 } else txtIsActive.apply {
-                    text = "unactive"
+                    text = context.getString(R.string.unactive)
                     setTextColor(Color.RED)
                 }
                 txtDescription.text = coin.description

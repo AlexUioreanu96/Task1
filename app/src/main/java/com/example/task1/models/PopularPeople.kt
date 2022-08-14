@@ -4,100 +4,101 @@ import com.google.gson.annotations.SerializedName
 
 data class PopularPeople(
 
-	@field:SerializedName("page")
-	val page: Int? = null,
+    @SerializedName("page")
+    val page: Int = 0,
 
-	@field:SerializedName("total_pages")
-	val totalPages: Int? = null,
+    @SerializedName("total_pages")
+    val totalPages: Int = 0,
 
-	@field:SerializedName("results")
-	val results: List<People>,
+    @SerializedName("results")
+    val results: List<People> = emptyList(),
 
-	@field:SerializedName("total_results")
-	val totalResults: Int? = null
+    @SerializedName("total_results")
+    val totalResults: Int = 0
 )
 
-data class Star(val name: String?, val profilePath: String?)
+data class Star(val name: String = "", val profilePath: String = "")
+
 data class People(
 
-	@field:SerializedName("gender")
-	val gender: Int? = null,
+    @SerializedName("gender")
+    val gender: Int = 0,
 
-	@field:SerializedName("known_for_department")
-	val knownForDepartment: String? = null,
+    @SerializedName("known_for_department")
+    val knownForDepartment: String = "",
 
-	@field:SerializedName("known_for")
-	val knownFor: List<KnownForItem?>? = null,
+    @SerializedName("known_for")
+    val knownFor: List<KnownForItem> = emptyList(),
 
-	@field:SerializedName("popularity")
-	val popularity: Double? = null,
+    @SerializedName("popularity")
+    val popularity: Double = 0.0,
 
-	@field:SerializedName("name")
-	val name: String? = null,
+    @SerializedName("name")
+    val name: String = "",
 
-	@field:SerializedName("profile_path")
-	val profilePath: String? = null,
+    @SerializedName("profile_path")
+    val profilePath: String = "",
 
-	@field:SerializedName("id")
-	val id: Int? = null,
+    @SerializedName("id")
+    val id: Int = 0,
 
-	@field:SerializedName("adult")
-	val adult: Boolean? = null
+    @SerializedName("adult")
+    val adult: Boolean = false
 )
 
 data class KnownForItem(
 
-	@field:SerializedName("overview")
-	val overview: String? = null,
+    @SerializedName("overview")
+    val overview: String = "",
 
-	@field:SerializedName("original_language")
-	val originalLanguage: String? = null,
+    @SerializedName("original_language")
+    val originalLanguage: String = "",
 
-	@field:SerializedName("original_title")
-	val originalTitle: String? = null,
+    @SerializedName("original_title")
+    val originalTitle: String = "",
 
-	@field:SerializedName("video")
-	val video: Boolean? = null,
+    @SerializedName("video")
+    val video: Boolean = false,
 
-	@field:SerializedName("title")
-	val title: String? = null,
+    @SerializedName("title")
+    val title: String = "",
 
-	@field:SerializedName("genre_ids")
-	val genreIds: List<Int?>? = null,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int> = emptyList(),
 
-	@field:SerializedName("poster_path")
-	val posterPath: String? = null,
+    @SerializedName("poster_path")
+    val posterPath: String = "",
 
-	@field:SerializedName("backdrop_path")
-	val backdropPath: String? = null,
+    @SerializedName("backdrop_path")
+    val backdropPath: String = "",
 
-	@field:SerializedName("media_type")
-	val mediaType: String? = null,
+    @SerializedName("media_type")
+    val mediaType: String = "",
 
-	@field:SerializedName("release_date")
-	val releaseDate: String? = null,
+    @SerializedName("release_date")
+    val releaseDate: String = "",
 
-	@field:SerializedName("vote_average")
-	val voteAverage: Double? = null,
+    @SerializedName("vote_average")
+    val voteAverage: Double? = 0.0,
 
-	@field:SerializedName("id")
-	val id: Int? = null,
+    @SerializedName("id")
+    val id: Int = 0,
 
-	@field:SerializedName("adult")
-	val adult: Boolean? = null,
+    @SerializedName("adult")
+    val adult: Boolean = false,
 
-	@field:SerializedName("vote_count")
-	val voteCount: Int? = null,
+    @SerializedName("vote_count")
+    val voteCount: Int = 0,
 
-	@field:SerializedName("first_air_date")
-	val firstAirDate: String? = null,
+    @SerializedName("first_air_date")
+    val firstAirDate: String = "",
 
-	@field:SerializedName("origin_country")
-	val originCountry: List<String?>? = null,
+    @SerializedName("origin_country")
+    val originCountry: List<String> = emptyList(),
 
-	@field:SerializedName("original_name")
-	val originalName: String? = null,
+    @SerializedName("original_name")
+    val originalName: String? = "",
 
-	@field:SerializedName("name")
-	val name: String? = null
+    @SerializedName("name")
+    val name: String = ""
 )

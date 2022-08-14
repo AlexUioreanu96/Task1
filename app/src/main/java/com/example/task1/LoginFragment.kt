@@ -20,8 +20,6 @@ class LoginFragment : Fragment() {
 
     private var bind: FragmentLoginBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = bind!!
 
     override fun onCreateView(
@@ -68,19 +66,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-
-//            println("sgsa")
-//            //sessionId
-//            status = retrofit.postSessionId(user.requestToken.toString())
-//
-//            //userDetailsA
-//            user = retrofit.getUserDetails(status.sessionId.toString())
-//
-//            //invalidate session
-//            status.success = retrofit.invalidateSession(status.sessionId.toString())
-//
-//            println(status)
     }
 
 

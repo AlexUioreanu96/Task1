@@ -1,65 +1,67 @@
 package com.example.task1.models
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 const val TABLE_NAME = "movies_db"
 
+@Serializable
 data class PageMovieModel(
 
-    @field:SerializedName("page")
-    val page: Int? = null,
+    @SerializedName("page")
+    val page: Int = 0,
 
-    @field:SerializedName("total_pages")
-    val totalPages: Int? = null,
+    @SerializedName("total_pages")
+    val totalPages: Int = 0,
 
-    @field:SerializedName("results")
+    @SerializedName("results")
     val results: List<MovieResult> = emptyList(),
 
-    @field:SerializedName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int? = null
 )
 
-
+@Serializable
 data class MovieResult(
-    @field:SerializedName("overview")
-    val overview: String? = null,
+    @SerializedName("overview")
+    val overview: String = "",
 
-    @field:SerializedName("original_language")
-    val originalLanguage: String? = null,
+    @SerializedName("original_language")
+    val originalLanguage: String = "",
 
-    @field:SerializedName("original_title")
-    val originalTitle: String? = null,
+    @SerializedName("original_title")
+    val originalTitle: String = "",
 
-    @field:SerializedName("video")
-    val video: Boolean? = null,
+    @SerializedName("video")
+    val video: Boolean = false,
 
-    @field:SerializedName("title")
-    val title: String? = null,
+    @SerializedName("title")
+    val title: String = "",
 
-    @field:SerializedName("genre_ids")
-    val genreIds: List<Int?>? = null,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int> = emptyList(),
 
-    @field:SerializedName("poster_path")
-    val posterPath: String? = null,
+    @SerializedName("poster_path")
+    val posterPath: String = "",
 
-    @field:SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    @SerializedName("backdrop_path")
+    val backdropPath: String = "",
 
-    @field:SerializedName("release_date")
-    val releaseDate: String? = null,
+    @SerializedName("release_date")
+    val releaseDate: String = "",
 
-    @field:SerializedName("popularity")
-    val popularity: Double? = null,
+    @SerializedName("popularity")
+    val popularity: Double = 0.0,
 
-    @field:SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    @SerializedName("vote_average")
+    val voteAverage: Double = 0.0,
 
-    @field:SerializedName("id")
-    val id: Int? = null,
+    @SerializedName("id")
+    val id: Int = 0,
 
-    @field:SerializedName("adult")
-    val adult: Boolean? = null,
+    @SerializedName("adult")
+    val adult: Boolean = false,
 
-    @field:SerializedName("vote_count")
-    val voteCount: Int? = null
+    @SerializedName("vote_count")
+    val voteCount: Int = 0
 )

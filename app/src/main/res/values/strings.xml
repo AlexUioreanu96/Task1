@@ -6,6 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="preference_file_key">History</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragmentb Arg</string>
@@ -44,4 +45,8 @@
     <string name="must_watch">Must watch</string>
     <string name="countries">Countries</string>
     <string name="country">Country</string>
+    <string name="Coming_soon">Coming soon</string>
+    <string name="Out_in_cinemas">Out in cinemas</string>
+    <string name="active">active</string>
+    <string name="unactive">unactive</string>
 </resources>

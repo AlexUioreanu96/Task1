@@ -16,7 +16,7 @@ class CoinTeamAdapter(var coinTeamList: List<TeamModel>) :
         parent: ViewGroup,
         viewType: Int
     ): CoinTeamViewHolder {
-        return CoinTeamAdapter.CoinTeamViewHolder(
+        return CoinTeamViewHolder(
             ItemTeamBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

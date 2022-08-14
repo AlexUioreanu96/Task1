@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2197242206235012" />
+        <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.27447916666666666" />
         <entry key="app/src/main/res/drawable/costum_label.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/grid_shape.xml" value="0.2305" />
         <entry key="app/src/main/res/drawable/ic_baseline_local_fire_department_24.xml" value="0.205" />
@@ -35,8 +36,10 @@
         <entry key="app/src/main/res/layout/item_popular_people.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/item_team.xml" value="0.28396739130434784" />
         <entry key="app/src/main/res/layout/item_top_rated.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/searchable.xml" value="0.2734375" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.28958333333333336" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/bitcoin.xml" value="0.1175" />
+        <entry key="app/src/main/res/xml/searchable.xml" value="0.2734375" />
       </map>
     </option>
   </component>

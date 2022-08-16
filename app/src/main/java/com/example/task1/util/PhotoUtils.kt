@@ -1,5 +1,6 @@
-package com.example.task1
+package com.example.task1.util
 
+import com.example.task1.R
 import com.example.task1.databinding.ItemCoinBinding
 
 class PhotoUtils {

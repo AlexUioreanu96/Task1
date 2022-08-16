@@ -9,6 +9,7 @@ import com.example.task1.adapter.GridAdapter
 import com.example.task1.adapter.ID
 import com.example.task1.databinding.ActivityCoinDetailsBinding
 import com.example.task1.models.CoinDetailsDTO
+import com.example.task1.util.FileUtils
 
 
 class CoinDetailsActivity : AppCompatActivity() {

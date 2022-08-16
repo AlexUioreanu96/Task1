@@ -141,12 +141,14 @@ class MovieSearchedFragment : Fragment() {
 
                     val fullMovies = dao.getAll()
 
-                    adapter1.list = fullList.map { movie ->
-                        if (fullMovies.firstOrNull { it.id == movie.id } != null) {
-                            return@map movie.copy(isFavorite = true)
-                        }
-                        return@map movie
-                    }
+                    adapter1.list = fullList
+
+//                    adapter1.list = fullList.map { movie ->
+//                        if (fullMovies.firstOrNull { it.id == movie.id } != null) {
+//                            return@map movie.copy(isFavorite = true)
+//                        }
+//                        return@map movie
+//                    }
 
 
                     lifecycleScope.launch(Dispatchers.Main) {

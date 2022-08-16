@@ -22,7 +22,7 @@ interface MoviesDao {
     suspend fun getAll(): List<MovieEntity>
 
     @Update
-    suspend fun update(lastMinuteProduct: MovieEntity)
+    suspend fun update(movie: MovieEntity)
 
     @Query("UPDATE $TABLE_NAME SET name=:name, image = :image, voteAvg =:voteAvg WHERE id =:id ")
     suspend fun updateFields(id: Int, name: String?, image: String?, voteAvg: Double?)
@@ -35,7 +35,6 @@ interface MoviesDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE name LIKE :query")
     suspend fun getAllbyQuery(query: String?): List<MovieEntity>
-
 
     @Query("UPDATE $TABLE_NAME SET isFavorite = 0 WHERE id = :id")
     fun removeFavorite(id: Int?)

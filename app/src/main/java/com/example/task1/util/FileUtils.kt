@@ -1,7 +1,8 @@
-package com.example.task1
+package com.example.task1.util
 
 import android.content.Context
 import android.util.Log
+import com.example.task1.TAG
 import com.example.task1.models.CoinDetailsDTO
 import com.example.task1.models.CoinModel
 import com.google.gson.Gson

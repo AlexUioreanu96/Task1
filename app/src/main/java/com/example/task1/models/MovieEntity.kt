@@ -11,6 +11,5 @@ data class MovieEntity(
     val image: String?,
     val voteAvg: Double?,
     var isFavorite: Boolean? = false,
-    //TODO: see Robert's case
     val trending: Int? = 0
 )

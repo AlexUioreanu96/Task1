@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.task1.adapter.CountriesAdapter
 import com.example.task1.adapter.MoviesAdapter
@@ -20,6 +21,7 @@ import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.Star
 import com.example.task1.retrofit.LoginClientRetrofit
+import com.example.task1.viewModel.HomeViewModel
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +37,8 @@ class HomeFragment : Fragment() {
 
     private var retrofit: LoginClientRetrofit = LoginClientRetrofit()
     private lateinit var dao: MoviesDao
+
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

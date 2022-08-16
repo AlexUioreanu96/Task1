@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task1.CoinDetailsActivity
-import com.example.task1.PhotoUtils
 import com.example.task1.databinding.ItemCoinBinding
 import com.example.task1.models.CoinModel
+import com.example.task1.util.PhotoUtils
 
 const val ID = "ID"
 

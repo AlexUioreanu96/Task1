@@ -1,13 +1,13 @@
 package com.example.task1.models
 
 import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 
 data class TagModel(
-    @SerializedName("coin_counter")
+    @SerialName("coin_counter")
     val coinCounter: Long = 0,
 
-    @SerializedName("ico_counter")
+    @SerialName("ico_counter")
     val icoCounter: Long = 0,
 
     @Expose

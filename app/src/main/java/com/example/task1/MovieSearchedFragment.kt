@@ -1,6 +1,7 @@
 package com.example.task1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
 import com.example.task1.db.MovieDBSingelton
 import com.example.task1.models.MovieEntity
-import com.example.task1.models.PageMovieModel
 import com.example.task1.retrofit.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,37 +51,20 @@ class MovieSearchedFragment : Fragment() {
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 try {
-                    var page1: PageMovieModel
-                    var page2: PageMovieModel
-
-
                     lifecycleScope.launch(Dispatchers.IO) {
-                        page1 = retrofit.searchMovies(query, "en-US", 1)
-                        page2 = retrofit.searchMovies(query, "en-US", 2)
-
-                        val movies1 =
-                            page1.results.map {
-                                MovieEntity(
-                                    it.id,
-                                    it.title,
-                                    it.posterPath,
-                                    it.voteAverage
-                                )
-                            }
-                        val movies2 =
-                            page2.results.map {
-                                MovieEntity(
-                                    it.id,
-                                    it.title,
-                                    it.posterPath,
-                                    it.voteAverage
-                                )
-                            }
-
-                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
-                        fullList.addAll(movies1)
-                        fullList.addAll(movies2)
-
+                        val fullList = (retrofit.searchMovies(query, "en-US", 1).results +
+                                retrofit.searchMovies(
+                                    query,
+                                    "en-US",
+                                    2
+                                ).results).filter { it.posterPath.isNotEmpty() }.map {
+                            MovieEntity(
+                                id = it.id,
+                                name = it.title,
+                                image = it.posterPath,
+                                voteAvg = it.voteAverage
+                            )
+                        }
 
                         fullList.forEach { model ->
                             model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
@@ -89,125 +72,30 @@ class MovieSearchedFragment : Fragment() {
                             }
                         }
 
-                        launch(Dispatchers.IO) {
+                        lifecycleScope.launch(Dispatchers.Main) {
                             val adapter1 = MoviesAdapter {
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dao.update(it)
                                 }
                             }
-
+                            binding.list.layoutManager = GridLayoutManager(context, 3)
+                            binding.list.adapter = adapter1
                             adapter1.list = fullList
-
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                binding.list.apply {
-                                    layoutManager =
-                                        GridLayoutManager(context, 3)
-                                    adapter = adapter1
-                                }
-                            }
                         }
+
                     }
                     return true
                 } catch (e: Exception) {
+                    Log.w("search", "error", e)
                     return false
                 }
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                try {
-//
-//
-//                    var page1: PageMovieModel = PageMovieModel()
-//                    var page2: PageMovieModel = PageMovieModel()
-//
-//
-//                    lifecycleScope.launch(Dispatchers.IO) {
-//                        page1 = retrofit.searchMovies(newText, "en-US", 1)
-//                        page2 = retrofit.searchMovies(newText, "en-US", 2)
-//
-//                        val movies1 =
-//                            page1.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-//                        val movies2 =
-//                            page2.results.map { MovieEntity(it.id, it.posterPath, it.voteAverage) }
-//
-//                        val fullList: MutableList<MovieEntity> = ArrayList<MovieEntity>()
-//                        fullList.addAll(movies1)
-//                        fullList.addAll(movies2)
-//
-//                        launch(Dispatchers.Main) {
-//                            val adapter1 = MoviesAdapter {
-//
-//                            }
-//                            adapter1.list = fullList
-//
-//                            binding.list.apply {
-//                                layoutManager =
-//                                    GridLayoutManager(context, 3)
-//                                adapter = adapter1
-//                            }
-//                            delay(900)
-//                        }
-//                    }
-//                    return true
-//                } catch (e: Exception) {
-//                    return false
-//                }
                 return true
             }
         })
 
     }
 }
-
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.menu, menu)
-
-//        val menuItem: MenuItem = menu.findItem(R.id.action_search)
-//        menuItem.isVisible = true
-//        val searchView: SearchView = menuItem.actionView as SearchView
-//        searchView.queryHint = "Search a movie"
-
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//
-//                var page1: PageMovieModel = PageMovieModel()
-//                var page2: PageMovieModel = PageMovieModel()
-//
-//
-//                lifecycleScope.launch(Dispatchers.IO) {
-//                    page1 = retrofit.searchMovies(query, "en-US", 1)
-//                    page2 = retrofit.searchMovies(query, "en-US", 2)
-//
-//                    val movies1 = page1.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-//                    val movies2 = page2.results.map { Movie(it.id, it.posterPath, it.voteAverage) }
-//
-//                    val fullList: MutableList<Movie> = ArrayList<Movie>()
-//                    fullList.addAll(movies1)
-//                    fullList.addAll(movies2)
-//
-//                    launch(Dispatchers.Main) {
-//                        val adapter = MoviesAdapter()
-//                        adapter.list = fullList
-//                        binding.list.adapter = adapter
-//                    }
-//
-//                    parentFragmentManager.beginTransaction()
-//                        .replace<MovieSearchedFragment>(R.id.fragment_container_view_tag)
-//                        .addToBackStack("searched")
-//                        .commit()
-//
-//
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return true
-//            }
-//
-//        })
-//
-//        return super.onCreateOptionsMenu(menu, inflater)
-//
 

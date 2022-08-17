@@ -1,16 +1,24 @@
 package com.example.task1.retrofit
 
 import com.example.task1.models.*
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 const val APIKEY = "96d31308896f028f63b8801331250f03"
 
 class LoginRepository {
+    private val json = Json {
+        coerceInputValues = true
+//        ignoreUnknownKeys=true
+    }
 
+    @OptIn(ExperimentalSerializationApi::class)
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()
 
     val service = retrofit.create(LoginApi::class.java)

@@ -3,9 +3,9 @@ package com.example.task1
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.task1.FileUtils.Companion.getList
 import com.example.task1.adapter.CoinAdapter
 import com.example.task1.databinding.ActivityCoinsBinding
+import com.example.task1.utils.FileUtils.Companion.getList
 
 const val TAG = "MainActivity"
 

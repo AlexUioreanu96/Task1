@@ -44,4 +44,7 @@
     <string name="must_watch">Must watch</string>
     <string name="countries">Countries</string>
     <string name="country">Country</string>
+    <string name="username">Username</string>
+    <string name="please_enter_your_credentials">Please enter your credentials</string>
+    <string name="welcome">Welcome</string>
 </resources>

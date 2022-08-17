@@ -1,65 +1,90 @@
 package com.example.task1.models
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 const val TABLE_NAME = "movies_db"
 
+@Serializable
 data class PageMovieModel(
 
-    @field:SerializedName("page")
+    @SerialName("page")
     val page: Int? = null,
 
-    @field:SerializedName("total_pages")
+    @SerialName("total_pages")
     val totalPages: Int? = null,
 
-    @field:SerializedName("results")
+    @SerialName("results")
     val results: List<MovieResult> = emptyList(),
 
-    @field:SerializedName("total_results")
+    @SerialName("total_results")
     val totalResults: Int? = null
 )
 
-
+@Serializable
 data class MovieResult(
-    @field:SerializedName("overview")
+    @SerialName("overview")
     val overview: String? = null,
 
-    @field:SerializedName("original_language")
+    @SerialName("original_language")
     val originalLanguage: String? = null,
 
-    @field:SerializedName("original_title")
+    @SerialName("profile_path")
+    val profile_path: String? = null,
+
+    val name: String = "",
+    val gender: Int = 0,
+
+    @SerialName("origin_country")
+    val originCountry: List<String> = emptyList(),
+
+    @SerialName("first_air_date")
+    val firstAirDate: String? = null,
+    @SerialName("media_type")
+    val mediaType: String? = null,
+
+    @SerialName("original_title")
     val originalTitle: String? = null,
 
-    @field:SerializedName("video")
+    @SerialName("video")
     val video: Boolean? = null,
 
-    @field:SerializedName("title")
+    @SerialName("title")
     val title: String? = null,
 
-    @field:SerializedName("genre_ids")
+    @SerialName("genre_ids")
     val genreIds: List<Int?>? = null,
 
-    @field:SerializedName("poster_path")
-    val posterPath: String? = null,
+    @SerialName("poster_path")
+    val posterPath: String = "",
 
-    @field:SerializedName("backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String? = null,
 
-    @field:SerializedName("release_date")
+    @SerialName("original_name")
+    val originalName: String = "",
+
+    @SerialName("release_date")
     val releaseDate: String? = null,
 
-    @field:SerializedName("popularity")
+    @SerialName("known_for_department")
+    val known_for_department: String? = null,
+
+    @SerialName("popularity")
     val popularity: Double? = null,
 
-    @field:SerializedName("vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double? = null,
 
-    @field:SerializedName("id")
+    @SerialName("known_for")
+    val knowFor: List<MovieResult> = emptyList(),
+
+    @SerialName("id")
     val id: Int? = null,
 
-    @field:SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean? = null,
 
-    @field:SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int? = null
 )

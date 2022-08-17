@@ -15,7 +15,7 @@
     <color name="tag">#D89DE6</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="red_login">#E41F2D</color>
-
+    <color name="gray4">#4B4B4B</color>
     <color name="normalColor">#F3F0F3</color>
     <color name="checkedColor">#F5A431</color>
 

@@ -1,14 +1,16 @@
 package com.example.task1.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task1.models.LoginRequest
-import com.example.task1.models.StatusModel
 import com.example.task1.retrofit.LoginRepository
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
 class LoginViewModel : ViewModel() {
@@ -26,8 +28,6 @@ class LoginViewModel : ViewModel() {
 
     fun login() {
         val retrofit = LoginRepository()
-        var statusRetrive = StatusModel()
-        var statusLogin = StatusModel()
 
         val usernameValue = username.value
         val passwordValue = password.value
@@ -45,19 +45,20 @@ class LoginViewModel : ViewModel() {
         job?.cancel()
 
         job = viewModelScope.launch {
+            delay(3000)
             try {
                 _state.postValue(LoginState.InProgress)
 
                 //Request Token
-                statusRetrive = retrofit.retrieveRequestToken()
+                val statusRetrive = retrofit.retrieveRequestToken()
 
                 val loginRequest = LoginRequest(
-                    usernameValue,
-                    passwordValue,
-                    statusRetrive.requestToken
+                    username = usernameValue,
+                    password = passwordValue,
+                    requestToken = statusRetrive.requestToken
                 )
 
-                statusLogin = retrofit.login(loginRequest)
+                val statusLogin = retrofit.login(loginRequest)
 
                 if (statusLogin.success == true) {
                     _state.postValue(LoginState.Success)
@@ -66,6 +67,10 @@ class LoginViewModel : ViewModel() {
                 }
             } catch (e: IOException) {
                 _state.postValue(LoginState.Error("Network error, please try again"))
+                Log.w("loginViewModel", "Error while login", e)
+            } catch (e: HttpException) {
+                _state.postValue(LoginState.Error("Username or password doesn't match"))
+                Log.w("loginViewModel", "Error while login", e)
             }
         }
     }

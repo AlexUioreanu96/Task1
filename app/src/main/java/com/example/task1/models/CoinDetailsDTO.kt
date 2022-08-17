@@ -2,11 +2,12 @@ package com.example.task1.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 
 data class CoinDetailsDTO(
     @Expose
     val description: String = "",
-    @SerializedName("development_status")
+    @SerialName("development_status")
     val developmentStatus: String = "",
     @SerializedName("first_data_at")
     val firstDataAt: String = "",

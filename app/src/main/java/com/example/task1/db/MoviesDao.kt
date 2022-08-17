@@ -1,9 +1,9 @@
 package com.example.task1.db
 
+
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.task1.models.MovieEntity
-
-
 import com.example.task1.models.TABLE_NAME
 
 @Dao
@@ -19,7 +19,7 @@ interface MoviesDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM $TABLE_NAME")
-    suspend fun getAll(): List<MovieEntity>
+    fun getAll(): LiveData<List<MovieEntity>>
 
     @Update
     suspend fun update(lastMinuteProduct: MovieEntity)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.task1.adapter.CountriesAdapter
 import com.example.task1.adapter.MoviesAdapter
@@ -14,10 +15,12 @@ import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
 import com.example.task1.db.MovieDBSingelton
+import com.example.task1.db.MovieRepository
 import com.example.task1.db.MoviesDB
 import com.example.task1.db.MoviesDao
 import com.example.task1.models.*
-import com.example.task1.retrofit.LoginClientRetrofit
+import com.example.task1.retrofit.LoginRepository
+import com.example.task1.viewModel.HomeViewModel
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +32,12 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var retrofit: LoginClientRetrofit = LoginClientRetrofit()
+    private var retrofit: LoginRepository = LoginRepository()
 
     lateinit var database: MoviesDB
-    lateinit var dao: MoviesDao
+    var dao: MoviesDao? = null
+
+    private val viewModel: HomeViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -45,11 +50,18 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
-        retrofit = LoginClientRetrofit()
-        database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
-        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
+        retrofit = LoginRepository()
+        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()
+
+        val repo = MovieRepository(requireContext())
+        println("Alex" + repo.getAllMovies()?.value.toString())
+
+
+        viewModel.allMovies.observe(viewLifecycleOwner) {
+
+        }
+
 
         displayAiring()
 
@@ -97,18 +109,20 @@ class HomeFragment : Fragment() {
                         )
                     }
 
-                syncronize(movieEntities)
+                synchronized(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        dao.update(it)
+                        dao?.update(it)
                     }
                 }
-                val list = dao.getAllTrend(3)
+                val list = dao?.getAllTrend(3)
 
                 launch(Dispatchers.Main) {
                     binding.airingRecycler.adapter = adapter
-                    adapter.list = list
+                    if (list != null) {
+                        adapter.list = list
+                    }
                 }
 
             } catch (e: Exception) {
@@ -132,19 +146,21 @@ class HomeFragment : Fragment() {
                         )
                     }
 
-                syncronize(movieEntities)
+                synchronized(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        dao.update(it)
+                        dao?.update(it)
                     }
                 }
 
-                val list = dao.getAllTrend(2)
+                val list = dao?.getAllTrend(2)
 
                 launch(Dispatchers.Main) {
                     binding.popularRecycler.adapter = adapter
-                    adapter.list = list
+                    if (list != null) {
+                        adapter.list = list
+                    }
                 }
 
             } catch (e: Exception) {
@@ -167,18 +183,20 @@ class HomeFragment : Fragment() {
                         )
                     }
 
-                syncronize(movieEntities)
+                synchronized(movieEntities)
 
                 val adapter = MoviesAdapter {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        dao.update(it)
+                        dao?.update(it)
                     }
                 }
-                val list = dao.getAllTrend(1)
+                val list = dao?.getAllTrend(1)
 
                 launch(Dispatchers.Main) {
                     binding.topRatedRecycler.adapter = adapter
-                    adapter.list = list
+                    if (list != null) {
+                        adapter.list = list
+                    }
                 }
             } catch (e: Exception) {
             }
@@ -227,7 +245,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun setupViewPager(list: List<ImagesModel>) {
+    private fun setupViewPager(list: List<ImagesModel>) {
         binding.indicatorView.apply {
             setSliderColor(R.color.normalColor, R.color.checkedColor)
             setSliderWidth(resources.getDimension(R.dimen.dp_10))
@@ -244,13 +262,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    suspend fun syncronize(list: List<MovieEntity>) {
+    private suspend fun synchronized(list: List<MovieEntity>) {
         list.forEach {
-            val movie = it.id?.let { it1 -> dao.queryAfterId(it1) }
+            val movie = it.id?.let { it1 -> dao?.queryAfterId(it1) }
             if (movie != null) {
-                dao.updateFields(it.id, it.name, it.image, it.voteAvg)
+                dao?.updateFields(it.id, it.name, it.image, it.voteAvg)
             } else {
-                dao.insertOne(it)
+                dao?.insertOne(it)
             }
         }
     }

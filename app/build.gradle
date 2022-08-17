@@ -4,6 +4,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
     id("com.apollographql.apollo3").version("3.5.0")
     id 'com.google.devtools.ksp' version "1.7.10-1.0.6"
+
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -38,12 +41,18 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        dataBinding = true
     }
 
 }
 
 dependencies {
+    def lifecycle_version = "2.6.0-alpha01"
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.7.0-alpha03'

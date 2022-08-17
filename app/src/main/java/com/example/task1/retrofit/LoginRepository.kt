@@ -1,28 +1,25 @@
 package com.example.task1.retrofit
 
-import com.example.task1.models.PageMovieModel
-import com.example.task1.models.PopularPeople
-import com.example.task1.models.StatusModel
-import com.example.task1.models.UserModel
+import com.example.task1.models.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 const val APIKEY = "96d31308896f028f63b8801331250f03"
 
-class LoginClientRetrofit {
+class LoginRepository {
 
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service = retrofit.create(LoginService::class.java)
+    val service = retrofit.create(LoginApi::class.java)
 
     suspend fun retrieveRequestToken(): StatusModel {
         return service.getRequestToken(APIKEY)
     }
 
-    suspend fun login(user: UserModel): StatusModel {
+    suspend fun login(user: LoginRequest): StatusModel {
         return service.postLogin(APIKEY, user)
     }
 

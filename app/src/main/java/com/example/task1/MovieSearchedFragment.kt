@@ -13,14 +13,14 @@ import com.example.task1.databinding.FragmentSearchedListBinding
 import com.example.task1.db.MovieDBSingelton
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.PageMovieModel
-import com.example.task1.retrofit.LoginClientRetrofit
+import com.example.task1.retrofit.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class MovieSearchedFragment : Fragment() {
 
-    private val retrofit = LoginClientRetrofit()
+    private val retrofit = LoginRepository()
 
     private var _binding: FragmentSearchedListBinding? = null
     private val binding get() = _binding!!

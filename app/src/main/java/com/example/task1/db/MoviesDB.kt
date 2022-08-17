@@ -11,6 +11,6 @@ import com.example.task1.models.MovieEntity
 )
 abstract class MoviesDB : RoomDatabase() {
 
-    abstract fun getMovieDB(): MoviesDao
+    abstract fun getMovieDB(): MoviesDao?
 
 }

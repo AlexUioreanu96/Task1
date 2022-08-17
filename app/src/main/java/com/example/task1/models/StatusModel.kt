@@ -20,7 +20,7 @@ data class StatusModel(
     val failure: Boolean? = false,
 
     @SerializedName("request_token")
-    var requestToken: String? = "",
+    var requestToken: String = "",
 
     @SerializedName("session_id")
     var sessionId: String? = ""

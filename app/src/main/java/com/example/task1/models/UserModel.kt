@@ -23,15 +23,18 @@ data class UserModel(
 
     @field:SerializedName("iso_639_1")
     val iso6391: String? = "",
+)
 
+@Serializable
+data class LoginRequest(
     @SerializedName("password")
-    var password: String? = "",
+    val password: String,
 
     @SerializedName("request_token")
-    var requestToken: String? = "",
+    var requestToken: String,
 
     @SerializedName("username")
-    var username: String? = ""
+    val username: String
 )
 
 @Serializable

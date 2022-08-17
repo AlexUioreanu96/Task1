@@ -1,12 +1,9 @@
 package com.example.task1.retrofit
 
-import com.example.task1.models.PageMovieModel
-import com.example.task1.models.PopularPeople
-import com.example.task1.models.StatusModel
-import com.example.task1.models.UserModel
+import com.example.task1.models.*
 import retrofit2.http.*
 
-interface LoginService {
+interface LoginApi {
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(
@@ -15,7 +12,7 @@ interface LoginService {
 
     @POST("authentication/token/validate_with_login")
     suspend fun postLogin(
-        @Query("api_key") value: String, @Body user: UserModel
+        @Query("api_key") value: String, @Body loginRequest: LoginRequest
     ): StatusModel
 
 

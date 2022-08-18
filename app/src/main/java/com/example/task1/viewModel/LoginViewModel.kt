@@ -15,6 +15,10 @@ import java.io.IOException
 
 class LoginViewModel : ViewModel() {
 
+    init {
+
+    }
+
     private var job: Job? = null
 
     val username = MutableLiveData("")
@@ -41,7 +45,6 @@ class LoginViewModel : ViewModel() {
             _state.value = LoginState.Error("Password is required")
             return
         }
-
 
         job?.cancel()
 

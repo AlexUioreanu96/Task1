@@ -1,30 +1,29 @@
 package com.example.task1
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.adapter.CountriesAdapter
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
 import com.example.task1.db.MovieDBSingelton
-import com.example.task1.db.MovieRepository
 import com.example.task1.db.MoviesDB
 import com.example.task1.db.MoviesDao
-import com.example.task1.models.*
+import com.example.task1.models.ImagesModel
+import com.example.task1.models.MovieEntity
 import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.HomeViewModel
+import com.example.task1.viewModel.HomeViewModelFactory
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -35,9 +34,10 @@ class HomeFragment : Fragment() {
     private var retrofit: LoginRepository = LoginRepository()
 
     lateinit var database: MoviesDB
-    var dao: MoviesDao? = null
+    private var dao: MoviesDao? = null
 
-    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var factory: HomeViewModelFactory
 
 
     override fun onCreateView(
@@ -54,24 +54,25 @@ class HomeFragment : Fragment() {
         retrofit = LoginRepository()
         dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()
 
-        val repo = MovieRepository(requireContext())
-        println("Alex" + repo.getAllMovies()?.value.toString())
+        factory = dao?.let { HomeViewModelFactory(retrofit, it) }!!
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-
-        viewModel.allMovies.observe(viewLifecycleOwner) {
-
-        }
-
+//        val repo = MovieRepository(requireContext())
+//        println("Alex" + repo.getAllMovies()?.value.toString())
 
         displayAiring()
 
-        displayViewPager()
+        displayPopularMovies()
 
         displayStars()
+
+        displayViewPager()
 
         displayTopRated()
 
         displayPopularMovies()
+
+        displayCountries()
 
 
         binding.btSearch.setOnClickListener {
@@ -80,164 +81,96 @@ class HomeFragment : Fragment() {
                 .addToBackStack("searched")
                 .commit()
         }
-
-        lifecycleScope.launchWhenResumed {
-            val response = apolloClient.query(CountriesQuery()).execute()
-
-            val adapter = CountriesAdapter()
-            adapter.list = response.data!!.countries
-
-            binding.countriesRecycler.adapter = adapter
-
-            Log.d("LaunchList", "Success ${response.data}")
-        }
     }
 
 
     private fun displayAiring() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val page: PageMovieModel = retrofit.retriveAiringMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
-                        MovieEntity(
-                            id = it.id,
-                            name = it.title,
-                            image = it.posterPath,
-                            voteAvg = it.voteAverage,
-                            trending = 3
-                        )
-                    }
-
-                synchronized(movieEntities)
-
-                val adapter = MoviesAdapter {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        dao?.update(it)
-                    }
-                }
-                val list = dao?.getAllTrend(3)
-
-                launch(Dispatchers.Main) {
-                    binding.airingRecycler.adapter = adapter
-                    if (list != null) {
-                        adapter.list = list
-                    }
-                }
-
-            } catch (e: Exception) {
-                println("Alex ${e.message}")
-            }
+        val adapterObj = MoviesAdapter {
+//            viewModel.update()
         }
+        binding.airingRecycler.apply {
+            adapter = adapterObj
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        viewModel.airingMovies.observe(viewLifecycleOwner, Observer { movies ->
+            adapterObj.list = movies
+        })
     }
+
 
     private fun displayPopularMovies() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val page: PageMovieModel = retrofit.retrivePopularMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
-                        MovieEntity(
-                            id = it.id,
-                            name = it.title,
-                            image = it.posterPath,
-                            voteAvg = it.voteAverage,
-                            trending = 2
-                        )
-                    }
-
-                synchronized(movieEntities)
-
-                val adapter = MoviesAdapter {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        dao?.update(it)
-                    }
-                }
-
-                val list = dao?.getAllTrend(2)
-
-                launch(Dispatchers.Main) {
-                    binding.popularRecycler.adapter = adapter
-                    if (list != null) {
-                        adapter.list = list
-                    }
-                }
-
-            } catch (e: Exception) {
-            }
+        val adapterObj = MoviesAdapter {
+//            viewModel.update()
         }
+
+        binding.popularRecycler.apply {
+            adapter = adapterObj
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapter
+        }
+
+        viewModel.popularMovies.observe(viewLifecycleOwner, Observer { movies ->
+            adapterObj.list = movies
+        })
     }
 
+
     private fun displayTopRated() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val page: PageMovieModel = retrofit.retriveTopRatedMovies("en-US", 1)
-                val movieEntities =
-                    page.results.map {
-                        MovieEntity(
-                            id = it.id,
-                            name = it.title,
-                            image = it.posterPath,
-                            voteAvg = it.voteAverage,
-                            trending = 1
-                        )
-                    }
+        val adapterObj = MoviesAdapter {}
 
-                synchronized(movieEntities)
-
-                val adapter = MoviesAdapter {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        dao?.update(it)
-                    }
-                }
-                val list = dao?.getAllTrend(1)
-
-                launch(Dispatchers.Main) {
-                    binding.topRatedRecycler.adapter = adapter
-                    if (list != null) {
-                        adapter.list = list
-                    }
-                }
-            } catch (e: Exception) {
-            }
+        binding.topRatedRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapterObj
         }
+        viewModel.topRated.observe(viewLifecycleOwner, Observer { movies ->
+            binding.topRatedRecycler.also {
+                adapterObj.list = movies
+            }
+        })
+
+
     }
 
 
     private fun displayViewPager() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val p: PageMovieModel = retrofit.retriveTrendingMoviesSeries()
-                val images: List<ImagesModel> = p.results.map {
-                    it.releaseDate?.let { it1 ->
-                        ImagesModel(
-                            "https://image.tmdb.org/t/p/w500${it.backdropPath}",
-                            it1
-                        )
-                    }
-                }.take(6) as List<ImagesModel>
-                launch(Dispatchers.Main) {
-                    setupViewPager(images)
-                    println(images)
-                }
-            } catch (e: Exception) {
-            }
-        }
+        viewModel.viewPager.observe(viewLifecycleOwner, Observer {
+            setupViewPager(it)
+        })
     }
 
     private fun displayStars() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val page: PopularPeople = retrofit.retrivePopularPeople("en-US", 1)
-                val stars = page.results.map { Star(it.name, it.profilePath) }
-                launch(Dispatchers.Main) {
-                    val adapter = PopularPeopleAdapter()
-                    adapter.list = stars
-                    binding.starsRecycler.adapter = adapter
-                }
-            } catch (e: Exception) {
-            }
+        val adapterObj = PopularPeopleAdapter()
+
+        binding.starsRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapterObj
         }
+        viewModel.starsMovie.observe(viewLifecycleOwner, Observer { movies ->
+            adapterObj.list = movies
+        })
+
+
+    }
+
+    private fun displayCountries() {
+        val adapterObj = CountriesAdapter()
+        binding.countriesRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapterObj
+        }
+
+        viewModel.countries.observe(viewLifecycleOwner, Observer { countries ->
+            binding.countriesRecycler.also {
+                adapterObj.list = countries
+            }
+        })
+
     }
 
     override fun onDestroyView() {

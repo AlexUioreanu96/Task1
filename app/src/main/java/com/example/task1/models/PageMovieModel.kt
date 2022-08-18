@@ -65,7 +65,7 @@ data class MovieResult(
     val originalName: String = "",
 
     @SerialName("release_date")
-    val releaseDate: String? = null,
+    val releaseDate: String = "",
 
     @SerialName("known_for_department")
     val known_for_department: String? = null,

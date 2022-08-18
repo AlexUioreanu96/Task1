@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.R
@@ -33,8 +34,6 @@ class MoviesAdapter(private val callback: (model: MovieEntity) -> Unit) :
             ifTapAddFavColorIt(binding, movieEntity, callback)
 
             ifIsFavoriteColorIt(binding, movieEntity)
-
-
         }
     }
 
@@ -44,8 +43,9 @@ class MoviesAdapter(private val callback: (model: MovieEntity) -> Unit) :
     ): MoviesViewHolder {
         return MoviesViewHolder(
             callback,
-            ItemMoviesBinding.inflate(
+            DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
+                R.layout.item_movies,
                 parent,
                 false
             )

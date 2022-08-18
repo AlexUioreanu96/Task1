@@ -14,15 +14,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         supportActionBar?.show()
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container_view_tag, LoginFragment())
-            .commit()
-
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container_view_tag, LoginFragment())
+                .commit()
+        }
     }
-
-
 }

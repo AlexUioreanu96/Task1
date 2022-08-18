@@ -16,6 +16,7 @@ import java.io.IOException
 class LoginViewModel : ViewModel() {
 
     private var job: Job? = null
+
     val username = MutableLiveData("")
 
 

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.task1.databinding.FragmentLoginBinding
 import com.example.task1.viewModel.LoginState
 import com.example.task1.viewModel.LoginViewModel
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var bind: FragmentLoginBinding? = null
 
@@ -43,9 +43,7 @@ class LoginFragment : Fragment() {
                 ).show()
                 LoginState.InProgress -> {}
                 LoginState.Success ->
-                    parentFragmentManager.beginTransaction()
-                        .replace<HomeFragment>(R.id.fragment_container_view_tag)
-                        .commit()
+                    findNavController().navigate(R.id.homeFragment)
             }
         }
 

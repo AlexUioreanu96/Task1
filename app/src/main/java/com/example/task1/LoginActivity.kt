@@ -2,6 +2,7 @@ package com.example.task1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.example.task1.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -16,10 +17,12 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.show()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view_tag, LoginFragment())
-                .commit()
-        }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag) as NavHostFragment
+        val navController = navHostFragment.navController
+
+
+        navController.navigate(R.id.loginFragment)
+
     }
 }

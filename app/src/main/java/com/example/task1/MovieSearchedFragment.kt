@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MovieSearchedFragment : Fragment() {
+class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
 
     private val retrofit = LoginRepository()
 

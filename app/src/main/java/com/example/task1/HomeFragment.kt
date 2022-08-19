@@ -26,7 +26,7 @@ import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -153,8 +153,6 @@ class HomeFragment : Fragment() {
         viewModel.starsMovie.observe(viewLifecycleOwner, Observer { movies ->
             adapterObj.list = movies
         })
-
-
     }
 
     private fun displayCountries() {

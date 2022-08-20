@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
@@ -58,26 +59,33 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
                                     "en-US",
                                     2
                                 ).results).filter { it.posterPath.isNotEmpty() }.map {
-                            MovieEntity(
-                                id = it.id,
-                                name = it.title,
-                                image = it.posterPath,
-                                voteAvg = it.voteAverage
-                            )
+                            it.title?.let { it1 ->
+                                it.voteAverage?.let { it2 ->
+                                    MovieEntity(
+                                        id = it.id,
+                                        name = it1,
+                                        image = it.posterPath,
+                                        voteAvg = it2
+                                    )
+                                }
+                            }
                         }
 
                         fullList.forEach { model ->
-                            model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
-                                model.isFavorite = movieEntity.isFavorite
+                            if (model != null) {
+                                model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
+                                    model.isFavorite = movieEntity.isFavorite
+                                }
                             }
                         }
 
                         lifecycleScope.launch(Dispatchers.Main) {
-                            val adapter1 = MoviesAdapter {
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    dao.update(it)
-                                }
-                            }
+                            val adapter1 = MoviesAdapter(
+//                                lifecycleScope.launch(Dispatchers.IO) {
+//                                    dao.update(it)
+//                                }
+                                findNavController()
+                            )
                             binding.list.layoutManager = GridLayoutManager(context, 3)
                             binding.list.adapter = adapter1
                             adapter1.list = fullList

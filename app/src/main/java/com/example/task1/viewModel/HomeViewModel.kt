@@ -63,6 +63,13 @@ class HomeViewModel(
         }
 
 
+    fun updateMovieFav(model: MovieEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            model.id?.let { dao.updateFields(it, model.name, model.image, model.voteAvg) }
+        }
+    }
+
+
     fun getViewPagerMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             val imageModel: List<ImagesModel> =
@@ -99,15 +106,19 @@ class HomeViewModel(
 
     fun getTopRatedMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity> =
+            val movieEntities: List<MovieEntity?> =
                 repo.retriveTopRatedMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 1
-                    )
+                    it.title?.let { it1 ->
+                        it.voteAverage?.let { it2 ->
+                            MovieEntity(
+                                id = it.id,
+                                name = it1,
+                                image = it.posterPath,
+                                voteAvg = it2,
+                                trending = 1
+                            )
+                        }
+                    }
                 }
 
             synchronized(movieEntities)
@@ -120,15 +131,19 @@ class HomeViewModel(
 
     fun getPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity> =
+            val movieEntities: List<MovieEntity?> =
                 repo.retrivePopularMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 2
-                    )
+                    it.voteAverage?.let { it1 ->
+                        it.title?.let { it2 ->
+                            MovieEntity(
+                                id = it.id,
+                                name = it2,
+                                image = it.posterPath,
+                                voteAvg = it1,
+                                trending = 2
+                            )
+                        }
+                    }
                 }
 
             synchronized(movieEntities)
@@ -141,15 +156,19 @@ class HomeViewModel(
 
     fun getAiringMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity> =
+            val movieEntities: List<MovieEntity?> =
                 repo.retriveAiringMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 3
-                    )
+                    it.title?.let { it1 ->
+                        it.voteAverage?.let { it2 ->
+                            MovieEntity(
+                                id = it.id,
+                                name = it1,
+                                image = it.posterPath,
+                                voteAvg = it2,
+                                trending = 3
+                            )
+                        }
+                    }
                 }
 
             synchronized(movieEntities)
@@ -160,13 +179,15 @@ class HomeViewModel(
         }
     }
 
-    private suspend fun synchronized(list: List<MovieEntity>) {
+    private suspend fun synchronized(list: List<MovieEntity?>) {
         list.forEach {
-            val movie = it.id?.let { it1 -> dao.queryAfterId(it1) }
+            val movie = it?.id?.let { it1 -> dao.queryAfterId(it1) }
             if (movie != null) {
                 dao.updateFields(it.id, it.name, it.image, it.voteAvg)
             } else {
-                dao.insertOne(it)
+                if (it != null) {
+                    dao.insertOne(it)
+                }
             }
         }
     }

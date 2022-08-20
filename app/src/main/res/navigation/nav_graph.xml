@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -23,9 +24,22 @@
     <fragment
         android:id="@+id/movieSearchedFragment"
         android:name="com.example.task1.MovieSearchedFragment"
-        android:label="MovieSearchedFragment" />
+        android:label="MovieSearchedFragment">
+        <action
+            android:id="@+id/action_movieSearchedFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.task1.LoginActivity"
         android:label="LoginActivity" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.task1.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+        <action
+            android:id="@+id/action_detailsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

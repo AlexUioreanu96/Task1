@@ -6,7 +6,9 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.2197242206235012" />
         <entry key="app/src/main/res/drawable/costum_label.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/grid_shape.xml" value="0.2305" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.2305" />
         <entry key="app/src/main/res/drawable/ic_baseline_local_fire_department_24.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_outline_monetization_on_24.xml" value="0.205" />
         <entry key="app/src/main/res/drawable/newUsd_background.xml" value="0.2365" />
         <entry key="app/src/main/res/drawable/newusd_background.xml" value="0.164" />
@@ -19,6 +21,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_details.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_details2.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.28958333333333336" />

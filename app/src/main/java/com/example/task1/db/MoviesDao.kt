@@ -21,6 +21,9 @@ interface MoviesDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getAll(): LiveData<List<MovieEntity>>
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE :movieId = id")
+    fun getById(movieId: Int): MovieEntity
+
     @Update
     suspend fun update(lastMinuteProduct: MovieEntity)
 

@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.adapter.CountriesAdapter
 import com.example.task1.adapter.MoviesAdapter
@@ -74,20 +74,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         displayCountries()
 
-
         binding.btSearch.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace<MovieSearchedFragment>(R.id.fragment_container_view_tag)
-                .addToBackStack("searched")
-                .commit()
+            findNavController().navigate(R.id.action_homeFragment_to_movieSearchedFragment)
         }
     }
 
 
     private fun displayAiring() {
-        val adapterObj = MoviesAdapter {
-//            viewModel.update()
-        }
+        val adapterObj = MoviesAdapter(
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                viewModel.updateMovieFav(this)
+//            }
+            findNavController()
+        )
         binding.airingRecycler.apply {
             adapter = adapterObj
             layoutManager =
@@ -101,9 +100,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun displayPopularMovies() {
-        val adapterObj = MoviesAdapter {
+        val adapterObj = MoviesAdapter(
 //            viewModel.update()
-        }
+            findNavController()
+        )
 
         binding.popularRecycler.apply {
             adapter = adapterObj
@@ -119,7 +119,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun displayTopRated() {
-        val adapterObj = MoviesAdapter {}
+        val adapterObj = MoviesAdapter(
+            findNavController()
+        )
 
         binding.topRatedRecycler.apply {
             layoutManager =

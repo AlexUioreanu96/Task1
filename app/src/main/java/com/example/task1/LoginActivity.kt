@@ -21,8 +21,8 @@ class LoginActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag) as NavHostFragment
         val navController = navHostFragment.navController
 
-
-        navController.navigate(R.id.loginFragment)
-
+        if (savedInstanceState == null) {
+            navController.navigate(R.id.loginFragment)
+        }
     }
 }

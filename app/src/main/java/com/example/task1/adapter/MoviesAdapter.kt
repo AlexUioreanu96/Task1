@@ -1,59 +1,76 @@
 package com.example.task1.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.R
 import com.example.task1.databinding.ItemMoviesBinding
 import com.example.task1.models.MovieEntity
 
-class MoviesAdapter(private val callback: (model: MovieEntity) -> Unit) :
+
+const val ENTITYID = "ENTITYID"
+
+class MoviesAdapter(
+//    private val callback: (model: MovieEntity) -> Unit,
+    private val nav: NavController
+) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
-    var list = listOf<MovieEntity>()
+    var list = listOf<MovieEntity?>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     data class MoviesViewHolder(
-        val callback: (model: MovieEntity) -> Unit,
-        val binding: ItemMoviesBinding
+//        val callback: (model: MovieEntity) -> Unit,
+        val binding: ItemMoviesBinding,
+        private val nav: NavController
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieEntity: MovieEntity) {
+        fun bind(movieEntity: MovieEntity?) {
 
-            loadPhoto(binding, movieEntity)
+            movieEntity?.let {
+                loadPhoto(binding, movieEntity)
+                mustWatchTagLogic(binding, movieEntity)
+                ifTapAddFavColorIt(binding, movieEntity)
+                ifIsFavoriteColorIt(binding, movieEntity)
+            }
 
-            mustWatchTagLogic(binding, movieEntity)
-
-            ifTapAddFavColorIt(binding, movieEntity, callback)
-
-            ifIsFavoriteColorIt(binding, movieEntity)
+            binding.cardMovie.setOnClickListener {
+                val bundle = Bundle()
+                if (movieEntity != null) {
+                    movieEntity.id?.let { it1 -> bundle.putInt(ENTITYID, it1) }
+                }
+                nav.navigate(R.id.detailsFragment, bundle)
+            }
         }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MoviesViewHolder {
-        return MoviesViewHolder(
-            callback,
+    ): MoviesAdapter.MoviesViewHolder {
+        return MoviesAdapter.MoviesViewHolder(
+//            callback,
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_movies,
                 parent,
                 false
-            )
+            ),
+            nav
         )
     }
 
 
-    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesAdapter.MoviesViewHolder, position: Int) {
         holder.bind((list[position]))
     }
 
@@ -96,7 +113,7 @@ fun ifIsFavoriteColorIt(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
 fun ifTapAddFavColorIt(
     binding: ItemMoviesBinding,
     movieEntity: MovieEntity,
-    callback: (model: MovieEntity) -> Unit
+//    callback: (model: MovieEntity) -> Unit
 ) {
     binding.cardMovie.setOnLongClickListener {
         if (movieEntity.isFavorite != true) {
@@ -112,7 +129,7 @@ fun ifTapAddFavColorIt(
                     strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
                 }
             }
-            callback(movieEntity)
+//            callback(movieEntity)
         } else {
             movieEntity.isFavorite = false
             binding.apply {
@@ -121,7 +138,7 @@ fun ifTapAddFavColorIt(
                     strokeWidth = 0
                 }
             }
-            callback(movieEntity)
+//            callback(movieEntity)
         }
         true
     }

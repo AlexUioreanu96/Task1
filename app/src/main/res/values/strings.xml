@@ -47,4 +47,6 @@
     <string name="username">Username</string>
     <string name="please_enter_your_credentials">Please enter your credentials</string>
     <string name="welcome">Welcome</string>
+    <string name="view_title">The Lord of the Rings: The Return of the King</string>
+    <string name="view_vote">8.8</string>
 </resources>

@@ -43,7 +43,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 ).show()
                 LoginState.InProgress -> {}
                 LoginState.Success ->
-                    findNavController().navigate(R.id.homeFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
 

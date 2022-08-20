@@ -1,12 +1,10 @@
 package com.example.task1.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.R
@@ -17,8 +15,8 @@ import com.example.task1.models.MovieEntity
 const val ENTITYID = "ENTITYID"
 
 class MoviesAdapter(
-//    private val callback: (model: MovieEntity) -> Unit,
-    private val nav: NavController
+    private val onLongClick: (model: MovieEntity) -> Unit,
+    private val onClick: (id: Int) -> Unit
 ) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
@@ -29,13 +27,13 @@ class MoviesAdapter(
         }
 
     data class MoviesViewHolder(
-//        val callback: (model: MovieEntity) -> Unit,
+        val onLongClick: (model: MovieEntity) -> Unit,
+        private val onClick: (id: Int) -> Unit,
         val binding: ItemMoviesBinding,
-        private val nav: NavController
+//        private val nav: NavController
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movieEntity: MovieEntity?) {
-
             movieEntity?.let {
                 loadPhoto(binding, movieEntity)
                 mustWatchTagLogic(binding, movieEntity)
@@ -43,12 +41,17 @@ class MoviesAdapter(
                 ifIsFavoriteColorIt(binding, movieEntity)
             }
 
-            binding.cardMovie.setOnClickListener {
-                val bundle = Bundle()
+            binding.cardMovie.setOnLongClickListener {
                 if (movieEntity != null) {
-                    movieEntity.id?.let { it1 -> bundle.putInt(ENTITYID, it1) }
+                    onLongClick(movieEntity)
                 }
-                nav.navigate(R.id.detailsFragment, bundle)
+                true
+            }
+
+            binding.cardMovie.setOnClickListener {
+                if (movieEntity != null) {
+                    movieEntity.id?.let { it1 -> onClick(it1) }
+                }
             }
         }
     }
@@ -56,16 +59,16 @@ class MoviesAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MoviesAdapter.MoviesViewHolder {
-        return MoviesAdapter.MoviesViewHolder(
-//            callback,
+    ): MoviesViewHolder {
+        return MoviesViewHolder(
+            onLongClick,
+            onClick,
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_movies,
                 parent,
                 false
             ),
-            nav
         )
     }
 
@@ -88,7 +91,7 @@ fun loadPhoto(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
 }
 
 fun mustWatchTagLogic(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
-    movieEntity.voteAvg?.let {
+    movieEntity.voteAvg.let {
         if (movieEntity.voteAvg > 8.0) {
             binding.txtWatched.visibility = View.VISIBLE
         }

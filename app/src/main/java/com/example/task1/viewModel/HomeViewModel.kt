@@ -9,6 +9,7 @@ import com.example.task1.models.MovieEntity
 import com.example.task1.models.Star
 import com.example.task1.retrofit.LoginRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
@@ -25,6 +26,8 @@ class HomeViewModel(
         getCountries()
         getTopRatedMovies()
     }
+
+    private var job: Job = Job()
 
     private val _airingMovies = MutableLiveData<List<MovieEntity>>()
     val airingMovies: LiveData<List<MovieEntity>>
@@ -62,16 +65,17 @@ class HomeViewModel(
             return _viewPager
         }
 
-
-    fun updateMovieFav(model: MovieEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            model.id?.let { dao.updateFields(it, model.name, model.image, model.voteAvg) }
+    fun update(id: Int) {
+        val movie: MovieEntity = dao.getById(id)
+        job = viewModelScope.launch(Dispatchers.IO) {
+            movie.id?.let { dao.updateFields(it, movie.name, movie.image, movie.voteAvg) }
         }
     }
 
 
     fun getViewPagerMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+
+        job = viewModelScope.launch(Dispatchers.IO) {
             val imageModel: List<ImagesModel> =
                 repo.retriveTrendingMoviesSeries().results.map {
                     ImagesModel(
@@ -85,14 +89,15 @@ class HomeViewModel(
     }
 
     fun getCountries() {
-        viewModelScope.launch(Dispatchers.Main) {
+        job = viewModelScope.launch(Dispatchers.Main) {
             _countries.postValue(apolloClient.query(CountriesQuery()).execute().data?.countries)
         }
     }
 
 
     fun getStarsMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+
+        job = viewModelScope.launch(Dispatchers.IO) {
             val stars: List<Star> =
                 repo.retrivePopularPeople("en-US", 1).results.map {
                     Star(
@@ -105,7 +110,7 @@ class HomeViewModel(
     }
 
     fun getTopRatedMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(Dispatchers.IO) {
             val movieEntities: List<MovieEntity?> =
                 repo.retriveTopRatedMovies("en-US", 1).results.map {
                     it.title?.let { it1 ->
@@ -130,7 +135,7 @@ class HomeViewModel(
     }
 
     fun getPopularMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(Dispatchers.IO) {
             val movieEntities: List<MovieEntity?> =
                 repo.retrivePopularMovies("en-US", 1).results.map {
                     it.voteAverage?.let { it1 ->
@@ -155,7 +160,7 @@ class HomeViewModel(
     }
 
     fun getAiringMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(Dispatchers.IO) {
             val movieEntities: List<MovieEntity?> =
                 repo.retriveAiringMovies("en-US", 1).results.map {
                     it.title?.let { it1 ->
@@ -192,6 +197,7 @@ class HomeViewModel(
         }
     }
 }
+
 
 @Suppress("UNCHECKED_CAST")
 class HomeViewModelFactory(

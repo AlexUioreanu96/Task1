@@ -4,9 +4,12 @@ import androidx.lifecycle.*
 import com.example.task1.db.MoviesDao
 import com.example.task1.models.MovieEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(private val dao: MoviesDao) : ViewModel() {
+
+    private var job: Job = Job()
 
     private val _image = MutableLiveData<String>()
     val image: LiveData<String>
@@ -34,7 +37,8 @@ class DetailsViewModel(private val dao: MoviesDao) : ViewModel() {
 
 
     fun getMovieById(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        job.cancel()
+        job = viewModelScope.launch(Dispatchers.IO) {
             val movie = dao.getById(id)
             loadData(movie)
         }

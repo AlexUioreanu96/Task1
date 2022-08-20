@@ -1,30 +1,31 @@
 package com.example.task1
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
 import com.example.task1.db.MovieDBSingelton
-import com.example.task1.models.MovieEntity
 import com.example.task1.retrofit.LoginRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.task1.viewModel.SearchViewModel
+import com.example.task1.viewModel.SearchViewModelFactory
 
 
 class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
 
-    private val retrofit = LoginRepository()
+    private val repo = LoginRepository()
 
     private var _binding: FragmentSearchedListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: SearchViewModel
+    private lateinit var factory: SearchViewModelFactory
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,61 +50,54 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
         val database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
         val dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
 
+        factory = SearchViewModelFactory(dao, repo)
+        viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
+
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                try {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        val fullList = (retrofit.searchMovies(query, "en-US", 1).results +
-                                retrofit.searchMovies(
-                                    query,
-                                    "en-US",
-                                    2
-                                ).results).filter { it.posterPath.isNotEmpty() }.map {
-                            it.title?.let { it1 ->
-                                it.voteAverage?.let { it2 ->
-                                    MovieEntity(
-                                        id = it.id,
-                                        name = it1,
-                                        image = it.posterPath,
-                                        voteAvg = it2
-                                    )
-                                }
-                            }
-                        }
-
-                        fullList.forEach { model ->
-                            if (model != null) {
-                                model.id?.let { it1 -> dao.queryAfterId(it1) }?.let { movieEntity ->
-                                    model.isFavorite = movieEntity.isFavorite
-                                }
-                            }
-                        }
-
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            val adapter1 = MoviesAdapter(
-//                                lifecycleScope.launch(Dispatchers.IO) {
-//                                    dao.update(it)
-//                                }
-                                findNavController()
-                            )
-                            binding.list.layoutManager = GridLayoutManager(context, 3)
-                            binding.list.adapter = adapter1
-                            adapter1.list = fullList
-                        }
-
-                    }
-                    return true
-                } catch (e: Exception) {
-                    Log.w("search", "error", e)
-                    return false
+                viewModel.searchQuery(query)
+                val adapterObj = MoviesAdapter({ it.id?.let { it1 -> toggleFav(it1) } },
+                    { id -> navDetailsOnClick(id) }
+                )
+                binding.list.apply {
+                    adapter = adapterObj
+                    layoutManager = GridLayoutManager(context, 3)
                 }
+
+                viewModel.searched.observe(viewLifecycleOwner) {
+                    adapterObj.list = it
+
+                }
+                return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(query: String?): Boolean {
+                viewModel.searchQuery(query)
+                val adapterObj = MoviesAdapter(
+                    { it.id?.let { it1 -> toggleFav(it1) } },
+                    { id -> navDetailsOnClick(id) }
+                )
+                binding.list.apply {
+                    adapter = adapterObj
+                    layoutManager = GridLayoutManager(context, 3)
+                }
+
+                viewModel.searched.observe(viewLifecycleOwner) {
+                    adapterObj.list = it
+
+                }
                 return true
             }
         })
 
+    }
+
+    private fun navDetailsOnClick(id: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
+    }
+
+    private fun toggleFav(id: Int) {
+        viewModel.update(id)
     }
 }
 

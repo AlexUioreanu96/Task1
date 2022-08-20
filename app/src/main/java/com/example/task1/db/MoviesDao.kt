@@ -25,7 +25,7 @@ interface MoviesDao {
     fun getById(movieId: Int): MovieEntity
 
     @Update
-    suspend fun update(lastMinuteProduct: MovieEntity)
+    suspend fun update(movie: MovieEntity)
 
     @Query("UPDATE $TABLE_NAME SET name=:name, image = :image, voteAvg =:voteAvg WHERE id =:id ")
     suspend fun updateFields(id: Int, name: String?, image: String?, voteAvg: Double?)

@@ -1,13 +1,14 @@
 package com.example.task1
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.task1.adapter.ENTITYID
 import com.example.task1.databinding.FragmentDetailsBinding
 import com.example.task1.db.MovieDBSingelton
 import com.example.task1.db.MoviesDao
@@ -26,6 +27,10 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     companion object {
         fun newInstance() = DetailsFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
 
@@ -51,7 +56,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         factory = dao?.let { DetailsViewModelFactory(it) }!!
         viewModel = ViewModelProvider(this, factory)[DetailsViewModel::class.java]
 
-        arguments?.let { viewModel.getMovieById(it.getInt(ENTITYID)) }
+        val safeArgs: DetailsFragmentArgs by navArgs()
+
+        viewModel.getMovieById(safeArgs.idMovie)
 
         viewModel
             .image.observe(viewLifecycleOwner) {

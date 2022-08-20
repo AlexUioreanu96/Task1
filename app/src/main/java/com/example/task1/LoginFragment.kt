@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.task1.databinding.FragmentLoginBinding
 import com.example.task1.viewModel.LoginState
 import com.example.task1.viewModel.LoginViewModel
@@ -43,7 +44,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 ).show()
                 LoginState.InProgress -> {}
                 LoginState.Success ->
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    findNavController().navigate(
+                        R.id.action_loginFragment_to_homeFragment,
+                        null,
+                        navOptions { popUpTo(R.id.loginFragment) { inclusive = true } })
             }
         }
 

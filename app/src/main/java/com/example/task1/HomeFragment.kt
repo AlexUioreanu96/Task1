@@ -18,7 +18,6 @@ import com.example.task1.db.MovieDBSingelton
 import com.example.task1.db.MoviesDB
 import com.example.task1.db.MoviesDao
 import com.example.task1.models.ImagesModel
-import com.example.task1.models.MovieEntity
 import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.HomeViewModel
 import com.example.task1.viewModel.HomeViewModelFactory
@@ -82,10 +81,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun displayAiring() {
         val adapterObj = MoviesAdapter(
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                viewModel.updateMovieFav(this)
-//            }
-            findNavController()
+            { it.id?.let { it1 -> toggleFav(it1) } },
+            { id -> navDetailsOnClick(id) }
         )
         binding.airingRecycler.apply {
             adapter = adapterObj
@@ -101,8 +98,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun displayPopularMovies() {
         val adapterObj = MoviesAdapter(
-//            viewModel.update()
-            findNavController()
+            { it.id?.let { it1 -> toggleFav(it1) } },
+            { id -> navDetailsOnClick(id) }
         )
 
         binding.popularRecycler.apply {
@@ -120,7 +117,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun displayTopRated() {
         val adapterObj = MoviesAdapter(
-            findNavController()
+            { it.id?.let { it1 -> toggleFav(it1) } },
+            { id -> navDetailsOnClick(id) }
         )
 
         binding.topRatedRecycler.apply {
@@ -195,14 +193,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private suspend fun synchronized(list: List<MovieEntity>) {
-        list.forEach {
-            val movie = it.id?.let { it1 -> dao?.queryAfterId(it1) }
-            if (movie != null) {
-                dao?.updateFields(it.id, it.name, it.image, it.voteAvg)
-            } else {
-                dao?.insertOne(it)
-            }
-        }
+
+    private fun navDetailsOnClick(id: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
     }
+
+    private fun toggleFav(id: Int) {
+        viewModel.update(id)
+    }
+
 }

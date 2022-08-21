@@ -42,7 +42,6 @@ class DetailsViewModel(private val dao: MoviesDao) : ViewModel() {
             val movie = dao.getById(id)
             loadData(movie)
         }
-
     }
 
     private fun loadData(movie: MovieEntity) {

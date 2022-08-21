@@ -20,11 +20,22 @@ class MoviesAdapter(
 ) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
-    var list = listOf<MovieEntity?>()
+    var list = listOf<MovieEntity>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    fun modifyOneElement(model: MovieEntity) {
+        val position = list.indexOf(model)
+        list = list.map {
+            if (model.id == it.id) {
+                return@map it.copy(isFavorite = !it.isFavorite)
+            } else
+                it
+        }
+        notifyItemChanged(position)
+    }
 
     data class MoviesViewHolder(
         val onLongClick: (model: MovieEntity) -> Unit,
@@ -33,27 +44,38 @@ class MoviesAdapter(
 //        private val nav: NavController
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieEntity: MovieEntity?) {
-            movieEntity?.let {
-                loadPhoto(binding, movieEntity)
-                mustWatchTagLogic(binding, movieEntity)
-                ifTapAddFavColorIt(binding, movieEntity)
-                ifIsFavoriteColorIt(binding, movieEntity)
-            }
+        fun bind(movieEntity: MovieEntity) {
+            loadPhoto(binding, movieEntity)
+            mustWatchTagLogic(binding, movieEntity)
+            setFavorite(movieEntity)
 
-            binding.cardMovie.setOnLongClickListener {
-                if (movieEntity != null) {
-                    onLongClick(movieEntity)
-                }
-                true
-            }
+
+            ifTapAddFavColorIt(binding, movieEntity, onLongClick)
 
             binding.cardMovie.setOnClickListener {
-                if (movieEntity != null) {
-                    movieEntity.id?.let { it1 -> onClick(it1) }
-                }
+                onClick(movieEntity.id)
             }
         }
+
+        fun setFavorite(movie: MovieEntity) {
+            if (movie.isFavorite) {
+                binding.imgFav.visibility = View.VISIBLE
+                binding.imgFavBorder.visibility = View.VISIBLE
+                binding.cardMovie.apply {
+                    strokeColor = ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.cardStrokeColor
+                    )
+                    strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
+                }
+            } else {
+                binding.imgFav.visibility = View.GONE
+                binding.imgFavBorder.visibility = View.GONE
+                binding.cardMovie.strokeWidth = 0
+            }
+        }
+
+
     }
 
     override fun onCreateViewHolder(
@@ -73,7 +95,7 @@ class MoviesAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: MoviesAdapter.MoviesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.bind((list[position]))
     }
 
@@ -86,15 +108,12 @@ fun loadPhoto(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
     Glide.with(binding.root.context)
         .load(photo)
         .into(binding.imgTopRated)
-    binding.imgFav.visibility = View.GONE
-    binding.txtWatched.visibility = View.GONE
 }
 
 fun mustWatchTagLogic(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
-    movieEntity.voteAvg.let {
-        if (movieEntity.voteAvg > 8.0) {
-            binding.txtWatched.visibility = View.VISIBLE
-        }
+    binding.txtWatched.visibility = View.INVISIBLE
+    if (movieEntity.voteAvg > 8.0) {
+        binding.txtWatched.visibility = View.VISIBLE
     }
 }
 
@@ -116,11 +135,10 @@ fun ifIsFavoriteColorIt(binding: ItemMoviesBinding, movieEntity: MovieEntity) {
 fun ifTapAddFavColorIt(
     binding: ItemMoviesBinding,
     movieEntity: MovieEntity,
-//    callback: (model: MovieEntity) -> Unit
+    onLongClick: (model: MovieEntity) -> Unit
 ) {
     binding.cardMovie.setOnLongClickListener {
-        if (movieEntity.isFavorite != true) {
-
+        if (!movieEntity.isFavorite) {
             movieEntity.isFavorite = true
             binding.apply {
                 imgFav.visibility = View.VISIBLE
@@ -132,7 +150,7 @@ fun ifTapAddFavColorIt(
                     strokeWidth = resources.getDimension(R.dimen.dp_3).toInt()
                 }
             }
-//            callback(movieEntity)
+            onLongClick(movieEntity)
         } else {
             movieEntity.isFavorite = false
             binding.apply {
@@ -141,7 +159,7 @@ fun ifTapAddFavColorIt(
                     strokeWidth = 0
                 }
             }
-//            callback(movieEntity)
+            onLongClick(movieEntity)
         }
         true
     }

@@ -7,16 +7,16 @@ import kotlinx.serialization.Serializable
 data class PopularPeople(
 
     @SerialName("page")
-    val page: Int? = null,
+    val page: Int = 0,
 
     @SerialName("total_pages")
-    val totalPages: Int? = null,
+    val totalPages: Int = 0,
 
     @SerialName("results")
-    val results: List<People>,
+    val results: List<People> = emptyList(),
 
     @SerialName("total_results")
-    val totalResults: Int? = null
+    val totalResults: Int = 0
 )
 
 @Serializable
@@ -26,84 +26,84 @@ data class Star(val name: String?, val profilePath: String?)
 data class People(
 
     @SerialName("gender")
-    val gender: Int? = null,
+    val gender: Int = 0,
 
     @SerialName("known_for_department")
-    val knownForDepartment: String? = null,
+    val knownForDepartment: String = "",
 
     @SerialName("known_for")
-    val knownFor: List<KnownForItem?>? = null,
+    val knownFor: List<KnownForItem> = emptyList(),
 
     @SerialName("popularity")
-    val popularity: Double? = null,
+    val popularity: Double = 0.0,
 
     @SerialName("name")
-    val name: String? = null,
+    val name: String = "",
 
     @SerialName("profile_path")
-    val profilePath: String? = null,
+    val profilePath: String = "",
 
     @SerialName("id")
-    val id: Int? = null,
+    val id: Int = 0,
 
     @SerialName("adult")
-    val adult: Boolean? = null
+    val adult: Boolean = false
 )
 
 @Serializable
 data class KnownForItem(
 
     @SerialName("overview")
-    val overview: String? = null,
+    val overview: String = "",
 
     @SerialName("original_language")
-    val originalLanguage: String? = null,
+    val originalLanguage: String = "",
 
     @SerialName("original_title")
-    val originalTitle: String? = null,
+    val originalTitle: String = "",
 
     @SerialName("video")
-    val video: Boolean? = null,
+    val video: Boolean = false,
 
     @SerialName("title")
-    val title: String? = null,
+    val title: String = "",
 
     @SerialName("genre_ids")
-    val genreIds: List<Int?>? = null,
+    val genreIds: List<Int> = emptyList(),
 
     @SerialName("poster_path")
-    val posterPath: String? = null,
+    val posterPath: String = "",
 
     @SerialName("backdrop_path")
-    val backdropPath: String? = null,
+    val backdropPath: String = "",
 
     @SerialName("media_type")
-    val mediaType: String? = null,
+    val mediaType: String = "",
 
     @SerialName("release_date")
-    val releaseDate: String? = null,
+    val releaseDate: String = "",
 
     @SerialName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Double = 0.0,
 
     @SerialName("id")
-    val id: Int? = null,
+    val id: Int = 0,
 
     @SerialName("adult")
-    val adult: Boolean? = null,
+    val adult: Boolean = false,
 
     @SerialName("vote_count")
-    val voteCount: Int? = null,
+    val voteCount: Int = 0,
 
     @SerialName("first_air_date")
-    val firstAirDate: String? = null,
+    val firstAirDate: String = "",
 
     @SerialName("origin_country")
-    val originCountry: List<String?>? = null,
+    val originCountry: List<String> = emptyList(),
 
     @SerialName("original_name")
-    val originalName: String? = null,
+    val originalName: String = "",
 
     @SerialName("name")
-    val name: String? = null
+    val name: String = "",
 )

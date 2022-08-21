@@ -15,10 +15,6 @@ import java.io.IOException
 
 class LoginViewModel : ViewModel() {
 
-    init {
-
-    }
-
     private var job: Job? = null
 
     val username = MutableLiveData("")
@@ -86,7 +82,7 @@ class LoginViewModel : ViewModel() {
 
 }
 
-sealed class LoginState() {
+sealed class LoginState {
     data class Error(val message: String) : LoginState()
     object Success : LoginState()
     object InProgress : LoginState()

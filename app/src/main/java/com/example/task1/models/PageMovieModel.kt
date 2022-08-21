@@ -24,13 +24,13 @@ data class PageMovieModel(
 @Serializable
 data class MovieResult(
     @SerialName("overview")
-    val overview: String? = null,
+    val overview: String = "",
 
     @SerialName("original_language")
-    val originalLanguage: String? = null,
+    val originalLanguage: String = "",
 
     @SerialName("profile_path")
-    val profile_path: String? = null,
+    val profile_path: String = "",
 
     val name: String = "",
     val gender: Int = 0,
@@ -39,27 +39,27 @@ data class MovieResult(
     val originCountry: List<String> = emptyList(),
 
     @SerialName("first_air_date")
-    val firstAirDate: String? = null,
+    val firstAirDate: String = "",
     @SerialName("media_type")
-    val mediaType: String? = null,
+    val mediaType: String = "",
 
     @SerialName("original_title")
-    val originalTitle: String? = null,
+    val originalTitle: String = "",
 
     @SerialName("video")
-    val video: Boolean? = null,
+    val video: Boolean = false,
 
     @SerialName("title")
-    val title: String? = null,
+    val title: String = "",
 
     @SerialName("genre_ids")
-    val genreIds: List<Int?>? = null,
+    val genreIds: List<Int> = emptyList(),
 
     @SerialName("poster_path")
     val posterPath: String = "",
 
     @SerialName("backdrop_path")
-    val backdropPath: String? = null,
+    val backdropPath: String = "",
 
     @SerialName("original_name")
     val originalName: String = "",
@@ -68,23 +68,23 @@ data class MovieResult(
     val releaseDate: String = "",
 
     @SerialName("known_for_department")
-    val known_for_department: String? = null,
+    val known_for_department: String = "",
 
     @SerialName("popularity")
-    val popularity: Double? = null,
+    val popularity: Double = 0.0,
 
     @SerialName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Double = 0.0,
 
     @SerialName("known_for")
     val knowFor: List<MovieResult> = emptyList(),
 
     @SerialName("id")
-    val id: Int? = null,
+    val id: Int = 0,
 
     @SerialName("adult")
-    val adult: Boolean? = null,
+    val adult: Boolean = false,
 
     @SerialName("vote_count")
-    val voteCount: Int? = null
+    val voteCount: Int = 0
 )

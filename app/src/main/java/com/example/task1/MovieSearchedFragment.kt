@@ -56,7 +56,7 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.searchQuery(query)
-                val adapterObj = MoviesAdapter({ it.id?.let { it1 -> toggleFav(it1) } },
+                val adapterObj = MoviesAdapter({ viewModel.update(it) },
                     { id -> navDetailsOnClick(id) }
                 )
                 binding.list.apply {
@@ -74,7 +74,7 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
             override fun onQueryTextChange(query: String?): Boolean {
                 viewModel.searchQuery(query)
                 val adapterObj = MoviesAdapter(
-                    { it.id?.let { it1 -> toggleFav(it1) } },
+                    { viewModel.update(it) },
                     { id -> navDetailsOnClick(id) }
                 )
                 binding.list.apply {
@@ -96,8 +96,10 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
     }
 
-    private fun toggleFav(id: Int) {
-        viewModel.update(id)
-    }
+//    private fun toggleFav(id: Int) {
+//        viewModel.update(id)
+//    }
+
+
 }
 

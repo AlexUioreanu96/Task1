@@ -37,13 +37,22 @@
             android:textSize="@dimen/small_xtra" />
 
         <ImageView
-            android:id="@+id/img_fav"
+            android:id="@+id/img_fav_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/small"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/hearth" />
+            android:src="@drawable/ic_heart_border" />
+
+        <ImageView
+            android:id="@+id/img_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="11dp"
+            android:src="@drawable/ic_heart" />
 
 
     </com.google.android.material.card.MaterialCardView>

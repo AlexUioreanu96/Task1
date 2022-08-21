@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +17,7 @@ import com.example.task1.db.MovieDBSingelton
 import com.example.task1.db.MoviesDB
 import com.example.task1.db.MoviesDao
 import com.example.task1.models.ImagesModel
+import com.example.task1.models.MovieEntity
 import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.HomeViewModel
 import com.example.task1.viewModel.HomeViewModelFactory
@@ -81,7 +81,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun displayAiring() {
         val adapterObj = MoviesAdapter(
-            { it.id?.let { it1 -> toggleFav(it1) } },
+            { viewModel.update(it) },
             { id -> navDetailsOnClick(id) }
         )
         binding.airingRecycler.apply {
@@ -90,15 +90,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
 
-        viewModel.airingMovies.observe(viewLifecycleOwner, Observer { movies ->
+        viewModel.airingMovies.observe(viewLifecycleOwner) { movies ->
             adapterObj.list = movies
-        })
+        }
     }
 
 
     private fun displayPopularMovies() {
         val adapterObj = MoviesAdapter(
-            { it.id?.let { it1 -> toggleFav(it1) } },
+            { viewModel.update(it) },
             { id -> navDetailsOnClick(id) }
         )
 
@@ -109,15 +109,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = adapter
         }
 
-        viewModel.popularMovies.observe(viewLifecycleOwner, Observer { movies ->
+        viewModel.popularMovies.observe(viewLifecycleOwner) { movies ->
             adapterObj.list = movies
-        })
+        }
     }
 
 
     private fun displayTopRated() {
         val adapterObj = MoviesAdapter(
-            { it.id?.let { it1 -> toggleFav(it1) } },
+            { viewModel.update(it) },
             { id -> navDetailsOnClick(id) }
         )
 
@@ -126,20 +126,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = adapterObj
         }
-        viewModel.topRated.observe(viewLifecycleOwner, Observer { movies ->
+        viewModel.topRated.observe(viewLifecycleOwner) { movies ->
             binding.topRatedRecycler.also {
                 adapterObj.list = movies
             }
-        })
-
-
+        }
     }
 
 
     private fun displayViewPager() {
-        viewModel.viewPager.observe(viewLifecycleOwner, Observer {
+        viewModel.viewPager.observe(viewLifecycleOwner) {
             setupViewPager(it)
-        })
+        }
     }
 
     private fun displayStars() {
@@ -150,9 +148,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = adapterObj
         }
-        viewModel.starsMovie.observe(viewLifecycleOwner, Observer { movies ->
+        viewModel.starsMovie.observe(viewLifecycleOwner) { movies ->
             adapterObj.list = movies
-        })
+        }
     }
 
     private fun displayCountries() {
@@ -163,17 +161,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = adapterObj
         }
 
-        viewModel.countries.observe(viewLifecycleOwner, Observer { countries ->
+        viewModel.countries.observe(viewLifecycleOwner) { countries ->
             binding.countriesRecycler.also {
                 adapterObj.list = countries
             }
-        })
+        }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+//        viewModel.cancelAllJobs()
     }
 
     private fun setupViewPager(list: List<ImagesModel>) {
@@ -198,8 +197,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
     }
 
-    private fun toggleFav(id: Int) {
-        viewModel.update(id)
+    private fun toggleFav(movie: MovieEntity) {
+        viewModel.update(movie)
     }
+
 
 }

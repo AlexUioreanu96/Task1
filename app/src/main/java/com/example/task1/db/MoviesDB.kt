@@ -6,7 +6,7 @@ import com.example.task1.models.MovieEntity
 
 @Database(
     entities = [MovieEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class MoviesDB : RoomDatabase() {

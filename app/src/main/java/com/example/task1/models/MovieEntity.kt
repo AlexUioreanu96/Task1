@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = TABLE_NAME)
 data class MovieEntity(
     @PrimaryKey
-    val id: Int?,
+    val id: Int = 0,
     val name: String = "",
     val image: String = "",
     val voteAvg: Double = 0.0,
-    var isFavorite: Boolean? = false,
-    var trending: Int? = 0
+    var isFavorite: Boolean = false,
+    var trending: Int = 0
 )

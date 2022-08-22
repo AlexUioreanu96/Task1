@@ -12,7 +12,7 @@ const val APIKEY = "96d31308896f028f63b8801331250f03"
 class LoginRepository {
     private val json = Json {
         coerceInputValues = true
-//        ignoreUnknownKeys=true
+        ignoreUnknownKeys = true
     }
 
     @OptIn(ExperimentalSerializationApi::class)

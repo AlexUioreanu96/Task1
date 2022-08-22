@@ -1,10 +1,15 @@
 package com.example.task1.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName = LOGIN_MOVIE)
 data class StatusModel(
+    @PrimaryKey
+    val id: Int = 1,
 
     @SerialName("status_message")
     val statusMessage: String? = "",

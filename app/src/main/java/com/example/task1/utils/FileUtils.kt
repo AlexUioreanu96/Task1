@@ -2,9 +2,9 @@ package com.example.task1.utils
 
 import android.content.Context
 import android.util.Log
-import com.example.task1.TAG
 import com.example.task1.models.CoinDetailsDTO
 import com.example.task1.models.CoinModel
+import com.example.task1.oldApp.TAG
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException

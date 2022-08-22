@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
-import com.example.task1.db.MovieDBSingelton
 import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.SearchViewModel
 import com.example.task1.viewModel.SearchViewModelFactory
@@ -46,11 +45,7 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val database = activity?.let { MovieDBSingelton.getInstance(it.applicationContext) }!!
-        val dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()!!
-
-        factory = SearchViewModelFactory(dao, repo)
+        factory = SearchViewModelFactory(MovieApplication())
         viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
 
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -95,11 +90,8 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
     private fun navDetailsOnClick(id: Int) {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
     }
-
 //    private fun toggleFav(id: Int) {
 //        viewModel.update(id)
 //    }
-
-
 }
 

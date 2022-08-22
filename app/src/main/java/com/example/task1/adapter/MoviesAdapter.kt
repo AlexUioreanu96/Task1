@@ -30,7 +30,7 @@ class MoviesAdapter(
         val position = list.indexOf(model)
         list = list.map {
             if (model.id == it.id) {
-                return@map it.copy(isFavorite = !it.isFavorite)
+                return@map it.copy(isFavorite = it.isFavorite == true)
             } else
                 it
         }
@@ -58,7 +58,7 @@ class MoviesAdapter(
         }
 
         fun setFavorite(movie: MovieEntity) {
-            if (movie.isFavorite) {
+            if (movie.isFavorite == true) {
                 binding.imgFav.visibility = View.VISIBLE
                 binding.imgFavBorder.visibility = View.VISIBLE
                 binding.cardMovie.apply {
@@ -138,7 +138,7 @@ fun ifTapAddFavColorIt(
     onLongClick: (model: MovieEntity) -> Unit
 ) {
     binding.cardMovie.setOnLongClickListener {
-        if (!movieEntity.isFavorite) {
+        if (movieEntity.isFavorite == true) {
             movieEntity.isFavorite = true
             binding.apply {
                 imgFav.visibility = View.VISIBLE

@@ -2,30 +2,20 @@ package com.example.task1.viewModel
 
 import androidx.lifecycle.*
 import com.example.task1.CountriesQuery
+import com.example.task1.MovieApplication
 import com.example.task1.apolloClient
-import com.example.task1.db.MoviesDao
+import com.example.task1.db.MovieRepository
 import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.Star
-import com.example.task1.retrofit.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
 class HomeViewModel(
-    private val repo: LoginRepository,
-    private val dao: MoviesDao
+    private val repo: MovieRepository
 ) : ViewModel() {
-
-    init {
-        getAiringMovies()
-        getPopularMovies()
-        getViewPagerMovies()
-        getStarsMovies()
-        getCountries()
-        getTopRatedMovies()
-    }
 
     private var job: Job = Job()
 
@@ -66,28 +56,18 @@ class HomeViewModel(
         }
 
     fun update(movie: MovieEntity) {
-//        job.cancel()
         viewModelScope.launch(Dispatchers.IO) {
-            dao.update(movie)
+            repo.update(movie)
         }
     }
 
-
-    fun getViewPagerMovies() {
+    private fun getViewPagerMovies() {
         job = viewModelScope.launch(Dispatchers.IO) {
-            val imageModel: List<ImagesModel> =
-                repo.retriveTrendingMoviesSeries().results.map {
-                    ImagesModel(
-                        imageUrl = "https://image.tmdb.org/t/p/w500${it.backdropPath}",
-                        releaseDate = it.releaseDate
-                    )
-                }.take(6)
-
-            _viewPager.postValue(imageModel)
+            _viewPager.postValue(repo.getViewPagerMovies())
         }
     }
 
-    fun getCountries() {
+    private fun getCountries() {
         job = viewModelScope.launch(Dispatchers.Main) {
             _countries.postValue(apolloClient.query(CountriesQuery()).execute().data?.countries)
         }
@@ -96,108 +76,44 @@ class HomeViewModel(
 
     private fun getStarsMovies() {
         job = viewModelScope.launch(Dispatchers.IO) {
-            val stars: List<Star> =
-                repo.retrivePopularPeople("en-US", 1).results.map {
-                    Star(
-                        it.name,
-                        it.profilePath
-                    )
-                }
-            _starsMovie.postValue(stars)
+            _starsMovie.postValue(repo.getStarsMovies())
         }
     }
 
     private fun getTopRatedMovies() {
         job = viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity?> =
-                repo.retriveTopRatedMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 1
-                    )
-                }
-
-            synchronized(movieEntities)
-            val list = dao.getAllTrend(1)
-
-            _topRatedMovies.postValue(list)
-
+            _topRatedMovies.postValue(repo.getTopRatedMovies())
         }
     }
 
     private fun getPopularMovies() {
         job = viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity?> =
-                repo.retrivePopularMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 2
-                    )
-                }
-
-            synchronized(movieEntities)
-            val list = dao.getAllTrend(2)
-
-            _popularMovies.postValue(list)
-
+            _popularMovies.postValue(repo.getPopularMovies())
         }
     }
 
     private fun getAiringMovies() {
         job = viewModelScope.launch(Dispatchers.IO) {
-            val movieEntities: List<MovieEntity?> =
-                repo.retriveAiringMovies("en-US", 1).results.map {
-                    MovieEntity(
-                        id = it.id,
-                        name = it.title,
-                        image = it.posterPath,
-                        voteAvg = it.voteAverage,
-                        trending = 3
-                    )
-                }
-
-            synchronized(movieEntities)
-            val list = dao.getAllTrend(3)
-
-            _airingMovies.postValue(list)
-
+            _airingMovies.postValue(repo.getAiringMovies())
         }
     }
 
-    private suspend fun synchronized(list: List<MovieEntity?>) {
-        list.forEach {
-            val movie = it?.id?.let { it1 -> dao.queryAfterId(it1) }
-            if (movie != null) {
-                dao.updateFields(it.id, it.name, it.image, it.voteAvg)
-            } else {
-                if (it != null) {
-                    dao.insertOne(it)
-                }
-            }
-        }
+    fun loadStuff() {
+        getAiringMovies()
+        getPopularMovies()
+        getViewPagerMovies()
+        getStarsMovies()
+        getCountries()
+        getTopRatedMovies()
     }
-
-//    fun cancelAllJobs() {
-//        jobs.forEach {
-//            it.cancel()
-//        }
-//    }
 }
 
 
 @Suppress("UNCHECKED_CAST")
 class HomeViewModelFactory(
-    private val repo: LoginRepository,
-    private val dao: MoviesDao
+    private val application: MovieApplication
 ) : ViewModelProvider.NewInstanceFactory() {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(repo, dao) as T
+        return HomeViewModel(application.repository) as T
     }
 }

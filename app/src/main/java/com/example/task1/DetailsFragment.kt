@@ -1,6 +1,5 @@
 package com.example.task1
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.task1.databinding.FragmentDetailsBinding
-import com.example.task1.db.MovieDBSingelton
 import com.example.task1.db.MoviesDao
 import com.example.task1.viewModel.DetailsViewModel
 import com.example.task1.viewModel.DetailsViewModelFactory
@@ -22,17 +20,13 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private var dao: MoviesDao? = null
 
-    private lateinit var viewModel: DetailsViewModel
     private lateinit var factory: DetailsViewModelFactory
+    private lateinit var viewModel: DetailsViewModel
 
-    companion object {
-        fun newInstance() = DetailsFragment()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,23 +36,15 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()
-
-        factory = dao?.let { DetailsViewModelFactory(it) }!!
+        factory = DetailsViewModelFactory(MovieApplication())
         viewModel = ViewModelProvider(this, factory)[DetailsViewModel::class.java]
 
         val safeArgs: DetailsFragmentArgs by navArgs()
 
-        viewModel.getMovieById(safeArgs.idMovie)
+        viewModel.setMovieId(safeArgs.idMovie)
 
         viewModel
             .image.observe(viewLifecycleOwner) {

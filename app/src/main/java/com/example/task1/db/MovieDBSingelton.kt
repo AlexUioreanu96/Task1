@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Room
 
 object MovieDBSingelton {
-    var database: MoviesDB? = null
+    private lateinit var database: MoviesDB
 
-    fun getInstance(context: Context): MoviesDB? {
-        if (database == null) {
+    fun getInstance(context: Context): MoviesDB {
+        if (!this::database.isInitialized) {
             database = Room.databaseBuilder(context, MoviesDB::class.java, "movie_db")
                 .fallbackToDestructiveMigration()
                 .build()

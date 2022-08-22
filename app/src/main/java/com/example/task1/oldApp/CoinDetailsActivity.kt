@@ -1,12 +1,9 @@
-package com.example.task1
+package com.example.task1.oldApp
 
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.task1.adapter.CoinTeamAdapter
-import com.example.task1.adapter.GridAdapter
-import com.example.task1.adapter.ID
 import com.example.task1.databinding.ActivityCoinDetailsBinding
 import com.example.task1.models.CoinDetailsDTO
 import com.example.task1.utils.FileUtils

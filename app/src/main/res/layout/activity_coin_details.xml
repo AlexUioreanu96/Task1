@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.Task1Main"
-    tools:context=".CoinDetailsActivity">
+    tools:context=".oldApp.CoinDetailsActivity">
 
 
     <TextView

@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment"></action>
+            app:destination="@id/detailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_movieSearchedFragment"
             app:destination="@id/movieSearchedFragment" />

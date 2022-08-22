@@ -1,4 +1,4 @@
-package com.example.task1.adapter
+package com.example.task1.oldApp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ class CoinTeamAdapter(var coinTeamList: List<TeamModel>) :
         parent: ViewGroup,
         viewType: Int
     ): CoinTeamViewHolder {
-        return CoinTeamAdapter.CoinTeamViewHolder(
+        return CoinTeamViewHolder(
             ItemTeamBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

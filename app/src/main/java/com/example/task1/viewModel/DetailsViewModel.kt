@@ -1,13 +1,14 @@
 package com.example.task1.viewModel
 
 import androidx.lifecycle.*
-import com.example.task1.db.MoviesDao
+import com.example.task1.MovieApplication
+import com.example.task1.db.MovieRepository
 import com.example.task1.models.MovieEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class DetailsViewModel(private val dao: MoviesDao) : ViewModel() {
+class DetailsViewModel(private val repo: MovieRepository) : ViewModel() {
 
     private var job: Job = Job()
 
@@ -36,26 +37,25 @@ class DetailsViewModel(private val dao: MoviesDao) : ViewModel() {
 //        }
 
 
-    fun getMovieById(id: Int) {
+    fun setMovieId(id: Int) {
         job.cancel()
         job = viewModelScope.launch(Dispatchers.IO) {
-            val movie = dao.getById(id)
-            loadData(movie)
+            loadData(repo.getById(id))
         }
     }
 
-    private fun loadData(movie: MovieEntity) {
-        _title.postValue(movie.name)
-        _image.postValue("https://image.tmdb.org/t/p/w500${movie.image}")
-        _vote.postValue(movie.voteAvg)
+    private fun loadData(movie: MovieEntity?) {
+        _title.postValue(movie?.name)
+        _image.postValue("https://image.tmdb.org/t/p/w500${movie?.image}")
+        _vote.postValue(movie?.voteAvg)
     }
 }
 
 @Suppress("UNCHECKED_CAST")
 class DetailsViewModelFactory(
-    private val dao: MoviesDao
+    private val application: MovieApplication
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DetailsViewModel(dao) as T
+        return DetailsViewModel(application.repository) as T
     }
 }

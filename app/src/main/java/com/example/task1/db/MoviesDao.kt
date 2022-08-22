@@ -3,8 +3,10 @@ package com.example.task1.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.task1.models.LOGIN_MOVIE
 import com.example.task1.models.MovieEntity
-import com.example.task1.models.TABLE_NAME
+import com.example.task1.models.StatusModel
+import com.example.task1.models.TABLE_MOVIE
 
 @Dao
 interface MoviesDao {
@@ -15,31 +17,38 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOne(data: MovieEntity)
 
-    @Query("DELETE FROM $TABLE_NAME")
+    @Query("DELETE FROM $TABLE_MOVIE")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM $TABLE_NAME")
+    @Query("SELECT * FROM $TABLE_MOVIE")
     fun getAll(): LiveData<List<MovieEntity>>
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE :movieId = id")
+    @Query("SELECT * FROM $TABLE_MOVIE WHERE :movieId = id")
     fun getById(movieId: Int): MovieEntity
 
     @Update
     suspend fun update(movie: MovieEntity)
 
-    @Query("UPDATE $TABLE_NAME SET name=:name, image = :image, voteAvg =:voteAvg WHERE id =:id ")
+    @Query("UPDATE $TABLE_MOVIE SET name=:name, image = :image, voteAvg =:voteAvg WHERE id =:id ")
     suspend fun updateFields(id: Int, name: String?, image: String?, voteAvg: Double?)
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
+    @Query("SELECT * FROM $TABLE_MOVIE WHERE id = :id")
     suspend fun queryAfterId(id: Int): MovieEntity
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE trending = :trend")
+    @Query("SELECT * FROM $TABLE_MOVIE WHERE trending = :trend")
     suspend fun getAllTrend(trend: Int): List<MovieEntity>
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE name LIKE :query")
+    @Query("SELECT * FROM $TABLE_MOVIE WHERE name LIKE :query")
     suspend fun getAllbyQuery(query: String?): List<MovieEntity>
 
-
-    @Query("UPDATE $TABLE_NAME SET isFavorite = 0 WHERE id = :id")
+    @Query("UPDATE $TABLE_MOVIE SET isFavorite = 0 WHERE id = :id")
     fun removeFavorite(id: Int?)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertToken(data: StatusModel)
+
+    @Query("SELECT * FROM $LOGIN_MOVIE  WHERE 1 = id")
+    fun getStatusModel(): StatusModel
+
+
 }

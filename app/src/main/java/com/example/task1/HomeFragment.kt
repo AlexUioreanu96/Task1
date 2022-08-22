@@ -13,12 +13,8 @@ import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.adapter.PopularPeopleAdapter
 import com.example.task1.adapter.ViewPagerAdapter
 import com.example.task1.databinding.FragmentHomeBinding
-import com.example.task1.db.MovieDBSingelton
-import com.example.task1.db.MoviesDB
-import com.example.task1.db.MoviesDao
 import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
-import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.HomeViewModel
 import com.example.task1.viewModel.HomeViewModelFactory
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -30,14 +26,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var retrofit: LoginRepository = LoginRepository()
-
-    lateinit var database: MoviesDB
-    private var dao: MoviesDao? = null
-
-    private lateinit var viewModel: HomeViewModel
     private lateinit var factory: HomeViewModelFactory
+    private lateinit var viewModel: HomeViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        factory = HomeViewModelFactory(MovieApplication())
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        viewModel.loadStuff()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +46,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        retrofit = LoginRepository()
-        dao = MovieDBSingelton.getInstance(requireContext())?.getMovieDB()
-
-        factory = dao?.let { HomeViewModelFactory(retrofit, it) }!!
-        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-
-//        val repo = MovieRepository(requireContext())
-//        println("Alex" + repo.getAllMovies()?.value.toString())
 
         displayAiring()
 
@@ -200,6 +188,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun toggleFav(movie: MovieEntity) {
         viewModel.update(movie)
     }
-
-
 }

@@ -3,7 +3,8 @@ package com.example.task1.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-const val TABLE_NAME = "movies_db"
+const val TABLE_MOVIE = "movies_db"
+const val LOGIN_MOVIE = "login_db"
 
 @Serializable
 data class PageMovieModel(

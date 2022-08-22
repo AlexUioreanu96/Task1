@@ -1,11 +1,10 @@
-package com.example.task1.adapter
+package com.example.task1.oldApp
 
 import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task1.CoinDetailsActivity
 import com.example.task1.databinding.ItemCoinBinding
 import com.example.task1.models.CoinModel
 import com.example.task1.utils.PhotoUtils

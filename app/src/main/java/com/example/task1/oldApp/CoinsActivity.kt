@@ -1,9 +1,9 @@
-package com.example.task1
+package com.example.task1.oldApp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.task1.adapter.CoinAdapter
+import com.example.task1.R
 import com.example.task1.databinding.ActivityCoinsBinding
 import com.example.task1.utils.FileUtils.Companion.getList
 

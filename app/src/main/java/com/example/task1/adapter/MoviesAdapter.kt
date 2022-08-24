@@ -49,7 +49,6 @@ class MoviesAdapter(
             mustWatchTagLogic(binding, movieEntity)
             setFavorite(movieEntity)
 
-
             ifTapAddFavColorIt(binding, movieEntity, onLongClick)
 
             binding.cardMovie.setOnClickListener {

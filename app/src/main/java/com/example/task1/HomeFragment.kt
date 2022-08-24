@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.adapter.CountriesAdapter
@@ -16,25 +16,17 @@ import com.example.task1.databinding.FragmentHomeBinding
 import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
 import com.example.task1.viewModel.HomeViewModel
-import com.example.task1.viewModel.HomeViewModelFactory
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var factory: HomeViewModelFactory
-    private lateinit var viewModel: HomeViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        factory = HomeViewModelFactory(MovieApplication())
-        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        viewModel.loadStuff()
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -160,7 +152,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-//        viewModel.cancelAllJobs()
+//        viewModel.cancelJobs()
     }
 
     private fun setupViewPager(list: List<ImagesModel>) {
@@ -182,10 +174,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun navDetailsOnClick(id: Int) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
+        findNavController().navigate(HomeFragmentDirections.actionDetails(id))
     }
 
     private fun toggleFav(movie: MovieEntity) {
         viewModel.update(movie)
     }
+
+
 }

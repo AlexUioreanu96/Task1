@@ -3,7 +3,7 @@ package com.example.task1.retrofit
 import com.example.task1.models.*
 import retrofit2.http.*
 
-interface LoginApi {
+interface NetworkApi {
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(

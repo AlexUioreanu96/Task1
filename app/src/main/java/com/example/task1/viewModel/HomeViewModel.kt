@@ -1,23 +1,26 @@
 package com.example.task1.viewModel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.task1.CountriesQuery
-import com.example.task1.MovieApplication
 import com.example.task1.apolloClient
 import com.example.task1.db.MovieRepository
 import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.Star
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repo: MovieRepository) : ViewModel() {
 
 
-class HomeViewModel(
-    private val repo: MovieRepository
-) : ViewModel() {
-
-    private var job: Job = Job()
+    private val jobs = mutableListOf<Job>()
 
     private val _airingMovies = MutableLiveData<List<MovieEntity>>()
     val airingMovies: LiveData<List<MovieEntity>>
@@ -55,6 +58,10 @@ class HomeViewModel(
             return _viewPager
         }
 
+    init {
+        loadStuff()
+    }
+
     fun update(movie: MovieEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.update(movie)
@@ -62,43 +69,43 @@ class HomeViewModel(
     }
 
     private fun getViewPagerMovies() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _viewPager.postValue(repo.getViewPagerMovies())
         }
     }
 
     private fun getCountries() {
-        job = viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.Main) {
             _countries.postValue(apolloClient.query(CountriesQuery()).execute().data?.countries)
         }
     }
 
 
     private fun getStarsMovies() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             _starsMovie.postValue(repo.getStarsMovies())
         }
     }
 
     private fun getTopRatedMovies() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             _topRatedMovies.postValue(repo.getTopRatedMovies())
         }
     }
 
     private fun getPopularMovies() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             _popularMovies.postValue(repo.getPopularMovies())
         }
     }
 
     private fun getAiringMovies() {
-        job = viewModelScope.launch(Dispatchers.IO) {
-            _airingMovies.postValue(repo.getAiringMovies())
+        viewModelScope.launch {
+            _airingMovies.value = repo.getAiringMovies()
         }
     }
 
-    fun loadStuff() {
+    private fun loadStuff() {
         getAiringMovies()
         getPopularMovies()
         getViewPagerMovies()
@@ -106,14 +113,5 @@ class HomeViewModel(
         getCountries()
         getTopRatedMovies()
     }
-}
 
-
-@Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(
-    private val application: MovieApplication
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(application.repository) as T
-    }
 }

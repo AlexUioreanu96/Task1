@@ -1,14 +1,19 @@
 package com.example.task1.viewModel
 
-import androidx.lifecycle.*
-import com.example.task1.MovieApplication
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.task1.db.MovieRepository
 import com.example.task1.models.MovieEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsViewModel(private val repo: MovieRepository) : ViewModel() {
+@HiltViewModel
+class DetailsViewModel @Inject constructor(private val repo: MovieRepository) : ViewModel() {
 
     private var job: Job = Job()
 
@@ -29,12 +34,6 @@ class DetailsViewModel(private val repo: MovieRepository) : ViewModel() {
         get() {
             return _vote
         }
-//
-//    private val _starsMovie = MutableLiveData<List<Star>>()
-//    val starsMovie: LiveData<List<Star>>
-//        get() {
-//            return _starsMovie
-//        }
 
 
     fun setMovieId(id: Int) {
@@ -48,14 +47,5 @@ class DetailsViewModel(private val repo: MovieRepository) : ViewModel() {
         _title.postValue(movie?.name)
         _image.postValue("https://image.tmdb.org/t/p/w500${movie?.image}")
         _vote.postValue(movie?.voteAvg)
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-class DetailsViewModelFactory(
-    private val application: MovieApplication
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DetailsViewModel(application.repository) as T
     }
 }

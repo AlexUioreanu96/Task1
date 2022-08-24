@@ -1,18 +1,21 @@
 package com.example.task1.viewModel
 
-import androidx.lifecycle.*
-import com.example.task1.MovieApplication
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.task1.db.MovieRepository
 import com.example.task1.models.MovieEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val SEARCHVIEWMODEL = "SearchViewModel"
 
-class SearchViewModel(
-    private val repo: MovieRepository
-) : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(private val repo: MovieRepository) : ViewModel() {
 
     private var job: Job = Job()
 
@@ -24,7 +27,7 @@ class SearchViewModel(
 
     fun update(movie: MovieEntity) {
         job.cancel()
-        job = viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(Dispatchers.Main) {
             repo.update(movie)
         }
     }
@@ -34,14 +37,5 @@ class SearchViewModel(
         job = viewModelScope.launch(Dispatchers.IO) {
             _searchedMovies.postValue(repo.searchQuery(query))
         }
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-class SearchViewModelFactory(
-    private val application: MovieApplication
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SearchViewModel(application.repository) as T
     }
 }

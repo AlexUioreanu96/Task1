@@ -11,7 +11,5 @@ import com.example.task1.models.StatusModel
     exportSchema = false
 )
 abstract class MoviesDB : RoomDatabase() {
-
-    abstract fun getMovieDB(): MoviesDao?
-
+    abstract fun getMovieDao(): MoviesDao
 }

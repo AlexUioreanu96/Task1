@@ -1,7 +1,6 @@
 package com.example.task1.db
 
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.task1.models.LOGIN_MOVIE
 import com.example.task1.models.MovieEntity
@@ -21,10 +20,10 @@ interface MoviesDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM $TABLE_MOVIE")
-    fun getAll(): LiveData<List<MovieEntity>>
+    suspend fun getAll(): List<MovieEntity>
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE :movieId = id")
-    fun getById(movieId: Int): MovieEntity
+    suspend fun getById(movieId: Int): MovieEntity
 
     @Update
     suspend fun update(movie: MovieEntity)
@@ -33,7 +32,7 @@ interface MoviesDao {
     suspend fun updateFields(id: Int, name: String?, image: String?, voteAvg: Double?)
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE id = :id")
-    suspend fun queryAfterId(id: Int): MovieEntity
+    suspend fun queryAfterId(id: Int): MovieEntity?
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE trending = :trend")
     suspend fun getAllTrend(trend: Int): List<MovieEntity>
@@ -42,13 +41,13 @@ interface MoviesDao {
     suspend fun getAllbyQuery(query: String?): List<MovieEntity>
 
     @Query("UPDATE $TABLE_MOVIE SET isFavorite = 0 WHERE id = :id")
-    fun removeFavorite(id: Int?)
+    suspend fun removeFavorite(id: Int?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToken(data: StatusModel)
 
     @Query("SELECT * FROM $LOGIN_MOVIE  WHERE 1 = id")
-    fun getStatusModel(): StatusModel
+    suspend fun getStatusModel(): StatusModel
 
 
 }

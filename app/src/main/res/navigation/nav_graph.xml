@@ -10,21 +10,34 @@
         android:name="com.example.task1.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
+
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.task1.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_movieSearchedFragment"
-            app:destination="@id/movieSearchedFragment" />
+            app:destination="@id/movieSearchedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/actionDetails"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieSearchedFragment"
@@ -33,7 +46,14 @@
         tools:layout="@layout/fragment_searched_list">
         <action
             android:id="@+id/action_movieSearchedFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_movieSearchedFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -46,6 +66,13 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_detailsFragment_to_movieSearchedFragment"
+            app:destination="@id/movieSearchedFragment" />
     </fragment>
 </navigation>

@@ -1,19 +1,19 @@
 package com.example.task1.db
 
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.task1.models.*
-import com.example.task1.retrofit.LoginRepository
+import com.example.task1.retrofit.NetworkRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 const val MOVIEREPO = "Movie Respository"
 
-class MovieRepository(context: Context) {
 
-    private var repo: LoginRepository = LoginRepository()
-    private var dao: MoviesDao? = MovieDBSingelton.getInstance(context).getMovieDB()
-
-    private var allMovies = dao?.getAll()
+class MovieRepository @Inject constructor(
+    private val repo: NetworkRepository,
+    private val dao: MoviesDao
+) {
 
     suspend fun getViewPagerMovies(): List<ImagesModel> {
         val imageModel: List<ImagesModel> =
@@ -37,8 +37,8 @@ class MovieRepository(context: Context) {
         return stars
     }
 
-    suspend fun getTopRatedMovies(): List<MovieEntity>? {
-        val movieEntities: List<MovieEntity?> =
+    suspend fun getTopRatedMovies(): List<MovieEntity> {
+        val movieEntitie: List<MovieEntity> =
             repo.retriveTopRatedMovies("en-US", 1).results.map {
                 MovieEntity(
                     id = it.id,
@@ -48,13 +48,14 @@ class MovieRepository(context: Context) {
                     trending = 1
                 )
             }
-        synchronized(movieEntities)
-        return dao?.getAllTrend(1)
+        synchronized(movieEntitie)
+        val list = dao.getAllTrend(1)
+        return movieEntitie
     }
 
-    suspend fun getPopularMovies(): List<MovieEntity>? {
-        val movieEntities: List<MovieEntity?> =
-            repo.retriveTopRatedMovies("en-US", 1).results.map {
+    suspend fun getPopularMovies(): List<MovieEntity> {
+        val movieEntities1: List<MovieEntity> =
+            repo.retrivePopularMovies("en-US", 1).results.map {
                 MovieEntity(
                     id = it.id,
                     name = it.title,
@@ -63,13 +64,16 @@ class MovieRepository(context: Context) {
                     trending = 2
                 )
             }
-        synchronized(movieEntities)
-        return dao?.getAllTrend(2)
+        synchronized(movieEntities1)
+
+        val list = dao.getAllTrend(2)
+        println("dasd")
+        return list
     }
 
-    suspend fun getAiringMovies(): List<MovieEntity>? {
-        val movieEntities: List<MovieEntity?> =
-            repo.retriveTopRatedMovies("en-US", 1).results.map {
+    suspend fun getAiringMovies(): List<MovieEntity> = withContext(Dispatchers.IO) {
+        val movieEntities: List<MovieEntity> =
+            repo.retriveAiringMovies("en-US", 1).results.map {
                 MovieEntity(
                     id = it.id,
                     name = it.title,
@@ -79,21 +83,23 @@ class MovieRepository(context: Context) {
                 )
             }
         synchronized(movieEntities)
-        return dao?.getAllTrend(3)
+        dao.getAllTrend(3)
+
+        movieEntities
     }
 
-    suspend fun getById(id: Int): MovieEntity? {
-        return dao?.getById(id)
+    suspend fun getById(id: Int): MovieEntity {
+        return dao.getById(id)
     }
 
 
     suspend fun insert(movieEntity: MovieEntity) {
-        dao?.insertOne(movieEntity)
+        dao.insertOne(movieEntity)
     }
 
     suspend fun update(movieEntity: MovieEntity) {
         movieEntity.id.let {
-            dao?.updateFields(
+            dao.updateFields(
                 it,
                 movieEntity.name,
                 movieEntity.image,
@@ -119,8 +125,8 @@ class MovieRepository(context: Context) {
 
         try {
             fullList.forEach { model ->
-                model.id.let { it1 -> dao?.queryAfterId(it1) }?.let { movieEntity ->
-                    model.isFavorite = movieEntity.isFavorite
+                model.id.let { it1 -> dao.queryAfterId(it1) }.let { movieEntity ->
+                    model.isFavorite = movieEntity?.isFavorite
                 }
             }
         } catch (e: Exception) {
@@ -130,28 +136,20 @@ class MovieRepository(context: Context) {
     }
 
 
-    fun delete(movieEntity: MovieEntity) {
-
-    }
-
-    fun getAllMovies(): LiveData<List<MovieEntity>>? {
-        return allMovies
-    }
-
     private suspend fun synchronized(list: List<MovieEntity?>) {
         list.forEach {
-            val movie = it?.id?.let { it1 -> dao?.queryAfterId(it1) }
+            val movie = it?.id?.let { it1 -> dao.queryAfterId(it1) }
             if (movie != null) {
-                dao?.updateFields(it.id, it.name, it.image, it.voteAvg)
+                dao.updateFields(it.id, it.name, it.image, it.voteAvg)
             } else {
                 if (it != null) {
-                    dao?.insertOne(it)
+                    dao.insertOne(it)
                 }
             }
         }
     }
 
-    suspend fun getStatusModel() = dao?.getStatusModel()
+    suspend fun getStatusModel() = dao.getStatusModel()
 
     suspend fun login(userName: String, pass: String): StatusModel {
         val statusRetrive = repo.retrieveRequestToken()
@@ -165,44 +163,8 @@ class MovieRepository(context: Context) {
         return repo.login(loginRequest)
     }
 
-
     suspend fun insertToken(statusModel: StatusModel) {
-        dao?.insertToken(statusModel)
+        dao.insertToken(statusModel)
     }
 
-//    suspend fun state(userName: String, pass: String): LoginViewModel {
-//        try {
-//            var tokenStatus: StatusModel? = null
-//
-//            tokenStatus = dao?.getStatusModel()
-//
-//
-//            if (dao.getStatusModel())
-//
-//            //Request Token
-//            val statusRetrive = repo.retrieveRequestToken()
-//
-//            val loginRequest = LoginRequest(
-//                username = userName,
-//                password = pass,
-//                requestToken = statusRetrive.requestToken
-//            )
-//
-//            val statusLogin: StatusModel = repo.login(loginRequest)
-//
-//
-//
-//            if (statusLogin.success == true) {
-//                _state.postValue(LoginViewModel.LoginState.Success)
-//            } else {
-//                _state.postValue(LoginViewModel.LoginState.Error("Username or password doesn't match"))
-//            }
-//        } catch (e: IOException) {
-//            _state.postValue(LoginViewModel.LoginState.Error("Network error, please try again"))
-//            Log.w("loginViewModel", "Error while login", e)
-//        } catch (e: HttpException) {
-//            _state.postValue(LoginViewModel.LoginState.Error("Username or password doesn't match"))
-//            Log.w("loginViewModel", "Error while login", e)
-//        }
-//    }
 }

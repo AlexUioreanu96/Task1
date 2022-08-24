@@ -6,31 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.task1.adapter.MoviesAdapter
 import com.example.task1.databinding.FragmentSearchedListBinding
-import com.example.task1.retrofit.LoginRepository
 import com.example.task1.viewModel.SearchViewModel
-import com.example.task1.viewModel.SearchViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.reflect.KProperty
 
-
+@AndroidEntryPoint
 class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
-
-    private val repo = LoginRepository()
 
     private var _binding: FragmentSearchedListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: SearchViewModel
-    private lateinit var factory: SearchViewModelFactory
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +36,6 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        factory = SearchViewModelFactory(MovieApplication())
-        viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
 
         binding.btSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -84,14 +73,23 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
                 return true
             }
         })
-
     }
 
     private fun navDetailsOnClick(id: Int) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
+        findNavController().navigate(
+            MovieSearchedFragmentDirections.actionMovieSearchedFragmentToDetailsFragment(
+                id
+            )
+        )
     }
-//    private fun toggleFav(id: Int) {
-//        viewModel.update(id)
-//    }
+
+}
+
+private operator fun Any.setValue(
+    movieSearchedFragment: MovieSearchedFragment,
+    property: KProperty<*>,
+    searchViewModel: SearchViewModel
+) {
+
 }
 

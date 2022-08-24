@@ -11,5 +11,5 @@ data class MovieEntity(
     val image: String = "",
     val voteAvg: Double = 0.0,
     var isFavorite: Boolean? = false,
-    var trending: Int? = 0
+    val trending: Int? = 0
 )

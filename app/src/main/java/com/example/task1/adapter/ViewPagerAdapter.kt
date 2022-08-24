@@ -32,7 +32,8 @@ class ViewPagerAdapter() :
                 .load(model.imageUrl)
                 .into(binding.image)
             if (model.releaseDate > LocalDateTime.now().toString()) binding.textView2.text =
-                "Coming soon" else binding.textView2.text = "Out in cinemas"
+                "Coming soon" else binding.textView2.text =
+                "Out in cinemas"
 
         }
     }

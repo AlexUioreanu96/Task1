@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.example.task1.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding

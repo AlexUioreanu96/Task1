@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         if (savedInstanceState == null) {
-            navController.navigate(R.id.loginFragment)
+            navController.navigate(R.id.homeFragment)
         }
     }
 }

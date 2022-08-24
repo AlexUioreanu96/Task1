@@ -10,9 +10,9 @@ import com.example.task1.db.MovieRepository
 import com.example.task1.models.ImagesModel
 import com.example.task1.models.MovieEntity
 import com.example.task1.models.Star
+import com.example.task1.models.StatusModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +20,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repo: MovieRepository) : ViewModel() {
 
 
-    private val jobs = mutableListOf<Job>()
+    var isLogged: Boolean = false
+
 
     private val _airingMovies = MutableLiveData<List<MovieEntity>>()
     val airingMovies: LiveData<List<MovieEntity>>
@@ -105,6 +106,18 @@ class HomeViewModel @Inject constructor(private val repo: MovieRepository) : Vie
         }
     }
 
+    private fun isLogged() {
+        var tokenStatus: StatusModel? = null
+        viewModelScope.launch(Dispatchers.IO) {
+            tokenStatus = repo.getStatusModel()
+            isLogged = tokenStatus != null
+        }
+    }
+
+    suspend fun logOut() {
+        repo.logOut()
+    }
+
     private fun loadStuff() {
         getAiringMovies()
         getPopularMovies()
@@ -112,6 +125,7 @@ class HomeViewModel @Inject constructor(private val repo: MovieRepository) : Vie
         getStarsMovies()
         getCountries()
         getTopRatedMovies()
+        isLogged()
     }
 
 }

@@ -163,6 +163,10 @@ class MovieRepository @Inject constructor(
         return repo.login(loginRequest)
     }
 
+    suspend fun logOut() {
+        dao.logOut()
+    }
+
     suspend fun insertToken(statusModel: StatusModel) {
         dao.insertToken(statusModel)
     }

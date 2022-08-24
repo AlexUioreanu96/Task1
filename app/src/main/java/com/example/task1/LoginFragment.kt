@@ -1,6 +1,5 @@
 package com.example.task1
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +29,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,13 +39,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.Main) {
             viewModel.loginBefore()
             if (viewModel.state.value == LoginState.Success) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     findNavController().navigate(
-                        R.id.action_loginFragment_to_homeFragment,
-                        null,
+                        LoginFragmentDirections.actionLoginFragmentToHomeFragment(true),
                         navOptions { popUpTo(R.id.loginFragment) { inclusive = true } })
                 }
             }
@@ -69,19 +60,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 LoginState.InProgress -> {}
                 LoginState.Success ->
                     findNavController().navigate(
-                        R.id.action_loginFragment_to_homeFragment,
-                        null,
+                        LoginFragmentDirections.actionLoginFragmentToHomeFragment(true),
                         navOptions { popUpTo(R.id.loginFragment) { inclusive = true } })
             }
         }
 
         binding.loginViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
 

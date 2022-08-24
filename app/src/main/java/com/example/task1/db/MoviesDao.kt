@@ -49,5 +49,8 @@ interface MoviesDao {
     @Query("SELECT * FROM $LOGIN_MOVIE  WHERE 1 = id")
     suspend fun getStatusModel(): StatusModel
 
+    @Query("DELETE FROM $LOGIN_MOVIE  WHERE 1 = id")
+    suspend fun logOut()
+
 
 }

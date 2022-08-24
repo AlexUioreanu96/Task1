@@ -10,6 +10,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -18,6 +19,7 @@ class NetworkModule {
     fun provideApi(retrofit: Retrofit): NetworkApi =
         retrofit.create(NetworkApi::class.java)
 
+    @Singleton
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
     fun provideRetrofit(): Retrofit {

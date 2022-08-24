@@ -10,21 +10,19 @@
         android:name="com.example.task1.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
-
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.task1.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
-
+        <argument
+            android:name="isLogged"
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_homeFragment_to_movieSearchedFragment"
             app:destination="@id/movieSearchedFragment"

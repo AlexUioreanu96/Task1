@@ -1,6 +1,7 @@
 package com.example.task1.db
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.task1.models.LOGIN_MOVIE
 import com.example.task1.models.MovieEntity
@@ -14,13 +15,13 @@ interface MoviesDao {
     suspend fun insertAll(data: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertOne(data: MovieEntity)
+    fun insertOne(data: MovieEntity)
 
     @Query("DELETE FROM $TABLE_MOVIE")
     suspend fun deleteAll()
 
     @Query("SELECT * FROM $TABLE_MOVIE")
-    suspend fun getAll(): List<MovieEntity>
+    fun getAll(): List<MovieEntity>
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE :movieId = id")
     suspend fun getById(movieId: Int): MovieEntity
@@ -35,7 +36,7 @@ interface MoviesDao {
     suspend fun queryAfterId(id: Int): MovieEntity?
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE trending = :trend")
-    suspend fun getAllTrend(trend: Int): List<MovieEntity>
+    fun getAllTrend(trend: Int): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM $TABLE_MOVIE WHERE name LIKE :query")
     suspend fun getAllbyQuery(query: String?): List<MovieEntity>

@@ -49,8 +49,7 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
                 }
 
                 viewModel.searched.observe(viewLifecycleOwner) {
-                    adapterObj.list = it
-
+                    adapterObj.submitList(it)
                 }
                 return true
             }
@@ -67,8 +66,7 @@ class MovieSearchedFragment : Fragment(R.layout.fragment_searched_list) {
                 }
 
                 viewModel.searched.observe(viewLifecycleOwner) {
-                    adapterObj.list = it
-
+                    adapterObj.submitList(it)
                 }
                 return true
             }

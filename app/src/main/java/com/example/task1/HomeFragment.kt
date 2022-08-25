@@ -37,8 +37,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         lifecycleScope.launch {
             viewModel.logOut()
         }
-
-
     }
 
     override fun onCreateView(
@@ -90,7 +88,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.airingMovies.observe(viewLifecycleOwner) { movies ->
-            adapterObj.list = movies
+            adapterObj.submitList(movies)
         }
     }
 
@@ -109,7 +107,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.popularMovies.observe(viewLifecycleOwner) { movies ->
-            adapterObj.list = movies
+            adapterObj.submitList(movies)
         }
     }
 
@@ -127,7 +125,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         viewModel.topRated.observe(viewLifecycleOwner) { movies ->
             binding.topRatedRecycler.also {
-                adapterObj.list = movies
+
+                adapterObj.submitList(movies)
             }
         }
     }
@@ -165,7 +164,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 adapterObj.list = countries
             }
         }
-
     }
 
     override fun onDestroyView() {

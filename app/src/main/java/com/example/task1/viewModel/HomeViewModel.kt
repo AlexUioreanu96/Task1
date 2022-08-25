@@ -23,23 +23,16 @@ class HomeViewModel @Inject constructor(private val repo: MovieRepository) : Vie
     var isLogged: Boolean = false
 
 
-    private val _airingMovies = MutableLiveData<List<MovieEntity>>()
-    val airingMovies: LiveData<List<MovieEntity>>
-        get() {
-            return _airingMovies
-        }
+    private var _airingMovies = MutableLiveData<List<MovieEntity>>()
+    var airingMovies: LiveData<List<MovieEntity>> = repo.getAiringMovies()
 
-    private val _popularMovies = MutableLiveData<List<MovieEntity>>()
-    val popularMovies: LiveData<List<MovieEntity>>
-        get() {
-            return _popularMovies
-        }
+    private var _popularMovies = MutableLiveData<List<MovieEntity>>()
+    var popularMovies: LiveData<List<MovieEntity>> = repo.getPopularMovies()
 
-    private val _topRatedMovies = MutableLiveData<List<MovieEntity>>()
-    val topRated: LiveData<List<MovieEntity>>
-        get() {
-            return _topRatedMovies
-        }
+    private var _topRatedMovies = MutableLiveData<List<MovieEntity>>()
+
+    var topRated: LiveData<List<MovieEntity>> = repo.getTopRatedMovies()
+
 
     private val _starsMovie = MutableLiveData<List<Star>>()
     val starsMovie: LiveData<List<Star>>
@@ -88,23 +81,23 @@ class HomeViewModel @Inject constructor(private val repo: MovieRepository) : Vie
         }
     }
 
-    private fun getTopRatedMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _topRatedMovies.postValue(repo.getTopRatedMovies())
-        }
-    }
-
-    private fun getPopularMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _popularMovies.postValue(repo.getPopularMovies())
-        }
-    }
-
-    private fun getAiringMovies() {
-        viewModelScope.launch {
-            _airingMovies.value = repo.getAiringMovies()
-        }
-    }
+//    private fun getTopRatedMovies() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//             repo.getTopRatedMovies()
+//        }
+//    }
+//
+//    private fun getPopularMovies() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            _popularMovies= repo.getPopularMovies()
+//        }
+//    }
+//
+//    private fun getAiringMovies() {
+//        viewModelScope.launch {
+//            _airingMovies = repo.getAiringMovies()
+//        }
+//    }
 
     private fun isLogged() {
         var tokenStatus: StatusModel? = null
@@ -119,12 +112,12 @@ class HomeViewModel @Inject constructor(private val repo: MovieRepository) : Vie
     }
 
     private fun loadStuff() {
-        getAiringMovies()
-        getPopularMovies()
+//        getAiringMovies()
+//        getPopularMovies()
         getViewPagerMovies()
         getStarsMovies()
         getCountries()
-        getTopRatedMovies()
+//        getTopRatedMovies()
         isLogged()
     }
 

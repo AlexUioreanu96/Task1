@@ -1,10 +1,12 @@
 package com.example.task1.db
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.task1.models.*
 import com.example.task1.retrofit.NetworkRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val MOVIEREPO = "Movie Respository"
@@ -12,8 +14,10 @@ const val MOVIEREPO = "Movie Respository"
 
 class MovieRepository @Inject constructor(
     private val repo: NetworkRepository,
-    private val dao: MoviesDao
+    private val dao: MoviesDao,
 ) {
+
+    val scope = CoroutineScope(Dispatchers.IO)
 
     suspend fun getViewPagerMovies(): List<ImagesModel> {
         val imageModel: List<ImagesModel> =
@@ -37,55 +41,59 @@ class MovieRepository @Inject constructor(
         return stars
     }
 
-    suspend fun getTopRatedMovies(): List<MovieEntity> {
-        val movieEntitie: List<MovieEntity> =
-            repo.retriveTopRatedMovies("en-US", 1).results.map {
-                MovieEntity(
-                    id = it.id,
-                    name = it.title,
-                    image = it.posterPath,
-                    voteAvg = it.voteAverage,
-                    trending = 1
-                )
-            }
-        synchronized(movieEntitie)
-        val list = dao.getAllTrend(1)
-        return movieEntitie
+    fun getTopRatedMovies(): LiveData<List<MovieEntity>> {
+        scope.launch {
+            val movieEntitie =
+                repo.retriveTopRatedMovies("en-US", 1).results.map {
+                    MovieEntity(
+                        id = it.id,
+                        name = it.title,
+                        image = it.posterPath,
+                        voteAvg = it.voteAverage,
+                        trending = 1
+                    )
+                }.filter { it.name.isNotEmpty() }
+
+            synchronized(movieEntitie)
+        }
+
+        return dao.getAllTrend(1)
     }
 
-    suspend fun getPopularMovies(): List<MovieEntity> {
-        val movieEntities1: List<MovieEntity> =
-            repo.retrivePopularMovies("en-US", 1).results.map {
-                MovieEntity(
-                    id = it.id,
-                    name = it.title,
-                    image = it.posterPath,
-                    voteAvg = it.voteAverage,
-                    trending = 2
-                )
-            }
-        synchronized(movieEntities1)
+    fun getPopularMovies(): LiveData<List<MovieEntity>> {
+        scope.launch {
+            val movieEntitie: List<MovieEntity> =
+                repo.retrivePopularMovies("en-US", 1).results.map {
+                    MovieEntity(
+                        id = it.id,
+                        name = it.title,
+                        image = it.posterPath,
+                        voteAvg = it.voteAverage,
+                        trending = 2
+                    )
+                }.filter { it.name.isNotEmpty() }
 
-        val list = dao.getAllTrend(2)
-        println("dasd")
-        return list
+            synchronized(movieEntitie)
+        }
+        return dao.getAllTrend(2)
     }
 
-    suspend fun getAiringMovies(): List<MovieEntity> = withContext(Dispatchers.IO) {
-        val movieEntities: List<MovieEntity> =
-            repo.retriveAiringMovies("en-US", 1).results.map {
-                MovieEntity(
-                    id = it.id,
-                    name = it.title,
-                    image = it.posterPath,
-                    voteAvg = it.voteAverage,
-                    trending = 3
-                )
-            }
-        synchronized(movieEntities)
-        dao.getAllTrend(3)
 
-        movieEntities
+    fun getAiringMovies(): LiveData<List<MovieEntity>> {
+        scope.launch {
+            val movieEntities: List<MovieEntity> =
+                repo.retriveAiringMovies("en-US", 1).results.map {
+                    MovieEntity(
+                        id = it.id,
+                        name = it.title,
+                        image = it.posterPath,
+                        voteAvg = it.voteAverage,
+                        trending = 3
+                    )
+                }.filter { it.name.isNotEmpty() }
+            synchronized(movieEntities)
+        }
+        return dao.getAllTrend(3)
     }
 
     suspend fun getById(id: Int): MovieEntity {
@@ -98,14 +106,16 @@ class MovieRepository @Inject constructor(
     }
 
     suspend fun update(movieEntity: MovieEntity) {
-        movieEntity.id.let {
-            dao.updateFields(
-                it,
-                movieEntity.name,
-                movieEntity.image,
-                movieEntity.voteAvg
-            )
-        }
+        dao.update(movieEntity)
+//        movieEntity.id.let {
+//            dao.updateFields(
+//                it,
+//                movieEntity.name,
+//                movieEntity.image,
+//                movieEntity.voteAvg,
+//
+//                )
+//        }
     }
 
     suspend fun searchQuery(query: String?): List<MovieEntity> {
@@ -136,15 +146,19 @@ class MovieRepository @Inject constructor(
     }
 
 
-    private suspend fun synchronized(list: List<MovieEntity?>) {
+//    private fun synchronized(list: List<MovieEntity>) {
+//        list.forEach {
+//            dao.insertOne(it)
+//        }
+//    }
+
+    private suspend fun synchronized(list: List<MovieEntity>) {
         list.forEach {
-            val movie = it?.id?.let { it1 -> dao.queryAfterId(it1) }
+            val movie = it.id.let { it1 -> dao.queryAfterId(it1) }
             if (movie != null) {
                 dao.updateFields(it.id, it.name, it.image, it.voteAvg)
             } else {
-                if (it != null) {
-                    dao.insertOne(it)
-                }
+                dao.insertOne(it)
             }
         }
     }

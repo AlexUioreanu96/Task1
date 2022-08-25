@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task1.R
@@ -18,24 +20,25 @@ class MoviesAdapter(
     private val onLongClick: (model: MovieEntity) -> Unit,
     private val onClick: (id: Int) -> Unit
 ) :
-    RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+    ListAdapter<MovieEntity, MoviesAdapter.MoviesViewHolder>(MovieEntityDiffCallBack) {
 
-    var list = listOf<MovieEntity>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
-    fun modifyOneElement(model: MovieEntity) {
-        val position = list.indexOf(model)
-        list = list.map {
-            if (model.id == it.id) {
-                return@map it.copy(isFavorite = it.isFavorite == true)
-            } else
-                it
-        }
-        notifyItemChanged(position)
-    }
+//    var list = listOf<MovieEntity>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//        }
+
+//    fun modifyOneElement(model: MovieEntity) {
+//        val position = list.indexOf(model)
+//        list = list.map {
+//            if (model.id == it.id) {
+//                return@map it.copy(isFavorite = it.isFavorite == true)
+//            } else
+//                it
+//        }
+//        notifyItemChanged(position)
+//    }
 
     data class MoviesViewHolder(
         val onLongClick: (model: MovieEntity) -> Unit,
@@ -73,8 +76,6 @@ class MoviesAdapter(
                 binding.cardMovie.strokeWidth = 0
             }
         }
-
-
     }
 
     override fun onCreateViewHolder(
@@ -95,10 +96,8 @@ class MoviesAdapter(
 
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.bind((list[position]))
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = list.size
 
 }
 
@@ -137,7 +136,7 @@ fun ifTapAddFavColorIt(
     onLongClick: (model: MovieEntity) -> Unit
 ) {
     binding.cardMovie.setOnLongClickListener {
-        if (movieEntity.isFavorite == true) {
+        if (movieEntity.isFavorite != true) {
             movieEntity.isFavorite = true
             binding.apply {
                 imgFav.visibility = View.VISIBLE
@@ -163,3 +162,14 @@ fun ifTapAddFavColorIt(
         true
     }
 }
+
+object MovieEntityDiffCallBack : DiffUtil.ItemCallback<MovieEntity>() {
+    override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+        return oldItem == newItem
+    }
+}
+
